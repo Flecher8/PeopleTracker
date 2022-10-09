@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using backend.Data;
+using System.Data.SqlTypes;
 
 namespace backend.Controllers
 {
@@ -39,6 +40,33 @@ namespace backend.Controllers
             }
 
             return user;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<User>> Login(User user)
+        {
+            var foundUser = await _context.Users.Where(x => x.Login == user.Login && x.Password == user.Password).ToListAsync();
+            if(foundUser == null)
+            {
+                return Ok(foundUser);
+            }
+
+            return NotFound();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<User>> Registration(User user)
+        {
+            var foundUser = await _context.Users.Where(x => x.Login == user.Login).ToListAsync();
+            if(foundUser != null)
+            {
+                return BadRequest();
+            }
+
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetUser", new { id = user.Id }, user);
         }
 
         // PUT: api/Users/5
