@@ -27,11 +27,11 @@ namespace backend.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //            if (!optionsBuilder.IsConfigured)
-            //            {
-            //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-            //                optionsBuilder.UseSqlServer("Data Source=Desktop;Initial Catalog=DBAtarkProject;Integrated Security=True");
-            //            }
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Data Source=Desktop;Initial Catalog=DBAtarkProject;Integrated Security=True");
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -45,6 +45,16 @@ namespace backend.Data
                     .HasForeignKey(d => d.PlacementId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Actions_Placements");
+
+                entity.HasOne(d => d.RoomIn)
+                    .WithMany(p => p.ActionRoomIns)
+                    .HasForeignKey(d => d.RoomInId)
+                    .HasConstraintName("FK_Actions_RoomInId_Rooms_Id");
+
+                entity.HasOne(d => d.RoomOut)
+                    .WithMany(p => p.ActionRoomOuts)
+                    .HasForeignKey(d => d.RoomOutId)
+                    .HasConstraintName("FK_Actions_RoomOutId_Rooms_Id");
             });
 
             modelBuilder.Entity<Payment>(entity =>
@@ -87,6 +97,18 @@ namespace backend.Data
             modelBuilder.Entity<Sensor>(entity =>
             {
                 entity.Property(e => e.Name).HasMaxLength(50);
+
+                entity.HasOne(d => d.LeftRoom)
+                    .WithMany(p => p.SensorLeftRooms)
+                    .HasForeignKey(d => d.LeftRoomId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Sensors_LeftRoomId_Rooms_Id");
+
+                entity.HasOne(d => d.RightRoom)
+                    .WithMany(p => p.SensorRightRooms)
+                    .HasForeignKey(d => d.RightRoomId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Sensors_RightRoomId_Rooms_Id");
             });
 
             modelBuilder.Entity<SmartDevice>(entity =>
