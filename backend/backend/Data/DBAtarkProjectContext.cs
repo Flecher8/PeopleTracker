@@ -22,6 +22,7 @@ namespace backend.Data
         public virtual DbSet<Room> Rooms { get; set; } = null!;
         public virtual DbSet<Sensor> Sensors { get; set; } = null!;
         public virtual DbSet<SmartDevice> SmartDevices { get; set; } = null!;
+        public virtual DbSet<SubscriptionType> SubscriptionTypes { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
         public virtual DbSet<UsersSubscription> UsersSubscriptions { get; set; } = null!;
 
@@ -124,6 +125,15 @@ namespace backend.Data
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_SmartDevices_Users");
+            });
+
+            modelBuilder.Entity<SubscriptionType>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Name).HasMaxLength(50);
+
+                entity.Property(e => e.Price).HasColumnType("money");
             });
 
             modelBuilder.Entity<User>(entity =>
