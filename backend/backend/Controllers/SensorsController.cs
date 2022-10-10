@@ -41,6 +41,12 @@ namespace backend.Controllers
             return sensor;
         }
 
+        [HttpGet("smartDeviceId:{id}")]
+        public async Task<ActionResult<IEnumerable<Sensor>>> GetSensorsBySmartDevice(int id)
+        {
+            return await _context.Sensors.Where(sensor => sensor.SmartDeviceId == id).ToListAsync();
+        }
+
         // PUT: api/Sensors/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]

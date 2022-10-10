@@ -41,24 +41,27 @@ namespace backend.Controllers
 
             return user;
         }
-
-        [HttpGet]
+        // TODO ERROR
+        [HttpGet("Login")]
         public async Task<ActionResult<User>> Login(User user)
         {
-            var foundUser = await _context.Users.Where(x => x.Login == user.Login && x.Password == user.Password).ToListAsync();
-            if(foundUser == null)
+            var foundUser = 
+                await _context.Users
+                .Where(x => x.Login == user.Login && x.Password == user.Password)
+                .ToListAsync();
+            if (foundUser == null)
             {
-                return Ok(foundUser);
+                return NotFound();
             }
 
-            return NotFound();
+            return Ok(foundUser);
         }
 
-        [HttpPost]
+        [HttpPost("Registration")]
         public async Task<ActionResult<User>> Registration(User user)
         {
             var foundUser = await _context.Users.Where(x => x.Login == user.Login).ToListAsync();
-            if(foundUser != null)
+            if (foundUser != null)
             {
                 return BadRequest();
             }

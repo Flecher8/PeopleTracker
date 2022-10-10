@@ -41,11 +41,16 @@ namespace backend.Controllers
             return smartDevice;
         }
 
-        [HttpGet("userId:{userId}")]
-        public async Task<ActionResult<IEnumerable<SmartDevice>>> GetSmartDevicesByUser(int userId)
+        [HttpGet("userLogin:{login}")]
+        public async Task<ActionResult<IEnumerable<SmartDevice>>> GetSmartDevicesByUser(string login)
         {
+            var user = await _context.Users.Where(user => user.Login == login).ToArrayAsync();
+            if (user == null)
+            {
+                return NotFound();
+            }
             var smartDevices = await _context.SmartDevices
-                .Where(x => x.UserId == userId)
+                .Where(x => x.UserId == user[0].Id)
                 .ToListAsync();
 
             if (smartDevices == null)

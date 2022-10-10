@@ -103,7 +103,10 @@ namespace backend.Controllers
         [HttpDelete("placementId:{placementId}")]
         public async Task<IActionResult> DeleteActionByPlacement(int placementId)
         {
-            var actions = await _context.Actions.Where(x => x.PlacementId == placementId).ToListAsync();
+            var actions = await _context.Actions
+                .Where(action => action.PlacementId == placementId)
+                .ToListAsync();
+
             if (actions == null)
             {
                 return NotFound();
@@ -118,9 +121,30 @@ namespace backend.Controllers
             return Ok();
         }
 
+        [HttpDelete("roomId:{roomId}")]
+        public async Task<IActionResult> DeleteActionByRoom(int roomId)
+        {
+            var actions = await _context.Actions
+                .Where(action => action.RoomInId == roomId || action.RoomOutId == roomId)
+                .ToListAsync();
+
+            if (actions == null)
+            {
+                return NotFound();
+            }
+
+            foreach (var action in actions)
+            {
+                _context.Actions.Remove(action);
+            }
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
         private bool ActionExists(int id)
         {
-            return _context.Actions.Any(e => e.Id == id);
+            return _context.Actions.Any(action => action.Id == id);
         }
     }
 }

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using backend.Data;
+using Action = backend.Data.Action;
 
 namespace backend.Controllers
 {
@@ -41,10 +42,27 @@ namespace backend.Controllers
             return room;
         }
 
-        [HttpGet("placementId:{placementId}")]
+        [HttpGet("/GetRoomsByPlacement/placementId:{placementId}")]
         public async Task<ActionResult<IEnumerable<Room>>> GetRoomsByPlacement(int placementId)
         {
             return await _context.Rooms.Where(r => r.PlacementId == placementId).ToListAsync();
+        }
+
+        [HttpGet("/GetTopVisitedRoomsByPlacement/placementId:{placementId}")]
+        public JsonResult GetNumberOfVisitsRoomsByPlacement(int placementId)
+        {
+            var topVisitedRooms = SelectNumberOfVisitsRoomsByPlacement(placementId);
+            return new JsonResult(topVisitedRooms);
+        }
+
+        private object SelectNumberOfVisitsRoomsByPlacement(int placementId)
+        {
+            return _context.Actions
+                .Where(x => x.PlacementId == placementId)
+                .GroupBy(x => x.RoomInId)
+                .Select(g => new { roomId = g.Key, count = g.Count() })
+                .OrderBy(x => x.count)
+                .Reverse();
         }
 
         // PUT: api/Rooms/5
