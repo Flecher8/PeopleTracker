@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using backend.Data;
+using backend.Model;
 
 namespace backend.Controllers
 {
@@ -47,8 +48,44 @@ namespace backend.Controllers
             return await _context.Placements.Where(x => x.UserId == userId).ToListAsync();
         }
 
+        [HttpGet("GetNumberOfPeopleVisitedPlacementByDate/placementId:{placementId}")]
+        public JsonResult GetNumberOfPeopleVisitedPlacementByTimePeriod(int placementId, TimePeriod timePeriod)
+        {
+            var result = SelectNumberOfPeopleVisitedPlacementByTimePeriod(placementId, timePeriod);
+            return new JsonResult(result);
+        }
+
+        private object SelectNumberOfPeopleVisitedPlacementByTimePeriod(int placementId, TimePeriod timePeriod)
+        {
+            var rooms = _context.Actions
+                       .Where(x => x.PlacementId == placementId &&
+                       x.DateTime >= timePeriod.StartDateTime &&
+                       x.DateTime <= timePeriod.EndDateTime).ToList();
+            var roomsExits = _context.Rooms.Where(room => room.IsExit == true).ToList();
+
+            rooms.RemoveAll(room => room.Id == roomsExits.Find(room.Id))
+            
+            //foreach (var room in rooms)
+            //{
+            //    if(roomsExits.ExceptBy)   
+            //}
+
+                //.GroupBy(x => x.PlacementId)
+                //.Select(g => new { PlacementId = g.Key, Count = g.Count() });
+        }
+
+        private bool RoomIsExit(int? roomId)
+        {
+            var room =  _context.Rooms.Find(roomId);
+            if(room == null)
+            {
+                return false;
+            }
+
+            return room.IsExit;
+        }
+
         // PUT: api/Placements/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPlacement(int id, Placement placement)
         {

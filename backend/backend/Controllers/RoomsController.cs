@@ -51,8 +51,8 @@ namespace backend.Controllers
         [HttpGet("/GetTopVisitedRoomsByPlacement/placementId:{placementId}")]
         public JsonResult GetNumberOfVisitsRoomsByPlacement(int placementId)
         {
-            var topVisitedRooms = SelectNumberOfVisitsRoomsByPlacement(placementId);
-            return new JsonResult(topVisitedRooms);
+            var numberOfVisitsOfAllRooms = SelectNumberOfVisitsRoomsByPlacement(placementId);
+            return new JsonResult(numberOfVisitsOfAllRooms);
         }
 
         private object SelectNumberOfVisitsRoomsByPlacement(int placementId)
@@ -60,9 +60,7 @@ namespace backend.Controllers
             return _context.Actions
                 .Where(x => x.PlacementId == placementId)
                 .GroupBy(x => x.RoomInId)
-                .Select(g => new { roomId = g.Key, count = g.Count() })
-                .OrderBy(x => x.count)
-                .Reverse();
+                .Select(g => new { roomId = g.Key, count = g.Count() });
         }
 
         // PUT: api/Rooms/5
