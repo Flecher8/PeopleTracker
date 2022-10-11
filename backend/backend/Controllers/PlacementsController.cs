@@ -57,21 +57,14 @@ namespace backend.Controllers
 
         private object SelectNumberOfPeopleVisitedPlacementByTimePeriod(int placementId, TimePeriod timePeriod)
         {
-            var rooms = _context.Actions
-                       .Where(x => x.PlacementId == placementId &&
-                       x.DateTime >= timePeriod.StartDateTime &&
-                       x.DateTime <= timePeriod.EndDateTime).ToList();
-            var roomsExits = _context.Rooms.Where(room => room.IsExit == true).ToList();
-
-            rooms.RemoveAll(room => room.Id == roomsExits.Find(room.Id))
-            
-            //foreach (var room in rooms)
-            //{
-            //    if(roomsExits.ExceptBy)   
-            //}
-
-                //.GroupBy(x => x.PlacementId)
-                //.Select(g => new { PlacementId = g.Key, Count = g.Count() });
+            var result = from a in _context.Actions
+                         join r in _context.Rooms on a.RoomOutId equals r.Id
+                         where a.DateTime >= timePeriod.StartDateTime
+                         where a.DateTime <= timePeriod.EndDateTime 
+                         where r.IsExit 
+                         group a by a.PlacementId into g
+                         select new { PlacementId = g.Key, Count = g.Count() };               
+            return result;
         }
 
         private bool RoomIsExit(int? roomId)
