@@ -75,11 +75,10 @@ namespace backend.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(payment);
         }
 
         // POST: api/Payments
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Payment>> PostPayment(Payment payment)
         {
@@ -102,7 +101,7 @@ namespace backend.Controllers
             _context.Payments.Remove(payment);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok();
         }
 
         private bool PaymentExists(int id)

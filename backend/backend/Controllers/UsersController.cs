@@ -41,7 +41,7 @@ namespace backend.Controllers
 
             return user;
         }
-        // TODO ERROR
+
         [HttpGet("Login")]
         public async Task<ActionResult<User>> Login(User user)
         {
@@ -49,7 +49,7 @@ namespace backend.Controllers
                 await _context.Users
                 .Where(x => x.Login == user.Login && x.Password == user.Password)
                 .ToListAsync();
-            if (foundUser == null)
+            if (foundUser.Count == 0)
             {
                 return NotFound();
             }
@@ -60,8 +60,8 @@ namespace backend.Controllers
         [HttpPost("Registration")]
         public async Task<ActionResult<User>> Registration(User user)
         {
-            var foundUser = await _context.Users.Where(x => x.Login == user.Login).ToListAsync();
-            if (foundUser != null)
+            var foundUser = _context.Users.Where(x => x.Login == user.Login).ToList();
+            if (foundUser.Count != 0)
             {
                 return BadRequest();
             }
@@ -73,7 +73,6 @@ namespace backend.Controllers
         }
 
         // PUT: api/Users/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUser(int id, User user)
         {
@@ -100,11 +99,10 @@ namespace backend.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(user);
         }
 
         // POST: api/Users
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<User>> PostUser(User user)
         {

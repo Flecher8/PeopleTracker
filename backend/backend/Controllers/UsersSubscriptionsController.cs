@@ -48,7 +48,6 @@ namespace backend.Controllers
         }
 
         // PUT: api/UsersSubscriptions/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUsersSubscription(int id, UsersSubscription usersSubscription)
         {
@@ -75,18 +74,17 @@ namespace backend.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok();
         }
 
         // POST: api/UsersSubscriptions
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<UsersSubscription>> PostUsersSubscription(UsersSubscription usersSubscription)
         {
             _context.UsersSubscriptions.Add(usersSubscription);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUsersSubscription", new { id = usersSubscription.Id }, usersSubscription);
+            return CreatedAtAction("GetUserSubscription", new { id = usersSubscription.Id }, usersSubscription);
         }
 
         // DELETE: api/UsersSubscriptions/5
@@ -102,7 +100,7 @@ namespace backend.Controllers
             _context.UsersSubscriptions.Remove(usersSubscription);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok();
         }
 
         private bool UsersSubscriptionExists(int id)

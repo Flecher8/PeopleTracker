@@ -129,8 +129,6 @@ namespace backend.Data
 
             modelBuilder.Entity<SubscriptionType>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.Property(e => e.Name).HasMaxLength(50);
 
                 entity.Property(e => e.Price).HasColumnType("money");

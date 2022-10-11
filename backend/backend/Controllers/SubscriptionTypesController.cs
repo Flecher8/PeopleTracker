@@ -42,7 +42,6 @@ namespace backend.Controllers
         }
 
         // PUT: api/SubscriptionTypes/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutSubscriptionType(int id, SubscriptionType subscriptionType)
         {
@@ -69,11 +68,10 @@ namespace backend.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(subscriptionType);
         }
 
         // POST: api/SubscriptionTypes
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<SubscriptionType>> PostSubscriptionType(SubscriptionType subscriptionType)
         {
@@ -110,7 +108,7 @@ namespace backend.Controllers
             _context.SubscriptionTypes.Remove(subscriptionType);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok();
         }
 
         private bool SubscriptionTypeExists(int id)

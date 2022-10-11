@@ -41,24 +41,19 @@ namespace backend.Controllers
             return smartDevice;
         }
 
-        [HttpGet("userLogin:{login}")]
-        public async Task<ActionResult<IEnumerable<SmartDevice>>> GetSmartDevicesByUser(string login)
+        [HttpGet("userId:{userId}")]
+        public async Task<ActionResult<IEnumerable<SmartDevice>>> GetSmartDevicesByUser(int userId)
         {
-            var user = await _context.Users.Where(user => user.Login == login).ToArrayAsync();
-            if (user == null)
-            {
-                return NotFound();
-            }
             var smartDevices = await _context.SmartDevices
-                .Where(x => x.UserId == user[0].Id)
+                .Where(x => x.UserId == userId)
                 .ToListAsync();
 
-            if (smartDevices == null)
+            if (smartDevices.Count == 0)
             {
                 return NotFound();
             }
 
-            return smartDevices;
+            return Ok(smartDevices);
         }
 
         [HttpGet("placementId:{placementId}")]
@@ -78,7 +73,6 @@ namespace backend.Controllers
 
 
         // PUT: api/SmartDevices/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutSmartDevice(int id, SmartDevice smartDevice)
         {
@@ -105,7 +99,7 @@ namespace backend.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(smartDevice);
         }
 
         // POST: api/SmartDevices
@@ -132,7 +126,7 @@ namespace backend.Controllers
             _context.SmartDevices.Remove(smartDevice);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok();
         }
 
         private bool SmartDeviceExists(int id)
