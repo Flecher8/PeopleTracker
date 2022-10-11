@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using backend.Data;
 using Action = backend.Data.Action;
+using backend.Model;
 
 namespace backend.Controllers
 {
@@ -62,9 +63,26 @@ namespace backend.Controllers
                 .GroupBy(x => x.RoomInId)
                 .Select(g => new { roomId = g.Key, count = g.Count() });
         }
+        [HttpGet("GetNumberOfVisitsRoomByTimePeriod/roomId:{roomId}")]
+        public JsonResult GetNumberOfVisitsRoomByTimePeriod(int roomId, TimePeriod timePeriod)
+        {
+            var numberOfVisitsRoomByTimePeriod = SelectNumberOfVisitsRoomByTimePeriod(roomId, timePeriod);
+            return new JsonResult(numberOfVisitsRoomByTimePeriod);
+        }
+
+        private object SelectNumberOfVisitsRoomByTimePeriod(int roomId, TimePeriod timePeriod)
+        {
+            var result = from a in _context.Actions
+                         join r in _context.Rooms on a.RoomInId equals r.Id
+                         where a.DateTime >= timePeriod.StartDateTime
+                         where a.DateTime <= timePeriod.EndDateTime
+                         where a.RoomInId == roomId
+                         group a by a.RoomInId into g
+                         select new { RoomInId = g.Key, Count = g.Count() };
+            return result;
+        }
 
         // PUT: api/Rooms/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutRoom(int id, Room room)
         {

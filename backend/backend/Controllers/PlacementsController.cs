@@ -48,8 +48,8 @@ namespace backend.Controllers
             return await _context.Placements.Where(x => x.UserId == userId).ToListAsync();
         }
 
-        [HttpGet("GetNumberOfPeopleVisitedPlacementByDate/placementId:{placementId}")]
-        public JsonResult GetNumberOfPeopleVisitedPlacementByTimePeriod(int placementId, TimePeriod timePeriod)
+        [HttpGet("GetNumberOfVisitsPlacementByTimePeriod/placementId:{placementId}")]
+        public JsonResult GetNumberOfVisitsPlacementByTimePeriod(int placementId, TimePeriod timePeriod)
         {
             var result = SelectNumberOfPeopleVisitedPlacementByTimePeriod(placementId, timePeriod);
             return new JsonResult(result);
@@ -61,21 +61,11 @@ namespace backend.Controllers
                          join r in _context.Rooms on a.RoomOutId equals r.Id
                          where a.DateTime >= timePeriod.StartDateTime
                          where a.DateTime <= timePeriod.EndDateTime 
-                         where r.IsExit 
+                         where r.IsExit
+                         where a.PlacementId == placementId
                          group a by a.PlacementId into g
                          select new { PlacementId = g.Key, Count = g.Count() };               
             return result;
-        }
-
-        private bool RoomIsExit(int? roomId)
-        {
-            var room =  _context.Rooms.Find(roomId);
-            if(room == null)
-            {
-                return false;
-            }
-
-            return room.IsExit;
         }
 
         // PUT: api/Placements/5
