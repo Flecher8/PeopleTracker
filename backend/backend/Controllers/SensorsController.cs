@@ -44,7 +44,13 @@ namespace backend.Controllers
         [HttpGet("smartDeviceId:{id}")]
         public async Task<ActionResult<IEnumerable<Sensor>>> GetSensorsBySmartDevice(int id)
         {
-            return await _context.Sensors.Where(sensor => sensor.SmartDeviceId == id).ToListAsync();
+            var sensors = await _context.Sensors.Where(sensor => sensor.SmartDeviceId == id).ToListAsync();
+            if(!sensors.Any())
+            {
+                return NotFound();
+            }
+
+            return Ok(sensors);
         }
 
         // PUT: api/Sensors/5
@@ -75,7 +81,7 @@ namespace backend.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(sensor);
         }
 
         // POST: api/Sensors
@@ -102,7 +108,7 @@ namespace backend.Controllers
             _context.Sensors.Remove(sensor);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok();
         }
 
         [HttpDelete("roomId:{roomId}")]

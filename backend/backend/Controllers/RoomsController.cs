@@ -43,13 +43,18 @@ namespace backend.Controllers
             return room;
         }
 
-        [HttpGet("/GetRoomsByPlacement/placementId:{placementId}")]
+        [HttpGet("GetRoomsByPlacement/placementId:{placementId}")]
         public async Task<ActionResult<IEnumerable<Room>>> GetRoomsByPlacement(int placementId)
         {
-            return await _context.Rooms.Where(r => r.PlacementId == placementId).ToListAsync();
+            var rooms = await _context.Rooms.Where(r => r.PlacementId == placementId).ToListAsync();
+            if (!rooms.Any())
+            {
+                return NotFound();
+            }
+            return Ok(rooms);
         }
 
-        [HttpGet("/GetTopVisitedRoomsByPlacement/placementId:{placementId}")]
+        [HttpGet("GetTopVisitedRoomsByPlacement/placementId:{placementId}")]
         public JsonResult GetNumberOfVisitsRoomsByPlacement(int placementId)
         {
             var numberOfVisitsOfAllRooms = SelectNumberOfVisitsRoomsByPlacement(placementId);
@@ -109,11 +114,10 @@ namespace backend.Controllers
                 }
             }
 
-            return Ok();
+            return Ok(room);
         }
 
         // POST: api/Rooms
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Room>> PostRoom(Room room)
         {
@@ -156,8 +160,8 @@ namespace backend.Controllers
             foreach(var room in rooms)
             {
                 // Cascade delete sensors and actions
-                DeleteSensorsByRoom(room.Id);
-                DeleteActionsByRoom(room.Id);
+                await DeleteSensorsByRoom(room.Id);
+                await DeleteActionsByRoom(room.Id);
 
                 _context.Rooms.Remove(room);
             }
@@ -172,7 +176,7 @@ namespace backend.Controllers
             return _context.Rooms.Any(e => e.Id == id);
         }
 
-        private async void DeleteSensorsByRoom(int roomId)
+        private async Task DeleteSensorsByRoom(int roomId)
         {
             var sensors = await _context.Sensors
                 .Where(x => x.LeftRoomId == roomId || x.RightRoomId == roomId)
@@ -184,7 +188,7 @@ namespace backend.Controllers
             }
             await _context.SaveChangesAsync();
         }
-        private async void DeleteActionsByRoom(int roomId)
+        private async Task DeleteActionsByRoom(int roomId)
         {
             var actions = await _context.Actions
                 .Where(x => x.RoomInId == roomId || x.RoomOutId == roomId)

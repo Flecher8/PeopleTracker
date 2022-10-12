@@ -45,7 +45,12 @@ namespace backend.Controllers
         [HttpGet("userId:{userId}")]
         public async Task<ActionResult<IEnumerable<Placement>>> GetPlacementsByUser(int userId)
         {
-            return await _context.Placements.Where(x => x.UserId == userId).ToListAsync();
+            var placements = await _context.Placements.Where(x => x.UserId == userId).ToListAsync();
+            if(!placements.Any())
+            {
+                return NotFound();
+            }
+            return Ok(placements);
         }
 
         [HttpGet("GetNumberOfVisitsPlacementByTimePeriod/placementId:{placementId}")]
@@ -95,11 +100,10 @@ namespace backend.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(placement);
         }
 
         // POST: api/Placements
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Placement>> PostPlacement(Placement placement)
         {

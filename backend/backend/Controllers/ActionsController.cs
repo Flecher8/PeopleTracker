@@ -43,7 +43,6 @@ namespace backend.Controllers
         }
 
         // PUT: api/Actions/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAction(int id, Action action)
         {
@@ -70,11 +69,10 @@ namespace backend.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(action);
         }
 
         // POST: api/Actions
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Action>> PostAction(Action action)
         {
@@ -97,7 +95,7 @@ namespace backend.Controllers
             _context.Actions.Remove(action);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok();
         }
 
         [HttpDelete("placementId:{placementId}")]
