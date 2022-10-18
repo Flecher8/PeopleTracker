@@ -42,10 +42,10 @@ namespace backend.Controllers
             return placement;
         }
 
-        [HttpGet("userId:{userId}")]
-        public async Task<ActionResult<IEnumerable<Placement>>> GetPlacementsByUser(int userId)
+        [HttpGet("userId:{id}")]
+        public async Task<ActionResult<IEnumerable<Placement>>> GetPlacementsByUser(int id)
         {
-            var placements = await _context.Placements.Where(x => x.UserId == userId).ToListAsync();
+            var placements = await _context.Placements.Where(x => x.UserId == id).ToListAsync();
             if(!placements.Any())
             {
                 return NotFound();
@@ -53,10 +53,10 @@ namespace backend.Controllers
             return Ok(placements);
         }
 
-        [HttpGet("GetNumberOfVisitsPlacementByTimePeriod/placementId:{placementId}")]
-        public JsonResult GetNumberOfVisitsPlacementByTimePeriod(int placementId, TimePeriod timePeriod)
+        [HttpGet("GetNumberOfVisitsPlacementByTimePeriod/placementId:{id}")]
+        public JsonResult GetNumberOfVisitsPlacementByTimePeriod(int id, TimePeriod timePeriod)
         {
-            var result = SelectNumberOfPeopleVisitedPlacementByTimePeriod(placementId, timePeriod);
+            var result = SelectNumberOfPeopleVisitedPlacementByTimePeriod(id, timePeriod);
             return new JsonResult(result);
         }
 

@@ -106,6 +106,12 @@ namespace backend.Controllers
         [HttpPost]
         public async Task<ActionResult<User>> PostUser(User user)
         {
+            var foundUser = await _context.Users.Where(x => x.Login == user.Login).ToListAsync();
+            if (foundUser.Any())
+            {
+                return BadRequest();
+            }
+
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 

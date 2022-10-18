@@ -43,10 +43,10 @@ namespace backend.Controllers
             return room;
         }
 
-        [HttpGet("GetRoomsByPlacement/placementId:{placementId}")]
-        public async Task<ActionResult<IEnumerable<Room>>> GetRoomsByPlacement(int placementId)
+        [HttpGet("GetRoomsByPlacement/placementId:{id}")]
+        public async Task<ActionResult<IEnumerable<Room>>> GetRoomsByPlacement(int id)
         {
-            var rooms = await _context.Rooms.Where(r => r.PlacementId == placementId).ToListAsync();
+            var rooms = await _context.Rooms.Where(r => r.PlacementId == id).ToListAsync();
             if (!rooms.Any())
             {
                 return NotFound();
@@ -54,10 +54,10 @@ namespace backend.Controllers
             return Ok(rooms);
         }
 
-        [HttpGet("GetTopVisitedRoomsByPlacement/placementId:{placementId}")]
-        public JsonResult GetNumberOfVisitsRoomsByPlacement(int placementId)
+        [HttpGet("GetTopVisitedRoomsByPlacement/placementId:{id}")]
+        public JsonResult GetNumberOfVisitsRoomsByPlacement(int id)
         {
-            var numberOfVisitsOfAllRooms = SelectNumberOfVisitsRoomsByPlacement(placementId);
+            var numberOfVisitsOfAllRooms = SelectNumberOfVisitsRoomsByPlacement(id);
             return new JsonResult(numberOfVisitsOfAllRooms);
         }
 
@@ -68,10 +68,10 @@ namespace backend.Controllers
                 .GroupBy(x => x.RoomInId)
                 .Select(g => new { roomId = g.Key, count = g.Count() });
         }
-        [HttpGet("GetNumberOfVisitsRoomByTimePeriod/roomId:{roomId}")]
-        public JsonResult GetNumberOfVisitsRoomByTimePeriod(int roomId, TimePeriod timePeriod)
+        [HttpGet("GetNumberOfVisitsRoomByTimePeriod/roomId:{id}")]
+        public JsonResult GetNumberOfVisitsRoomByTimePeriod(int id, TimePeriod timePeriod)
         {
-            var numberOfVisitsRoomByTimePeriod = SelectNumberOfVisitsRoomByTimePeriod(roomId, timePeriod);
+            var numberOfVisitsRoomByTimePeriod = SelectNumberOfVisitsRoomByTimePeriod(id, timePeriod);
             return new JsonResult(numberOfVisitsRoomByTimePeriod);
         }
 
@@ -138,8 +138,8 @@ namespace backend.Controllers
             }
 
             // Cascade delete sensors and actions
-            DeleteSensorsByRoom(room.Id);
-            DeleteActionsByRoom(room.Id);
+            await DeleteSensorsByRoom(room.Id);
+            await DeleteActionsByRoom(room.Id);
 
             _context.Rooms.Remove(room);
             await _context.SaveChangesAsync();
@@ -147,10 +147,10 @@ namespace backend.Controllers
             return Ok();
         }
 
-        [HttpDelete("placementId:{placementId}")]
-        public async Task<IActionResult> DeleteRoomsByPlacement(int placementId)
+        [HttpDelete("placementId:{id}")]
+        public async Task<IActionResult> DeleteRoomsByPlacement(int id)
         {
-            var rooms = await _context.Rooms.Where(x => x.PlacementId == placementId).ToListAsync();
+            var rooms = await _context.Rooms.Where(x => x.PlacementId == id).ToListAsync();
 
             if (!rooms.Any())
             {

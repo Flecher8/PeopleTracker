@@ -41,11 +41,11 @@ namespace backend.Controllers
             return smartDevice;
         }
 
-        [HttpGet("userId:{userId}")]
-        public async Task<ActionResult<IEnumerable<SmartDevice>>> GetSmartDevicesByUser(int userId)
+        [HttpGet("userId:{id}")]
+        public async Task<ActionResult<IEnumerable<SmartDevice>>> GetSmartDevicesByUser(int id)
         {
             var smartDevices = await _context.SmartDevices
-                .Where(x => x.UserId == userId)
+                .Where(x => x.UserId == id)
                 .ToListAsync();
 
             if (smartDevices.Count == 0)
@@ -56,11 +56,11 @@ namespace backend.Controllers
             return Ok(smartDevices);
         }
 
-        [HttpGet("placementId:{placementId}")]
-        public async Task<ActionResult<IEnumerable<SmartDevice>>> GetSmartDevicesByPlacement(int placementId)
+        [HttpGet("placementId:{id}")]
+        public async Task<ActionResult<IEnumerable<SmartDevice>>> GetSmartDevicesByPlacement(int id)
         {
             var smartDevices = await _context.SmartDevices
-                .Where(x => x.PlacementId == placementId)
+                .Where(x => x.PlacementId == id)
                 .ToListAsync();
 
             if (smartDevices == null)
@@ -103,7 +103,6 @@ namespace backend.Controllers
         }
 
         // POST: api/SmartDevices
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<SmartDevice>> PostSmartDevice(SmartDevice smartDevice)
         {

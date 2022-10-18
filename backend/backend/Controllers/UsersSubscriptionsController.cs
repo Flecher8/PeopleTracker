@@ -27,10 +27,10 @@ namespace backend.Controllers
             return await _context.UsersSubscriptions.ToListAsync();
         }
 
-        [HttpGet("userId:{userId}")]
-        public async Task<ActionResult<IEnumerable<UsersSubscription>>> GetUserSubscriptionsByUser(int userId)
+        [HttpGet("userId:{id}")]
+        public async Task<ActionResult<IEnumerable<UsersSubscription>>> GetUserSubscriptionsByUser(int id)
         {
-            return await _context.UsersSubscriptions.Where(x => x.UserId == userId).ToListAsync();
+            return await _context.UsersSubscriptions.Where(x => x.UserId == id).ToListAsync();
         }
 
         // GET: api/UsersSubscriptions/5
@@ -75,16 +75,6 @@ namespace backend.Controllers
             }
 
             return Ok();
-        }
-
-        // POST: api/UsersSubscriptions
-        [HttpPost]
-        public async Task<ActionResult<UsersSubscription>> PostUsersSubscription(UsersSubscription usersSubscription)
-        {
-            _context.UsersSubscriptions.Add(usersSubscription);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetUserSubscription", new { id = usersSubscription.Id }, usersSubscription);
         }
 
         // DELETE: api/UsersSubscriptions/5

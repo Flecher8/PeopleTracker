@@ -27,10 +27,10 @@ namespace backend.Controllers
             return await _context.Payments.ToListAsync();
         }
 
-        [HttpGet("userId:{userId}")]
-        public async Task<ActionResult<IEnumerable<Payment>>> GetPaymentsByUser(int userId)
+        [HttpGet("userId:{id}")]
+        public async Task<ActionResult<IEnumerable<Payment>>> GetPaymentsByUser(int id)
         {
-            return await _context.Payments.Where(x => x.UserId == userId).ToListAsync();
+            return await _context.Payments.Where(x => x.UserId == id).ToListAsync();
         }
 
         // GET: api/Payments/5
@@ -48,7 +48,6 @@ namespace backend.Controllers
         }
 
         // PUT: api/Payments/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPayment(int id, Payment payment)
         {

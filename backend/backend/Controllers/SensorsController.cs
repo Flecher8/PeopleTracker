@@ -54,7 +54,6 @@ namespace backend.Controllers
         }
 
         // PUT: api/Sensors/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutSensor(int id, Sensor sensor)
         {
@@ -85,7 +84,6 @@ namespace backend.Controllers
         }
 
         // POST: api/Sensors
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Sensor>> PostSensor(Sensor sensor)
         {
@@ -111,11 +109,11 @@ namespace backend.Controllers
             return Ok();
         }
 
-        [HttpDelete("roomId:{roomId}")]
-        public async Task<IActionResult> DeleteSensorsByRoom(int roomId)
+        [HttpDelete("roomId:{id}")]
+        public async Task<IActionResult> DeleteSensorsByRoom(int id)
         {
             var sensors = await _context.Sensors
-                .Where(sensor => sensor.LeftRoomId == roomId || sensor.RightRoomId == roomId)
+                .Where(sensor => sensor.LeftRoomId == id || sensor.RightRoomId == id)
                 .ToListAsync();
 
             if (sensors == null)
