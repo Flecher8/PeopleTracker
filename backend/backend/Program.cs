@@ -1,7 +1,9 @@
 using backend.Data;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json.Serialization;
+using System.Globalization;
 using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +15,18 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Localization
+IList<CultureInfo> supportedCultures = new List<CultureInfo>
+    {
+        new CultureInfo("en-US"),
+        new CultureInfo("uk-UA"),
+    };
+
+builder.Services.AddLocalization(o => { o.ResourcesPath = "Resources"; });
+builder.Services.AddControllersWithViews()
+    .AddViewLocalization(Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat.Suffix)
+    .AddDataAnnotationsLocalization();
+
 // Enable CORS
 builder.Services.AddCors(c =>
 {
@@ -23,6 +37,15 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<DBAtarkProjectContext>(x => x.UseSqlServer(connectionString));
 
 var app = builder.Build();
+
+// Localization
+app.UseRequestLocalization(new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new RequestCulture("en-US"),
+    SupportedCultures = supportedCultures,
+    SupportedUICultures = supportedCultures
+});
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
