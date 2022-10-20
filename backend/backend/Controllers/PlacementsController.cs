@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using backend.Data;
 using backend.Model;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace backend.Controllers
 {
@@ -23,6 +25,7 @@ namespace backend.Controllers
 
         // GET: api/Placements
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<IEnumerable<Placement>>> GetPlacements()
         {
             return await _context.Placements.ToListAsync();
@@ -30,6 +33,7 @@ namespace backend.Controllers
 
         // GET: api/Placements/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<Placement>> GetPlacement(int id)
         {
             var placement = await _context.Placements.FindAsync(id);
@@ -43,6 +47,7 @@ namespace backend.Controllers
         }
 
         [HttpGet("userId:{id}")]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Placement>>> GetPlacementsByUser(int id)
         {
             var placements = await _context.Placements.Where(x => x.UserId == id).ToListAsync();
@@ -54,6 +59,7 @@ namespace backend.Controllers
         }
 
         [HttpGet("GetNumberOfVisitsPlacementByTimePeriod/placementId:{id}")]
+        [Authorize]
         public JsonResult GetNumberOfVisitsPlacementByTimePeriod(int id, TimePeriod timePeriod)
         {
             var result = SelectNumberOfPeopleVisitedPlacementByTimePeriod(id, timePeriod);
@@ -75,6 +81,7 @@ namespace backend.Controllers
 
         // PUT: api/Placements/5
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> PutPlacement(int id, Placement placement)
         {
             if (id != placement.Id)
@@ -105,6 +112,7 @@ namespace backend.Controllers
 
         // POST: api/Placements
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Placement>> PostPlacement(Placement placement)
         {
             _context.Placements.Add(placement);

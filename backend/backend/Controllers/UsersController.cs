@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using backend.Data;
 using System.Data.SqlTypes;
+using Microsoft.AspNetCore.Authorization;
 
 namespace backend.Controllers
 {
@@ -23,6 +24,7 @@ namespace backend.Controllers
 
         // GET: api/Users
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
             return await _context.Users.ToListAsync();
@@ -30,6 +32,8 @@ namespace backend.Controllers
 
         // GET: api/Users/5
         [HttpGet("{id}")]
+        //[Authorize(Roles = "User")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
             var user = await _context.Users.FindAsync(id);
@@ -42,38 +46,9 @@ namespace backend.Controllers
             return user;
         }
 
-        [HttpGet("Login")]
-        public async Task<ActionResult<User>> Login(User user)
-        {
-            var foundUser = 
-                await _context.Users
-                .Where(x => x.Login == user.Login && x.Password == user.Password)
-                .ToListAsync();
-            if (foundUser.Count == 0)
-            {
-                return NotFound();
-            }
-
-            return Ok(foundUser);
-        }
-
-        [HttpPost("Registration")]
-        public async Task<ActionResult<User>> Registration(User user)
-        {
-            var foundUser = _context.Users.Where(x => x.Login == user.Login).ToList();
-            if (foundUser.Count != 0)
-            {
-                return BadRequest();
-            }
-
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
-        }
-
         // PUT: api/Users/5
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> PutUser(int id, User user)
         {
             if (id != user.Id)
@@ -100,22 +75,6 @@ namespace backend.Controllers
             }
 
             return Ok(user);
-        }
-
-        // POST: api/Users
-        [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
-        {
-            var foundUser = await _context.Users.Where(x => x.Login == user.Login).ToListAsync();
-            if (foundUser.Any())
-            {
-                return BadRequest();
-            }
-
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
         }
 
         private bool UserExists(int id)

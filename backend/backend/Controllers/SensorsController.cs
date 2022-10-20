@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using backend.Data;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace backend.Controllers
 {
@@ -22,6 +24,7 @@ namespace backend.Controllers
 
         // GET: api/Sensors
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<IEnumerable<Sensor>>> GetSensors()
         {
             return await _context.Sensors.ToListAsync();
@@ -29,6 +32,7 @@ namespace backend.Controllers
 
         // GET: api/Sensors/5
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Sensor>> GetSensor(int id)
         {
             var sensor = await _context.Sensors.FindAsync(id);
@@ -55,6 +59,7 @@ namespace backend.Controllers
 
         // PUT: api/Sensors/5
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> PutSensor(int id, Sensor sensor)
         {
             if (id != sensor.Id)
@@ -85,6 +90,7 @@ namespace backend.Controllers
 
         // POST: api/Sensors
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Sensor>> PostSensor(Sensor sensor)
         {
             _context.Sensors.Add(sensor);
@@ -95,6 +101,7 @@ namespace backend.Controllers
 
         // DELETE: api/Sensors/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteSensor(int id)
         {
             var sensor = await _context.Sensors.FindAsync(id);
@@ -110,6 +117,7 @@ namespace backend.Controllers
         }
 
         [HttpDelete("roomId:{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteSensorsByRoom(int id)
         {
             var sensors = await _context.Sensors
@@ -129,7 +137,8 @@ namespace backend.Controllers
 
             return Ok();
         }
-
+        // TODO 
+        // DELETE ACTIONS BY SENSOR
         private bool SensorExists(int id)
         {
             return _context.Sensors.Any(sensor => sensor.Id == id);

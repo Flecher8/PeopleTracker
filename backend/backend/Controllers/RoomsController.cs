@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using backend.Data;
 using Action = backend.Data.Action;
 using backend.Model;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace backend.Controllers
 {
@@ -24,6 +26,7 @@ namespace backend.Controllers
 
         // GET: api/Rooms
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<IEnumerable<Room>>> GetRooms()
         {
             return await _context.Rooms.ToListAsync();
@@ -31,6 +34,7 @@ namespace backend.Controllers
 
         // GET: api/Rooms/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<Room>> GetRoom(int id)
         {
             var room = await _context.Rooms.FindAsync(id);
@@ -44,6 +48,7 @@ namespace backend.Controllers
         }
 
         [HttpGet("GetRoomsByPlacement/placementId:{id}")]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Room>>> GetRoomsByPlacement(int id)
         {
             var rooms = await _context.Rooms.Where(r => r.PlacementId == id).ToListAsync();
@@ -55,6 +60,7 @@ namespace backend.Controllers
         }
 
         [HttpGet("GetTopVisitedRoomsByPlacement/placementId:{id}")]
+        [Authorize]
         public JsonResult GetNumberOfVisitsRoomsByPlacement(int id)
         {
             var numberOfVisitsOfAllRooms = SelectNumberOfVisitsRoomsByPlacement(id);
@@ -69,6 +75,7 @@ namespace backend.Controllers
                 .Select(g => new { roomId = g.Key, count = g.Count() });
         }
         [HttpGet("GetNumberOfVisitsRoomByTimePeriod/roomId:{id}")]
+        [Authorize]
         public JsonResult GetNumberOfVisitsRoomByTimePeriod(int id, TimePeriod timePeriod)
         {
             var numberOfVisitsRoomByTimePeriod = SelectNumberOfVisitsRoomByTimePeriod(id, timePeriod);
@@ -89,6 +96,7 @@ namespace backend.Controllers
 
         // PUT: api/Rooms/5
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> PutRoom(int id, Room room)
         {
             if (id != room.Id)
@@ -119,6 +127,7 @@ namespace backend.Controllers
 
         // POST: api/Rooms
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Room>> PostRoom(Room room)
         {
             _context.Rooms.Add(room);
@@ -129,6 +138,7 @@ namespace backend.Controllers
 
         // DELETE: api/Rooms/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteRoom(int id)
         {
             var room = await _context.Rooms.FindAsync(id);
@@ -148,6 +158,7 @@ namespace backend.Controllers
         }
 
         [HttpDelete("placementId:{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteRoomsByPlacement(int id)
         {
             var rooms = await _context.Rooms.Where(x => x.PlacementId == id).ToListAsync();

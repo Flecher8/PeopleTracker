@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using backend.Data;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace backend.Controllers
 {
@@ -43,6 +45,7 @@ namespace backend.Controllers
 
         // PUT: api/SubscriptionTypes/5
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> PutSubscriptionType(int id, SubscriptionType subscriptionType)
         {
             if (id != subscriptionType.Id)
@@ -73,6 +76,7 @@ namespace backend.Controllers
 
         // POST: api/SubscriptionTypes
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<SubscriptionType>> PostSubscriptionType(SubscriptionType subscriptionType)
         {
             _context.SubscriptionTypes.Add(subscriptionType);
@@ -97,6 +101,7 @@ namespace backend.Controllers
 
         // DELETE: api/SubscriptionTypes/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteSubscriptionType(int id)
         {
             var subscriptionType = await _context.SubscriptionTypes.FindAsync(id);

@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using backend.Data;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace backend.Controllers
 {
@@ -22,6 +24,7 @@ namespace backend.Controllers
 
         // GET: api/UsersSubscriptions
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<IEnumerable<UsersSubscription>>> GetUsersSubscriptions()
         {
             return await _context.UsersSubscriptions.ToListAsync();
@@ -35,6 +38,7 @@ namespace backend.Controllers
 
         // GET: api/UsersSubscriptions/5
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<UsersSubscription>> GetUserSubscription(int id)
         {
             var usersSubscription = await _context.UsersSubscriptions.FindAsync(id);
@@ -47,8 +51,11 @@ namespace backend.Controllers
             return usersSubscription;
         }
 
+        // TODO POST UserSubscription
+
         // PUT: api/UsersSubscriptions/5
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> PutUsersSubscription(int id, UsersSubscription usersSubscription)
         {
             if (id != usersSubscription.Id)
@@ -79,6 +86,7 @@ namespace backend.Controllers
 
         // DELETE: api/UsersSubscriptions/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteUsersSubscription(int id)
         {
             var usersSubscription = await _context.UsersSubscriptions.FindAsync(id);

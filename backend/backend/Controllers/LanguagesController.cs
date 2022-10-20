@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System.Collections;
+using System.Data;
 using System.Globalization;
 using System.Reflection;
 using System.Reflection.PortableExecutable;
@@ -20,6 +22,7 @@ namespace backend.Controllers
             stringLocalizer = localizer;
         }
 
+
         /// <summary>
         /// https://localhost:7018/api/Languages?Ui-culture=uk-UA
         /// https://localhost:7018/api/Languages?Ui-culture=en-US
@@ -27,6 +30,7 @@ namespace backend.Controllers
         /// <returns></returns>
         
         [HttpGet]
+        [Authorize]
         public JsonResult GetLanguage()
         {
             var result = stringLocalizer.GetAllStrings(true);

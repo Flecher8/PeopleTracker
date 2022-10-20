@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using backend.Data;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace backend.Controllers
 {
@@ -22,12 +24,14 @@ namespace backend.Controllers
 
         // GET: api/Payments
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<IEnumerable<Payment>>> GetPayments()
         {
             return await _context.Payments.ToListAsync();
         }
 
         [HttpGet("userId:{id}")]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Payment>>> GetPaymentsByUser(int id)
         {
             return await _context.Payments.Where(x => x.UserId == id).ToListAsync();
@@ -35,6 +39,7 @@ namespace backend.Controllers
 
         // GET: api/Payments/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<Payment>> GetPayment(int id)
         {
             var payment = await _context.Payments.FindAsync(id);
@@ -49,6 +54,7 @@ namespace backend.Controllers
 
         // PUT: api/Payments/5
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> PutPayment(int id, Payment payment)
         {
             if (id != payment.Id)
@@ -79,28 +85,13 @@ namespace backend.Controllers
 
         // POST: api/Payments
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<Payment>> PostPayment(Payment payment)
         {
             _context.Payments.Add(payment);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetPayment", new { id = payment.Id }, payment);
-        }
-
-        // DELETE: api/Payments/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePayment(int id)
-        {
-            var payment = await _context.Payments.FindAsync(id);
-            if (payment == null)
-            {
-                return NotFound();
-            }
-
-            _context.Payments.Remove(payment);
-            await _context.SaveChangesAsync();
-
-            return Ok();
         }
 
         private bool PaymentExists(int id)
