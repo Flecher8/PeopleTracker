@@ -56,6 +56,59 @@ namespace backend.Controllers
             return CreatedAtAction("GetAction", new { id = action.Id }, action);
         }
 
+        // PUT: api/Actions/5
+        [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> PutAction(int id, Action action)
+        {
+            if (id != action.Id)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(action).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ActionExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return Ok(action);
+        }
+
+        private bool ActionExists(int id)
+        {
+            return _context.Actions.Any(e => e.Id == id);
+        }
+
+        // DELETE: api/Actions/5
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteAction(int id)
+        {
+            var action = await _context.Actions.FindAsync(id);
+            if (action == null)
+            {
+                return NotFound();
+            }
+
+            _context.Actions.Remove(action);
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
         [HttpDelete("placementId:{id}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteActionByPlacement(int id)

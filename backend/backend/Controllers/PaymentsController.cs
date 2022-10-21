@@ -94,6 +94,23 @@ namespace backend.Controllers
             return CreatedAtAction("GetPayment", new { id = payment.Id }, payment);
         }
 
+        // DELETE: api/Payments/5
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeletePayment(int id)
+        {
+            var payment = await _context.Payments.FindAsync(id);
+            if (payment == null)
+            {
+                return NotFound();
+            }
+
+            _context.Payments.Remove(payment);
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
         private bool PaymentExists(int id)
         {
             return _context.Payments.Any(e => e.Id == id);

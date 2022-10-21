@@ -121,6 +121,23 @@ namespace backend.Controllers
             return CreatedAtAction("GetPlacement", new { id = placement.Id }, placement);
         }
 
+        // DELETE: api/Placement/5
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeletePlacement(int id)
+        {
+            var placement = await _context.Placements.FindAsync(id);
+            if (placement == null)
+            {
+                return NotFound();
+            }
+
+            _context.Placements.Remove(placement);
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
         private bool PlacementExists(int id)
         {
             return _context.Placements.Any(e => e.Id == id);
