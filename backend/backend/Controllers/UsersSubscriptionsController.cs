@@ -51,7 +51,30 @@ namespace backend.Controllers
             return usersSubscription;
         }
 
-        // TODO POST UserSubscription
+        // Post: api/UsersSubscriptions
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<UsersSubscription>> PostUsersSubscription(UsersSubscription usersSubscription)
+        {
+            _context.UsersSubscriptions.Add(usersSubscription);
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                if (UsersSubscriptionExists(usersSubscription.Id))
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return CreatedAtAction("GetUserSubscription", new { id = usersSubscription.Id }, usersSubscription);
+        }
 
         // PUT: api/UsersSubscriptions/5
         [HttpPut("{id}")]

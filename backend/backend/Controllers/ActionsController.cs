@@ -99,10 +99,5 @@ namespace backend.Controllers
 
             return Ok();
         }
-
-        private bool ActionExists(int id)
-        {
-            return _context.Actions.Any(action => action.Id == id);
-        }
     }
 }
