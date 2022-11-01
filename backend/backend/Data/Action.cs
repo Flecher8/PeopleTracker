@@ -11,7 +11,7 @@ namespace backend.Data
         public int? RoomOutId { get; set; }
         public int? RoomInId { get; set; }
 
-        public virtual Placement? Placement { get; set; } = null!;
+        public virtual Placement Placement { get; set; } = null!;
         public virtual Room? RoomIn { get; set; }
         public virtual Room? RoomOut { get; set; }
     }

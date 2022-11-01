@@ -17,9 +17,9 @@ namespace backend.Data
         public string? Name { get; set; }
         public int NumberOfRooms { get; set; }
 
-        public virtual User? User { get; set; } = null!;
-        public virtual ICollection<Action>? Actions { get; set; }
-        public virtual ICollection<Room>? Rooms { get; set; }
-        public virtual ICollection<SmartDevice>? SmartDevices { get; set; }
+        public virtual User User { get; set; } = null!;
+        public virtual ICollection<Action> Actions { get; set; }
+        public virtual ICollection<Room> Rooms { get; set; }
+        public virtual ICollection<SmartDevice> SmartDevices { get; set; }
     }
 }

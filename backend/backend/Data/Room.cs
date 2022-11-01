@@ -19,10 +19,10 @@ namespace backend.Data
         public int NumberOfPeopleInRoom { get; set; }
         public bool IsExit { get; set; }
 
-        public virtual Placement? Placement { get; set; } = null!;
-        public virtual ICollection<Action>? ActionRoomIns { get; set; }
-        public virtual ICollection<Action>? ActionRoomOuts { get; set; }
-        public virtual ICollection<Sensor>? SensorLeftRooms { get; set; }
-        public virtual ICollection<Sensor>? SensorRightRooms { get; set; }
+        public virtual Placement Placement { get; set; } = null!;
+        public virtual ICollection<Action> ActionRoomIns { get; set; }
+        public virtual ICollection<Action> ActionRoomOuts { get; set; }
+        public virtual ICollection<Sensor> SensorLeftRooms { get; set; }
+        public virtual ICollection<Sensor> SensorRightRooms { get; set; }
     }
 }

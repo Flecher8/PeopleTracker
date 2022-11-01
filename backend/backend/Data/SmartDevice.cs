@@ -10,7 +10,7 @@ namespace backend.Data
         public int PlacementId { get; set; }
         public int? NumberOfSensors { get; set; }
 
-        public virtual Placement? Placement { get; set; } = null!;
-        public virtual User? User { get; set; } = null!;
+        public virtual Placement Placement { get; set; } = null!;
+        public virtual User User { get; set; } = null!;
     }
 }
