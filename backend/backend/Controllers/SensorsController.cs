@@ -44,7 +44,7 @@ namespace backend.Controllers
 
             return sensor;
         }
-        // Scaffold-DbContext "Server=.\SQLExpress;Database=SchoolDB;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
+
         [HttpGet("smartDeviceId:{id}")]
         public async Task<ActionResult<IEnumerable<Sensor>>> GetSensorsBySmartDevice(int id)
         {

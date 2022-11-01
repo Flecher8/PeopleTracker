@@ -129,8 +129,6 @@ namespace backend.Data
 
             modelBuilder.Entity<SubscriptionType>(entity =>
             {
-                entity.Property(e => e.EndDate).HasColumnType("datetime");
-
                 entity.Property(e => e.Name).HasMaxLength(50);
 
                 entity.Property(e => e.Price).HasColumnType("money");

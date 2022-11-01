@@ -20,9 +20,9 @@ namespace backend.Data
         public string? CompanyName { get; set; }
         public string Type { get; set; } = null!;
 
-        public virtual ICollection<Payment> Payments { get; set; }
-        public virtual ICollection<Placement> Placements { get; set; }
-        public virtual ICollection<SmartDevice> SmartDevices { get; set; }
-        public virtual ICollection<UsersSubscription> UsersSubscriptions { get; set; }
+        public virtual ICollection<Payment>? Payments { get; set; }
+        public virtual ICollection<Placement>? Placements { get; set; }
+        public virtual ICollection<SmartDevice>? SmartDevices { get; set; }
+        public virtual ICollection<UsersSubscription>? UsersSubscriptions { get; set; }
     }
 }

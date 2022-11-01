@@ -77,7 +77,7 @@ app.UseRequestLocalization(new RequestLocalizationOptions
     SupportedUICultures = supportedCultures
 });
 
-
+// Scaffold-DbContext "Data Source=Desktop;Initial Catalog=DBAtarkProject;Integrated Security=True" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Data -Force
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
