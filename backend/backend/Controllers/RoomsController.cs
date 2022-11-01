@@ -59,7 +59,7 @@ namespace backend.Controllers
             return Ok(rooms);
         }
 
-        [HttpGet("GetTopVisitedRoomsByPlacement/placementId:{id}")]
+        [HttpGet("GetVisitsInRoomsByPlacement/placementId:{id}")]
         [Authorize]
         public JsonResult GetNumberOfVisitsRoomsByPlacement(int id)
         {

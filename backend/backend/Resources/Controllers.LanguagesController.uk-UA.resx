@@ -117,10 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Contacts" xml:space="preserve">
+    <value>Контакти</value>
+  </data>
+  <data name="Developers" xml:space="preserve">
+    <value>Розробники</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>Англійська</value>
+  </data>
   <data name="Login" xml:space="preserve">
     <value>Логін</value>
   </data>
+  <data name="Password" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
   <data name="Registration" xml:space="preserve">
     <value>Реєстрація</value>
+  </data>
+  <data name="Statistics" xml:space="preserve">
+    <value>Cтатистика</value>
+  </data>
+  <data name="Ukrainian" xml:space="preserve">
+    <value>Українська</value>
   </data>
 </root>

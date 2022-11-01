@@ -24,6 +24,7 @@ namespace backend.Controllers
 
         // GET: api/SubscriptionTypes
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<SubscriptionType>>> GetSubscriptionTypes()
         {
             return await _context.SubscriptionTypes.ToListAsync();

@@ -6,9 +6,16 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using backend.Data;
+using backend.Model;
 using Action = backend.Data.Action;
 using Microsoft.AspNetCore.Authorization;
 using System.Data;
+using System.Security.Policy;
+using System.Text;
+using Newtonsoft.Json;
+using System.Threading.Channels;
+using Channel = backend.Model.Channel;
+using Microsoft.DotNet.MSIdentity.Shared;
 
 namespace backend.Controllers
 {
@@ -16,6 +23,8 @@ namespace backend.Controllers
     [ApiController]
     public class ActionsController : ControllerBase
     {
+        private static readonly HttpClient client = new HttpClient();
+
         private readonly DBAtarkProjectContext _context;
 
         public ActionsController(DBAtarkProjectContext context)
@@ -54,6 +63,34 @@ namespace backend.Controllers
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetAction", new { id = action.Id }, action);
+        }
+
+        //TEST FUNCTION !!!
+        [HttpGet("Arduino")]
+        public async Task<ActionResult<Action>> PostActionArduino(int RoomIdIn, int RoomIdOut)
+        {
+            Action action = new Action();
+            action.PlacementId = 1;
+            action.DateTime = DateTime.Now;
+            action.RoomInId = RoomIdIn;
+            action.RoomOutId = RoomIdOut;
+
+            _context.Actions.Add(action);
+            await _context.SaveChangesAsync();
+            return CreatedAtAction("GetAction", new { id = action.Id }, action);
+        }
+
+        [HttpGet("fields")]
+        public async Task<JsonResult> GetFields()
+        {
+            string url = "https://api.thingspeak.com/channels/1908852/feeds.json?results=2";
+            HttpResponseMessage response = await client.GetAsync(url);
+            string responseBody = await response.Content.ReadAsStringAsync();
+
+            Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(responseBody);
+
+
+            return new JsonResult(myDeserializedClass);
         }
 
         // PUT: api/Actions/5
