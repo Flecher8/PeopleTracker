@@ -10,6 +10,6 @@ namespace backend.Data
         public decimal? ReceivedMoneyAmount { get; set; }
         public string? Description { get; set; }
 
-        public virtual User User { get; set; } = null!;
+        public virtual User? User { get; set; } = null!;
     }
 }

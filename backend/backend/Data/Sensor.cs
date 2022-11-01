@@ -14,7 +14,7 @@ namespace backend.Data
         public int? PinNumber { get; set; }
         public string? Name { get; set; }
 
-        public virtual Room LeftRoom { get; set; } = null!;
-        public virtual Room RightRoom { get; set; } = null!;
+        public virtual Room? LeftRoom { get; set; } = null!;
+        public virtual Room? RightRoom { get; set; } = null!;
     }
 }
