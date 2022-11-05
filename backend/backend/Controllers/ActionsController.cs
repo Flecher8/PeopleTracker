@@ -81,16 +81,25 @@ namespace backend.Controllers
         }
 
         [HttpGet("fields")]
-        public async Task<JsonResult> GetFields()
+        public async Task<IActionResult> GetFields()
         {
-            string url = "https://api.thingspeak.com/channels/1908852/feeds.json?results=2";
+            string url = "https://api.thingspeak.com/channels/1908852/feeds.json?results=1";
             HttpResponseMessage response = await client.GetAsync(url);
             string responseBody = await response.Content.ReadAsStringAsync();
 
             Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(responseBody);
 
+            Action action = new Action();
+            Feed feed = myDeserializedClass.feeds.Last();
+            action.PlacementId = Int32.Parse(feed.field1);
+            action.DateTime = DateTime.Now;
+            action.RoomOutId = Int32.Parse(feed.field2);
+            action.RoomInId = Int32.Parse(feed.field3);
 
-            return new JsonResult(myDeserializedClass);
+            _context.Actions.Add(action);
+            await _context.SaveChangesAsync();
+
+            return Ok(action);
         }
 
         // PUT: api/Actions/5
