@@ -45,9 +45,15 @@ builder.Services.AddControllersWithViews()
     .AddDataAnnotationsLocalization();
 
 // Enable CORS
-builder.Services.AddCors(c =>
+builder.Services.AddCors(options =>
 {
-    c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+    options.AddPolicy("AllowAllHeaders",
+        builder =>
+        {
+            builder.AllowAnyOrigin()
+                   .AllowAnyHeader()
+                   .AllowAnyMethod();
+        });
 });
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -94,5 +100,7 @@ app.UseAuthorization();
 
 
 app.MapControllers();
+// Cors
+app.UseCors("AllowAllHeaders");
 
 app.Run();

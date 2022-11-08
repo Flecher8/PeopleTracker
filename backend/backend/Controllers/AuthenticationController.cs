@@ -5,6 +5,7 @@ using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Data;
+using backend.Model;
 
 namespace backend.Controllers
 {
@@ -36,8 +37,8 @@ namespace backend.Controllers
             return CreatedAtAction("GetUser", new { id = user.Id }, user);
         }
 
-        [HttpGet("Login")]
-        public async Task<ActionResult<string>> Login(User user)
+        [HttpPost("Login")]
+        public async Task<ActionResult<string>> Login(LoginModel user)
         {
             if(!_context.Users.Where(u => (u.Login == user.Login && u.Password == user.Password)).Any())
             {
@@ -48,7 +49,7 @@ namespace backend.Controllers
             return Ok(token);
         }
 
-        private string CreateToken(User userGetted)
+        private string CreateToken(LoginModel userGetted)
         {
             User user = GetUserByLoginAndPassword(userGetted);
 
@@ -73,7 +74,7 @@ namespace backend.Controllers
             return jwt;
         }
 
-        private User GetUserByLoginAndPassword(User user)
+        private User GetUserByLoginAndPassword(LoginModel user)
         {
             return _context.Users
                 .Where(u => u.Login == user.Login && u.Password == user.Password)
