@@ -65,21 +65,6 @@ namespace backend.Controllers
             return CreatedAtAction("GetAction", new { id = action.Id }, action);
         }
 
-        //TEST FUNCTION !!!
-        [HttpGet("Arduino")]
-        public async Task<ActionResult<Action>> PostActionArduino(int RoomIdIn, int RoomIdOut)
-        {
-            Action action = new Action();
-            action.PlacementId = 1;
-            action.DateTime = DateTime.Now;
-            action.RoomInId = RoomIdIn;
-            action.RoomOutId = RoomIdOut;
-
-            _context.Actions.Add(action);
-            await _context.SaveChangesAsync();
-            return CreatedAtAction("GetAction", new { id = action.Id }, action);
-        }
-
         [HttpGet("fields")]
         public async Task<IActionResult> GetFields()
         {
@@ -98,8 +83,28 @@ namespace backend.Controllers
 
             _context.Actions.Add(action);
             await _context.SaveChangesAsync();
+            // Check if works
+            await UpdateRooms(action);
 
             return Ok(action);
+        }
+
+        private async Task UpdateRooms(Action action)
+        {
+            Room roomOut = _context.Rooms.Where(room => room.Id == action.RoomOutId).FirstOrDefault();
+            Room roomIn = _context.Rooms.Where(room => room.Id == action.RoomInId).FirstOrDefault();
+
+            if(roomOut.NumberOfPeopleInRoom > 0)
+            {
+                roomOut.NumberOfPeopleInRoom--;
+            }
+            if (!roomIn.IsExit)
+            {
+                roomIn.NumberOfPeopleInRoom++;
+            }
+            _context.Rooms.Update(roomOut);
+            _context.Rooms.Update(roomIn);
+            await _context.SaveChangesAsync();
         }
 
         // PUT: api/Actions/5
