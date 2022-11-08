@@ -4,32 +4,32 @@ import { Link } from "react-router-dom";
 
 function Menu() {
 	function LastElementOfMenu() {
-		if (localStorage.getItem("PeopleTracker-user") !== null) {
-			if (localStorage.getItem("PeopleTracker-userRole") === "user") {
+		if (localStorage.getItem("PeopleTracker-userId") !== null) {
+			if (localStorage.getItem("PeopleTracker-userType") === "User") {
 				return (
-					<Button className="btn btn-dark border border-white w-100" to="/UserProfile">
-						Profile
-					</Button>
+					<Link to="/UserProfile" className="text-decoration-none text-reset">
+						<Button className="btn btn-dark border border-white w-100">Profile</Button>
+					</Link>
 				);
 			}
-			if (localStorage.getItem("PeopleTracker-userRole") === "admin") {
+			if (localStorage.getItem("PeopleTracker-userType") === "Admin") {
 				return (
-					<Button className="btn btn-dark border border-white w-100" to="/AdminPanel">
-						Profile
-					</Button>
+					<Link to="/AdminPanel" className="text-decoration-none text-reset">
+						<Button className="btn btn-dark border border-white w-100">Admin Panel</Button>
+					</Link>
 				);
 			}
 		} else {
 			return (
-				<Button className="btn btn-dark border border-white w-100" to="/Login">
-					Log In
-				</Button>
+				<Link to="/Login" className="text-decoration-none text-reset">
+					<Button className="btn btn-dark border border-white w-100">Log In</Button>
+				</Link>
 			);
 		}
 		return (
-			<Button className="btn btn-dark border border-white w-100" to="/Login">
-				LogIn
-			</Button>
+			<Link to="/Login" className="text-decoration-none text-reset">
+				<Button className="btn btn-dark border border-white w-100">Log In</Button>
+			</Link>
 		);
 	}
 	return (
@@ -37,16 +37,24 @@ function Menu() {
 			<div className="d-inline-flex justify-content-around border w-100 p-3 mb-2 bg-dark text-white">
 				<div className="d-flex justify-content-around w-50">
 					<div>
-						<Button className="btn btn-dark border border-white w-100">Main</Button>
+						<Link to="/Main" className="text-decoration-none text-reset">
+							<Button className="btn btn-dark border border-white w-100">Main</Button>
+						</Link>
 					</div>
 					<div>
-						<Button className="btn btn-dark border border-white w-100">Smart Device</Button>
+						<Link to="/SmartDevice" className="text-decoration-none text-reset">
+							<Button className="btn btn-dark border border-white w-100">Smart Device</Button>
+						</Link>
 					</div>
 					<div>
-						<Button className="btn btn-dark border border-white w-100">Mobile app</Button>
+						<Link to="/MobileApp" className="text-decoration-none text-reset">
+							<Button className="btn btn-dark border border-white w-100">Mobile app</Button>
+						</Link>
 					</div>
 					<div>
-						<Button className="btn btn-dark border border-white w-100">Developers</Button>
+						<Link to="/Developers" className="text-decoration-none text-reset">
+							<Button className="btn btn-dark border border-white w-100">Developers</Button>
+						</Link>
 					</div>
 				</div>
 				<div className="d-flex justify-content-around w-25">

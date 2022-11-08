@@ -4,6 +4,8 @@ import Login from "./pages/Login/Login.js";
 import Menu from "./components/Menu/Menu";
 import UserProfile from "./pages/UserProfile/UserProfile";
 import AdminPanel from "./pages/AdminPanel/AdminPanel";
+import Main from "./pages/Main/Main";
+import Registration from "./pages/Registration/Registration";
 
 function App() {
 	return (
@@ -11,10 +13,12 @@ function App() {
 			<Menu />
 			<Routes>
 				<Route path="/Login" element={<Login />} />
+				<Route path="/Main" element={<Main />} />
 				<Route path="/UserProfile" element={<UserProfile />} />
 				<Route path="/AdminPanel" element={<AdminPanel />} />
+				<Route path="/Registration" element={<Registration />} />
 				{/* Default Router */}
-				<Route path="/" element={<Navigate to="/Login" />} />
+				<Route path="/" element={<Navigate to="/Main" />} />
 			</Routes>
 		</BrowserRouter>
 	);

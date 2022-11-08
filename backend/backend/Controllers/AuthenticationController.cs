@@ -28,17 +28,16 @@ namespace backend.Controllers
             var foundUser = _context.Users.Where(x => x.Login == user.Login).ToList();
             if (foundUser.Count != 0)
             {
-                return BadRequest();
+                return BadRequest("User with such login already registrated");
             }
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+            return Ok();
         }
 
         [HttpPost("Login")]
-        public async Task<ActionResult<string>> Login(LoginModel user)
+        public async Task<ActionResult<LoginResponse>> Login(LoginModel user)
         {
             if(!_context.Users.Where(u => (u.Login == user.Login && u.Password == user.Password)).Any())
             {
@@ -46,7 +45,17 @@ namespace backend.Controllers
             }
 
             string token = CreateToken(user);
-            return Ok(token);
+            LoginResponse response = new LoginResponse();
+            User foundUser = _context.Users.Where(u => u.Login == user.Login).FirstOrDefault();
+            if (foundUser == null)
+            {
+                return BadRequest();
+            }
+            response.Token = token;
+            response.UserId = foundUser.Id;
+            response.UserType = foundUser.Type;
+
+            return Ok(response);
         }
 
         private string CreateToken(LoginModel userGetted)
@@ -66,7 +75,7 @@ namespace backend.Controllers
 
             var token = new JwtSecurityToken(
                 claims: claims,
-                expires: DateTime.Now.AddDays(1),
+                expires: DateTime.Now.AddYears(1),
                 signingCredentials: creds);
 
             var jwt = new JwtSecurityTokenHandler().WriteToken(token);

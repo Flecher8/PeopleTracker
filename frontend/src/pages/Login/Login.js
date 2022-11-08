@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Button, InputGroup, FormControl } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 import axios from "../../api/axios";
 
@@ -13,23 +14,6 @@ function Login() {
 		headers: { Authorization: `Bearer ${token}` }
 	};
 
-	async function get() {
-		try {
-			const response = await axios.get("/Sensors/" + 1, config);
-			console.log(config);
-			console.log(response);
-		} catch (err) {
-			// errors that expected from back
-			if (err.response?.status === 400) {
-				alert("Missing Password or Login");
-			} else if (err.response?.status === 401) {
-				alert("Unathorized");
-			} else {
-				alert("Login failed");
-			}
-		}
-	}
-
 	const login = async e => {
 		e.preventDefault();
 		// New updated user
@@ -37,9 +21,14 @@ function Login() {
 			Login: inputLogin.current.value,
 			Password: inputPassword.current.value
 		};
-		console.log(LoginModel);
 		try {
 			const response = await axios.post("/Authentication/Login", LoginModel);
+			if (response.status === 200) {
+				localStorage.setItem("PeopleTracker-userId", response.data.userId);
+				localStorage.setItem("PeopleTracker-userType", response.data.userType);
+				localStorage.setItem("PeopleTracker-userToken", response.data.token);
+				window.location.href = "/UserProfile";
+			}
 		} catch (err) {
 			// errors that expected from back
 			if (err.response?.status === 400) {
@@ -53,14 +42,14 @@ function Login() {
 	};
 
 	return (
-		<div className="d-flex justify-content-center">
+		<div className="d-flex justify-content-center mt-5">
 			<div className="border p-2">
 				<div className="display-3 text-center mb-5">Log In</div>
 				<div className="d-inline-flex w-100 p-3">
-					<div className="w-25">
-						<h4>Login:</h4>
+					<div className="w-25 d-inline-flex">
+						<h4>Login:</h4> <p className="ml-2 text-danger">*</p>
 					</div>
-					<div className="w-100">
+					<div className="w-75">
 						<InputGroup className="mb-3">
 							<FormControl
 								aria-label="Default"
@@ -75,15 +64,15 @@ function Login() {
 					</div>
 				</div>
 				<div className="d-inline-flex w-100 p-3">
-					<div className="w-25">
-						<h4>Password:</h4>
+					<div className="w-25 d-inline-flex">
+						<h4>Password:</h4> <p className="ml-2 text-danger">*</p>
 					</div>
-					<div className="w-100">
+					<div className="w-75">
 						<InputGroup className="mb-3">
 							<FormControl
 								aria-label="Default"
-								placeholder="login"
-								type="text"
+								placeholder="*****"
+								type="password"
 								maxLength="50"
 								size="sm"
 								ref={inputPassword}
@@ -94,8 +83,16 @@ function Login() {
 				</div>
 				<div className="w-100 text-center">
 					<Button onClick={login} className="w-100 text-center">
-						Log In
+						<h5>Log In</h5>
 					</Button>
+				</div>
+				<div className="d-inline-flex justify-content-center w-100 m-2">
+					<div className="p-2">Not registered yet?</div>
+					<div className="p-2">
+						<Link to="/Registration" className="text-decoration-none">
+							Registration
+						</Link>
+					</div>
 				</div>
 			</div>
 		</div>
