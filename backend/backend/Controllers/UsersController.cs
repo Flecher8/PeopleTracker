@@ -32,8 +32,7 @@ namespace backend.Controllers
 
         // GET: api/Users/5
         [HttpGet("{id}")]
-        //[Authorize(Roles = "User")]
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         public async Task<ActionResult<User>> GetUser(int id)
         {
             var user = await _context.Users.FindAsync(id);
