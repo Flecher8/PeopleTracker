@@ -51,7 +51,7 @@ namespace backend.Controllers
         [Authorize]
         public async Task<ActionResult<IEnumerable<Room>>> GetRoomsByPlacement(int id)
         {
-            var rooms = await _context.Rooms.Where(r => r.PlacementId == id).ToListAsync();
+            var rooms = await _context.Rooms.Where(r => r.PlacementId == id && !r.IsExit).ToListAsync();
             if (!rooms.Any())
             {
                 return NotFound();

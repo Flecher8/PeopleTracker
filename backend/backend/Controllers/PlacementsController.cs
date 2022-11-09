@@ -58,7 +58,7 @@ namespace backend.Controllers
             return Ok(placements);
         }
 
-        [HttpGet("GetNumberOfVisitsPlacementByTimePeriod/placementId:{id}")]
+        [HttpPost("GetNumberOfVisitsPlacementByTimePeriod/placementId:{id}")]
         [Authorize]
         public JsonResult GetNumberOfVisitsPlacementByTimePeriod(int id, TimePeriod timePeriod)
         {

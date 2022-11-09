@@ -6,6 +6,7 @@ import UserProfile from "./pages/UserProfile/UserProfile";
 import AdminPanel from "./pages/AdminPanel/AdminPanel";
 import Main from "./pages/Main/Main";
 import Registration from "./pages/Registration/Registration";
+import UserPlacements from "./pages/UserPlacements/UserPlacements";
 
 function App() {
 	return (
@@ -15,6 +16,7 @@ function App() {
 				<Route path="/Login" element={<Login />} />
 				<Route path="/Main" element={<Main />} />
 				<Route path="/UserProfile" element={<UserProfile />} />
+				<Route path="/UserPlacements" element={<UserPlacements />} />
 				<Route path="/AdminPanel" element={<AdminPanel />} />
 				<Route path="/Registration" element={<Registration />} />
 				{/* Default Router */}

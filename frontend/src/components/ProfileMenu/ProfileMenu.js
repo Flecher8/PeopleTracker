@@ -20,32 +20,38 @@ function ProfileMenu() {
 		<div className="d-inline-flex w-100 p-3">
 			<div className="d-inline-flex justify-content-start flex-wrap w-100">
 				<div className="">
+					{/* // TODO language  */}
 					<Link to="/UserProfile" className="text-decoration-none text-reset">
 						<Button className="btn btn-dark border border-white">Profile</Button>
 					</Link>
 				</div>
 				<div className="">
-					<Link to="/" className="text-decoration-none text-reset">
+					{/* // TODO language  */}
+					<Link to="/UserPlacements" className="text-decoration-none text-reset">
 						<Button className="btn btn-dark border border-white">Placements</Button>
 					</Link>
 				</div>
 				<div className="mr-auto">
+					{/* // TODO language  */}
 					<Link to="/" className="text-decoration-none text-reset">
 						<Button className="btn btn-dark border border-white">Statistics</Button>
 					</Link>
 				</div>
 
 				<div className="">
+					{/* // TODO language  */}
 					<Link to="/" className="text-decoration-none text-reset">
 						<Button className="btn btn-dark border border-white">Smart Device</Button>
 					</Link>
 				</div>
 				<div className="mr-auto">
+					{/* // TODO language  */}
 					<Link to="/" className="text-decoration-none text-reset">
 						<Button className="btn btn-dark border border-white">Subscription</Button>
 					</Link>
 				</div>
 				<div className="">
+					{/* // TODO language  */}
 					<Link to="/" className="text-decoration-none text-reset">
 						<Button onClick={signOut} className="btn btn-dark border border-white">
 							Sign Out
