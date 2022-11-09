@@ -32,23 +32,26 @@ function UserProfile() {
 	}
 
 	return (
-		<div className="section">
-			<div className="display-4">Profile</div>
-			<div>
+		<div className="container">
+			<div className="d-flex justify-content-center display-4">Profile</div>
+			<div className="d-flex border border-dark w-100">
 				<ProfileMenu />
 			</div>
-			<div className="ProfileInfo">
-				<div className="">
+			<div className="ProfileInfo container mt-3">
+				<div className="d-flex justify-content-center">
+					<h4>Information about user</h4>
+				</div>
+				<div className="d-flex">
 					<div>
 						<h5>Email:</h5>
 					</div>
-					<div></div>
+					<div className="ml-3">{user.email}</div>
 				</div>
-				<div className="">
+				<div className="d-inline-flex">
 					<div>
 						<h5>Company:</h5>
 					</div>
-					<div></div>
+					<div className="ml-3">{user.companyName}</div>
 				</div>
 			</div>
 		</div>
