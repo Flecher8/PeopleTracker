@@ -61,10 +61,10 @@ namespace backend.Controllers
 
         [HttpGet("GetVisitsInRoomsByPlacement/placementId:{id}")]
         [Authorize]
-        public JsonResult GetNumberOfVisitsRoomsByPlacement(int id)
+        public async Task<IActionResult> GetNumberOfVisitsRoomsByPlacement(int id)
         {
             var numberOfVisitsOfAllRooms = SelectNumberOfVisitsRoomsByPlacement(id);
-            return new JsonResult(numberOfVisitsOfAllRooms);
+            return Ok(new JsonResult(numberOfVisitsOfAllRooms));
         }
 
         private object SelectNumberOfVisitsRoomsByPlacement(int placementId)
@@ -74,12 +74,16 @@ namespace backend.Controllers
                 .GroupBy(x => x.RoomInId)
                 .Select(g => new { roomId = g.Key, count = g.Count() });
         }
-        [HttpGet("GetNumberOfVisitsRoomByTimePeriod/roomId:{id}")]
+        [HttpPost("GetNumberOfVisitsRoomByTimePeriod/roomId:{id}")]
         [Authorize]
-        public JsonResult GetNumberOfVisitsRoomByTimePeriod(int id, TimePeriod timePeriod)
+        public async Task<IActionResult> GetNumberOfVisitsRoomByTimePeriod(int id, TimePeriod timePeriod)
         {
             var numberOfVisitsRoomByTimePeriod = SelectNumberOfVisitsRoomByTimePeriod(id, timePeriod);
-            return new JsonResult(numberOfVisitsRoomByTimePeriod);
+            if (numberOfVisitsRoomByTimePeriod == null)
+            {
+                numberOfVisitsRoomByTimePeriod = new { RoomId = id, Count = 0 };
+            }
+            return Ok(new JsonResult(numberOfVisitsRoomByTimePeriod));
         }
 
         private object SelectNumberOfVisitsRoomByTimePeriod(int roomId, TimePeriod timePeriod)
@@ -91,7 +95,7 @@ namespace backend.Controllers
                          where a.RoomInId == roomId
                          group a by a.RoomInId into g
                          select new { RoomInId = g.Key, Count = g.Count() };
-            return result;
+            return result.FirstOrDefault();
         }
 
         // PUT: api/Rooms/5

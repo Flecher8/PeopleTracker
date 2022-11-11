@@ -60,10 +60,14 @@ namespace backend.Controllers
 
         [HttpPost("GetNumberOfVisitsPlacementByTimePeriod/placementId:{id}")]
         [Authorize]
-        public JsonResult GetNumberOfVisitsPlacementByTimePeriod(int id, TimePeriod timePeriod)
+        public async Task<IActionResult> GetNumberOfVisitsPlacementByTimePeriod(int id, TimePeriod timePeriod)
         {
             var result = SelectNumberOfPeopleVisitedPlacementByTimePeriod(id, timePeriod);
-            return new JsonResult(result);
+            if(result == null)
+            {
+                result = new { PlacementId = id, Count = 0 };
+            }
+            return Ok(new JsonResult(result));
         }
 
         private object SelectNumberOfPeopleVisitedPlacementByTimePeriod(int placementId, TimePeriod timePeriod)
@@ -76,7 +80,7 @@ namespace backend.Controllers
                          where a.PlacementId == placementId
                          group a by a.PlacementId into g
                          select new { PlacementId = g.Key, Count = g.Count() };               
-            return result;
+            return result.FirstOrDefault();
         }
 
         // PUT: api/Placements/5

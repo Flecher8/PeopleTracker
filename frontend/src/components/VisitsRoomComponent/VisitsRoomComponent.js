@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import axios from "../../api/axios";
 
-function VisitsPlacementComponent(props) {
+function VisitsRoomComponent(props) {
 	const minDate = new Date("2022-01-01").toISOString().split("T")[0];
 	const maxDate = new Date().toISOString().split("T")[0];
 	const startDate = useRef(new Date());
@@ -75,7 +75,7 @@ function VisitsPlacementComponent(props) {
 		return true;
 	}
 	// -----------------------------
-	async function getNumberOfVisitsPlacementByTimePeriod() {
+	async function getNumberOfVisitsRoomByTimePeriod() {
 		let TimePeriod = {
 			StartDateTime: getDateTime(startDate.current.value, startTime.current.value),
 			EndDateTime: getDateTime(endDate.current.value, endTime.current.value)
@@ -83,11 +83,11 @@ function VisitsPlacementComponent(props) {
 		/*
 			axios requests :
 			argument : StartDateTime, EndDateTime
-			returns: placementId, count (number of visits placement by time period)
+			returns: roomId, count (number of visits room by time period)
 		*/
 		try {
 			const response = await axios.post(
-				"/Placements/GetNumberOfVisitsPlacementByTimePeriod/placementId:" + props.placementId,
+				"/Rooms/GetNumberOfVisitsRoomByTimePeriod/roomId:" + props.roomId,
 				TimePeriod,
 				config
 			);
@@ -110,7 +110,7 @@ function VisitsPlacementComponent(props) {
 
 	const submit = async e => {
 		if (checkValidDateTime()) {
-			await getNumberOfVisitsPlacementByTimePeriod();
+			await getNumberOfVisitsRoomByTimePeriod();
 		}
 	};
 	return (
@@ -121,7 +121,7 @@ function VisitsPlacementComponent(props) {
 			</div>
 			<div className="d-flex justify-content-center mb-3">
 				{/* // TODO language */}
-				<h5>View visits of placement by period of time</h5>
+				<h5>View visits of room by period of time</h5>
 			</div>
 			<div className="d-inline-flex justify-content-center w-100">
 				{/* // TODO language */}
@@ -187,7 +187,7 @@ function VisitsPlacementComponent(props) {
 				<div className="d-inline-flex justify-content-start w-100 mb-5">
 					<div className="w-100">
 						{/* // TODO language */}
-						<h5>Number of people visited placement: {visits}</h5>
+						<h5>Number of people visited room: {visits}</h5>
 					</div>
 				</div>
 			) : (
@@ -201,4 +201,4 @@ function VisitsPlacementComponent(props) {
 	);
 }
 
-export default VisitsPlacementComponent;
+export default VisitsRoomComponent;
