@@ -59,20 +59,31 @@ namespace backend.Controllers
             return Ok(rooms);
         }
 
-        [HttpGet("GetVisitsInRoomsByPlacement/placementId:{id}")]
+        [HttpPost("GetVisitsInRoomsByPlacement/placementId:{id}")]
         [Authorize]
-        public async Task<IActionResult> GetNumberOfVisitsRoomsByPlacement(int id)
+        public async Task<IActionResult> GetNumberOfVisitsRoomsByPlacement(int id, TimePeriod timePeriod)
         {
-            var numberOfVisitsOfAllRooms = SelectNumberOfVisitsRoomsByPlacement(id);
+            var numberOfVisitsOfAllRooms = SelectNumberOfVisitsRoomsByPlacement(id, timePeriod);
             return Ok(new JsonResult(numberOfVisitsOfAllRooms));
         }
 
-        private object SelectNumberOfVisitsRoomsByPlacement(int placementId)
+        private object SelectNumberOfVisitsRoomsByPlacement(int placementId, TimePeriod timePeriod)
         {
-            return _context.Actions
-                .Where(x => x.PlacementId == placementId)
-                .GroupBy(x => x.RoomInId)
-                .Select(g => new { roomId = g.Key, count = g.Count() });
+            //return _context.Actions
+            //    .Where(x => x.PlacementId == placementId)
+            //    .Where(x => x.DateTime >= timePeriod.StartDateTime)
+            //    .Where(x => x.DateTime <= timePeriod.EndDateTime)
+            //    .GroupBy(x => x.RoomInId)
+            //    .Select(g => new { roomId = g.Key, count = g.Count() });
+
+            return       from a in _context.Actions
+                         join r in _context.Rooms on a.RoomInId equals r.Id
+                         where a.DateTime >= timePeriod.StartDateTime
+                         where a.DateTime <= timePeriod.EndDateTime
+                         where a.PlacementId == placementId
+                         where !r.IsExit
+                         group a by a.RoomInId into g
+                         select new { RoomInId = g.Key, Count = g.Count() };
         }
         [HttpPost("GetNumberOfVisitsRoomByTimePeriod/roomId:{id}")]
         [Authorize]

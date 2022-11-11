@@ -2,13 +2,27 @@ import { useState, useEffect } from "react";
 import { Button, InputGroup, FormControl, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
+// Import react components
 import ProfileMenu from "../../components/ProfileMenu/ProfileMenu";
 import VisitsPlacementComponent from "../../components/VisitsPlacementComponent/VisitsPlacementComponent";
 import VisitsRoomComponent from "../../components/VisitsRoomComponent/VisitsRoomComponent";
+
 import axios from "../../api/axios";
 
 function UserPlacements() {
+	const config = {
+		headers: { Authorization: `Bearer ${localStorage["PeopleTracker-userToken"]}` }
+	};
+
+	// Variables to work with data
+	const minDataSting = "2022-01-01";
+	const minDate = new Date(minDataSting).toISOString().split("T")[0];
+	const maxDate = new Date().toISOString().split("T")[0];
+
+	// Variables to store data
 	const [placements, setPlacements] = useState([]);
+
+	// Variables to open new modales
 	const [activePlacementId, setActivePlacementId] = useState(0);
 	const [activeRoomId, setActiveRoomId] = useState(0);
 
@@ -25,11 +39,92 @@ function UserPlacements() {
 	useEffect(() => {
 		getUserPlacements();
 	}, []);
-	useEffect(() => {}, [placements]);
+	useEffect(() => {
+		getUsersTopAndLessVisitedRooms(1006);
+	}, [placements]);
 
-	const config = {
-		headers: { Authorization: `Bearer ${localStorage["PeopleTracker-userToken"]}` }
-	};
+	async function getAllRoomsVisitsByPlacement(placementId) {
+		let TimePeriod = {
+			StartDateTime: minDate,
+			EndDateTime: maxDate
+		};
+
+		try {
+			const response = await axios.post(
+				"/Rooms/GetVisitsInRoomsByPlacement/placementId:" + placementId,
+				TimePeriod,
+				config
+			);
+			if (response.status === 200) {
+				return response.data.value;
+			}
+		} catch (err) {
+			// errors that expected from back
+			alert(err.response.data);
+			return [];
+			// TODO language
+		}
+		return [];
+	}
+
+	function getTopVisitedRooms(array) {
+		array.sort((a, b) => (a.count < b.count ? 1 : -1));
+		let maxVisits = array[0].count;
+		let topVisitedRooms = [];
+		topVisitedRooms.push(array[0].roomInId);
+		for (let i = 1; i < array.length; i++) {
+			if (array[i].count === maxVisits) {
+				topVisitedRooms.push(array[i].roomInId);
+			}
+		}
+		return topVisitedRooms;
+	}
+
+	function getLessVisitedRooms(array) {
+		array.sort((a, b) => (a.count > b.count ? 1 : -1));
+		let minVisits = array[0].count;
+		let topVisitedRooms = [];
+		topVisitedRooms.push(array[0].roomInId);
+		for (let i = 1; i < array.length; i++) {
+			if (array[i].count === minVisits) {
+				topVisitedRooms.push(array[i].roomInId);
+			}
+		}
+		return topVisitedRooms;
+	}
+
+	function findPlacementById(placementId) {
+		for (let i = 0; i < placements.length; i++) {
+			if (placements[i].id === placementId) {
+				return placements[i];
+			}
+		}
+	}
+
+	function findRoomNameById(placement, roomId) {
+		for (let i = 0; i < placement.rooms.length; i++) {
+			if (placement.rooms[i].id === roomId) {
+				console.log(placement.rooms[i].name);
+				return placement.rooms[i].name;
+			}
+		}
+	}
+
+	function getNamesOfRooms(placementId, roomsIds) {
+		let placement = findPlacementById(placementId);
+		let stringResult = "";
+		for (let i = 0; i < roomsIds.length; i++) {
+			stringResult += findRoomNameById(placement, roomsIds[i]);
+		}
+	}
+
+	async function getUsersTopAndLessVisitedRooms(placementId) {
+		let roomsVisits = await getAllRoomsVisitsByPlacement(placementId);
+		let topVisitedRooms = getTopVisitedRooms(roomsVisits);
+		let lessVisitedRooms = getLessVisitedRooms(roomsVisits);
+		let result = getNamesOfRooms(placementId, topVisitedRooms);
+		return { topVisitedRooms: topVisitedRooms, lessVisitedRooms: lessVisitedRooms };
+	}
 
 	async function getRoomsByPlacement(placementId) {
 		try {
@@ -70,7 +165,7 @@ function UserPlacements() {
 		visitsPlacementComponentHandleShow();
 	}
 
-	// Show VisitsPlacementComponent modal function
+	// Show VisitsRoomComponent modal function
 	function visitsRoomModelShow(roomId) {
 		setActiveRoomId(roomId);
 		visitsRoomComponentHandleShow();
@@ -95,7 +190,7 @@ function UserPlacements() {
 				{placements.map(e => (
 					<div className="d-flex flex-column m-2" key={e.id}>
 						{/* // TODO language */}
-						<div className="d-inline-flex border">
+						<div className="d-inline-flex m-2 align-items-center">
 							{/* // TODO language */}
 							<div className="mr-auto">Placement name: {e.name}</div>
 							<div className="" align="right">
@@ -105,9 +200,12 @@ function UserPlacements() {
 								</Button>
 							</div>
 						</div>
+						<div className="d-inline-flex align-items-center m-2">123</div>
 						<div className="d-flex flex-column mt-2">
 							{e.rooms.map(r => (
-								<div className="d-flex m-2 p-2 border-bottom border-top border-dark" key={r.id}>
+								<div
+									className="d-flex align-items-center m-2 p-2 border-bottom border-top border-dark"
+									key={r.id}>
 									{/* // TODO language */}
 									<div className="mr-auto">Room name: {r.name}</div>
 
