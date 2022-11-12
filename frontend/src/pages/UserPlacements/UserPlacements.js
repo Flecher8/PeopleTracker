@@ -10,6 +10,10 @@ import VisitsRoomComponent from "../../components/VisitsRoomComponent/VisitsRoom
 import axios from "../../api/axios";
 
 function UserPlacements() {
+	const sortingType = {
+		bigestFirst: (a, b) => (a.count < b.count ? 1 : -1),
+		smallestFirst: (a, b) => (a.count > b.count ? 1 : -1)
+	};
 	const config = {
 		headers: { Authorization: `Bearer ${localStorage["PeopleTracker-userToken"]}` }
 	};
@@ -40,7 +44,8 @@ function UserPlacements() {
 		getUserPlacements();
 	}, []);
 	useEffect(() => {
-		getUsersTopAndLessVisitedRooms(1006);
+		loadVisitedRoomsByPlacement("topVisitedPlacements", sortingType.bigestFirst);
+		loadVisitedRoomsByPlacement("lessVisitedPlacements", sortingType.smallestFirst);
 	}, [placements]);
 
 	async function getAllRoomsVisitsByPlacement(placementId) {
@@ -67,30 +72,25 @@ function UserPlacements() {
 		return [];
 	}
 
-	function getTopVisitedRooms(array) {
-		array.sort((a, b) => (a.count < b.count ? 1 : -1));
-		let maxVisits = array[0].count;
-		let topVisitedRooms = [];
-		topVisitedRooms.push(array[0].roomInId);
-		for (let i = 1; i < array.length; i++) {
-			if (array[i].count === maxVisits) {
-				topVisitedRooms.push(array[i].roomInId);
-			}
+	async function loadVisitedRoomsByPlacement(textType, sortFunctionType) {
+		let newPlacements = placements;
+		for (let i = 0; i < newPlacements.length; i++) {
+			newPlacements[i][textType] = await getStringVisitedRooms(placements[i].id, sortFunctionType);
 		}
-		return topVisitedRooms;
+		setPlacements(newPlacements);
 	}
 
-	function getLessVisitedRooms(array) {
-		array.sort((a, b) => (a.count > b.count ? 1 : -1));
+	function getVisitedRooms(array, sortFunction) {
+		array.sort(sortFunction);
 		let minVisits = array[0].count;
-		let topVisitedRooms = [];
-		topVisitedRooms.push(array[0].roomInId);
+		let visitedRooms = [];
+		visitedRooms.push(array[0].roomInId);
 		for (let i = 1; i < array.length; i++) {
 			if (array[i].count === minVisits) {
-				topVisitedRooms.push(array[i].roomInId);
+				visitedRooms.push(array[i].roomInId);
 			}
 		}
-		return topVisitedRooms;
+		return visitedRooms;
 	}
 
 	function findPlacementById(placementId) {
@@ -104,7 +104,6 @@ function UserPlacements() {
 	function findRoomNameById(placement, roomId) {
 		for (let i = 0; i < placement.rooms.length; i++) {
 			if (placement.rooms[i].id === roomId) {
-				console.log(placement.rooms[i].name);
 				return placement.rooms[i].name;
 			}
 		}
@@ -112,18 +111,18 @@ function UserPlacements() {
 
 	function getNamesOfRooms(placementId, roomsIds) {
 		let placement = findPlacementById(placementId);
-		let stringResult = "";
+		let stringResult = [];
 		for (let i = 0; i < roomsIds.length; i++) {
-			stringResult += findRoomNameById(placement, roomsIds[i]);
+			stringResult.push(findRoomNameById(placement, roomsIds[i]));
 		}
+		return stringResult;
 	}
 
-	async function getUsersTopAndLessVisitedRooms(placementId) {
+	async function getStringVisitedRooms(placementId, sortFunction) {
 		let roomsVisits = await getAllRoomsVisitsByPlacement(placementId);
-		let topVisitedRooms = getTopVisitedRooms(roomsVisits);
-		let lessVisitedRooms = getLessVisitedRooms(roomsVisits);
-		let result = getNamesOfRooms(placementId, topVisitedRooms);
-		return { topVisitedRooms: topVisitedRooms, lessVisitedRooms: lessVisitedRooms };
+		let visitedRooms = getVisitedRooms(roomsVisits, sortFunction);
+		let result = getNamesOfRooms(placementId, visitedRooms);
+		return result.toLocaleString();
 	}
 
 	async function getRoomsByPlacement(placementId) {
@@ -200,7 +199,12 @@ function UserPlacements() {
 								</Button>
 							</div>
 						</div>
-						<div className="d-inline-flex align-items-center m-2">123</div>
+						<div className="d-inline-flex align-items-center m-2">
+							Top visited rooms by all time: {e.topVisitedPlacements}
+						</div>
+						<div className="d-inline-flex align-items-center m-2">
+							Less visited rooms by all time: {e.lessVisitedPlacements}
+						</div>
 						<div className="d-flex flex-column mt-2">
 							{e.rooms.map(r => (
 								<div
