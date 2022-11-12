@@ -58,6 +58,24 @@ namespace backend.Controllers
             return Ok(placements);
         }
 
+        [HttpPost("GetAvgVisitsPlacementByTimePeriod/placementId:{id}")]
+        [Authorize]
+        public async Task<IActionResult> GetAvgVisitsPlacementByTimePeriod(int id, TimePeriod timePeriod)
+        {
+            var numberOfVisitsOfPlacementByTimePeriod = SelectNumberOfPeopleVisitedPlacementByTimePeriod(id, timePeriod);
+            if (numberOfVisitsOfPlacementByTimePeriod == null)
+            {
+                numberOfVisitsOfPlacementByTimePeriod = new VisitsResponse { ItemId = id, Count = 0 };
+                return Ok(numberOfVisitsOfPlacementByTimePeriod);
+            }
+            TimeSpan differenceBetweenDates = timePeriod.EndDateTime - timePeriod.StartDateTime;
+            if(differenceBetweenDates.Days == 0)
+            {
+                return BadRequest("Difference between dates must be more than one day");
+            }
+            return Ok(new JsonResult(new { numberOfVisitsOfPlacementByTimePeriod, differenceBetweenDates.Days }));
+        }
+
         [HttpPost("GetNumberOfVisitsPlacementByTimePeriod/placementId:{id}")]
         [Authorize]
         public async Task<IActionResult> GetNumberOfVisitsPlacementByTimePeriod(int id, TimePeriod timePeriod)
@@ -79,7 +97,7 @@ namespace backend.Controllers
                          where r.IsExit
                          where a.PlacementId == placementId
                          group a by a.PlacementId into g
-                         select new { PlacementId = g.Key, Count = g.Count() };               
+                         select new { ItemId = g.Key, Count = g.Count() };               
             return result.FirstOrDefault();
         }
 
