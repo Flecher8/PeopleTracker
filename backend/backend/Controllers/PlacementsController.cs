@@ -80,7 +80,7 @@ namespace backend.Controllers
             {
                 result = new { PlacementId = id, Count = 0 };
             }
-            return Ok(new JsonResult(result));
+            return Ok(new JsonResult(new { result }));
         }
 
         private object SelectNumberOfPeopleVisitedPlacementByTimePeriod(int placementId, TimePeriod timePeriod)

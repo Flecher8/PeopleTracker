@@ -1,12 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { Button, InputGroup, FormControl, Modal } from "react-bootstrap";
-import { Link } from "react-router-dom";
 
 import axios from "../../api/axios";
-// props.getTime
-// props.mainText
-// props.request
-// props.textResult
+
 function VisitsComponent(props) {
 	const minDate = new Date("2022-01-01").toISOString().split("T")[0];
 	const maxDate = new Date().toISOString().split("T")[0];
@@ -26,34 +22,6 @@ function VisitsComponent(props) {
 	function getDateTime(date, time = "00:00") {
 		return date.toString() + "T" + time.toString();
 	}
-
-	// function checkValidDate() {
-	// 	if (startDate.current.value === "" || endDate.current.value === "") {
-	// 		return false;
-	// 	}
-	// 	if (new Date(startDate.current.value.toString()) > new Date(endDate.current.value.toString())) {
-	// 		return false;
-	// 	}
-	// 	return true;
-	// }
-
-	// function checkValidTime() {
-	// 	let timeStart = new Date();
-	// 	timeStart.setHours(startTime.current.value.split(":")[0]);
-	// 	timeStart.setMinutes(startTime.current.value.split(":")[1]);
-
-	// 	let timeEnd = new Date();
-	// 	timeEnd.setHours(endTime.current.value.split(":")[0]);
-	// 	timeEnd.setMinutes(endTime.current.value.split(":")[1]);
-
-	// 	if (startTime.current.value === "" || endTime.current.value === "") {
-	// 		return false;
-	// 	}
-	// 	if (timeStart >= timeEnd) {
-	// 		return false;
-	// 	}
-	// 	return true;
-	// }
 
 	function checkValidDateTime() {
 		if (props.getTime && (startTime.current.value === "" || endTime.current.value === "")) {
@@ -105,8 +73,6 @@ function VisitsComponent(props) {
 			const response = await axios.post(props.request + props.itemId, TimePeriod, config);
 			if (response.status === 200) {
 				if (response.data.value != null) {
-					console.log(response.data);
-					// TODO!!!!!
 					setVisits(response.data.value);
 				}
 			}
@@ -210,7 +176,8 @@ function VisitsComponent(props) {
 					<div className="w-100">
 						{/* // TODO language */}
 						<h5>
-							{props.textResult} {visits.days !== null ? visits.result.count / visits.days : visits.result.count}
+							{props.textResult}{" "}
+							{visits.days !== undefined ? visits.result.count / visits.days : visits.result.count}
 						</h5>
 					</div>
 				</div>

@@ -4,9 +4,6 @@ import { Link } from "react-router-dom";
 
 // Import react components
 import ProfileMenu from "../../components/ProfileMenu/ProfileMenu";
-import VisitsPlacementComponent from "../../components/VisitsPlacementComponent/VisitsPlacementComponent";
-import VisitsRoomComponent from "../../components/VisitsRoomComponent/VisitsRoomComponent";
-import AvgVisitsPlacementComponent from "../../components/AvgVisitsPlacementComponent/AvgVisitsPlacementComponent";
 import VisitsComponent from "../../components/VisitsComponent/VisitsComponent";
 
 import axios from "../../api/axios";
@@ -28,25 +25,12 @@ function UserPlacements() {
 	// Variables to store data
 	const [placements, setPlacements] = useState([]);
 
-	// Variables to open new modales
-	const [activePlacementId, setActivePlacementId] = useState(0);
-	const [activeRoomId, setActiveRoomId] = useState(0);
-
+	// Variables to open new modale
 	const [activeItemId, setActiveItemId] = useState(0);
 	const [getTimeModale, setGetTimeModale] = useState(true);
 	const [mainTextModale, setMainTextModale] = useState("");
 	const [requestModale, setRequestModale] = useState("");
 	const [textResultModale, setTextResultModale] = useState("");
-
-	// Placement modal show
-	const [visitsPlacementComponentShow, SetVisitsPlacementComponentShow] = useState(false);
-	const visitsPlacementComponentHandleClose = () => SetVisitsPlacementComponentShow(false);
-	const visitsPlacementComponentHandleShow = () => SetVisitsPlacementComponentShow(true);
-
-	// Room modal show
-	const [visitsRoomComponentShow, SetVisitsRoomComponentShow] = useState(false);
-	const visitsRoomComponentHandleClose = () => SetVisitsRoomComponentShow(false);
-	const visitsRoomComponentHandleShow = () => SetVisitsRoomComponentShow(true);
 
 	// Modal show
 	const [modalComponentShow, SetModalComponentShow] = useState(false);
@@ -171,18 +155,6 @@ function UserPlacements() {
 		}
 	}
 
-	// Show VisitsPlacementComponent modal function
-	function visitsPlacementModelShow(placementId) {
-		setActivePlacementId(placementId);
-		visitsPlacementComponentHandleShow();
-	}
-
-	// Show VisitsRoomComponent modal function
-	function visitsRoomModelShow(roomId) {
-		setActiveRoomId(roomId);
-		visitsRoomComponentHandleShow();
-	}
-
 	// Show VisitsComponent modal function
 	function visitsModelShow(itemId, getTime, mainText, request, textResult) {
 		setActiveItemId(itemId);
@@ -200,15 +172,6 @@ function UserPlacements() {
 			<div className="d-flex border border-dark w-100">
 				<ProfileMenu />
 			</div>
-			{/* Open controller of view to visits of placement */}
-			<Modal size="lg" centered show={visitsPlacementComponentShow} onHide={visitsPlacementComponentHandleClose}>
-				<VisitsPlacementComponent close={visitsPlacementComponentHandleClose} placementId={activePlacementId} />
-			</Modal>
-			{/* Open controller of view to visits of room */}
-			<Modal size="lg" centered show={visitsRoomComponentShow} onHide={visitsRoomComponentHandleClose}>
-				<VisitsRoomComponent close={visitsRoomComponentHandleClose} roomId={activeRoomId} />
-			</Modal>
-			{/* Open controller of view to avg visits of placement */}
 			<Modal size="lg" centered show={modalComponentShow} onHide={modalComponentHandleClose}>
 				<VisitsComponent
 					close={modalComponentHandleClose}
@@ -228,7 +191,17 @@ function UserPlacements() {
 							<div className="mr-auto">Placement name: {e.name}</div>
 							<div className="" align="right">
 								{/* // TODO language */}
-								<Button onClick={() => visitsPlacementModelShow(e.id)} variant="outline-primary">
+								<Button
+									onClick={() =>
+										visitsModelShow(
+											e.id,
+											true,
+											"View visits of placement by period of time",
+											"/Placements/GetNumberOfVisitsPlacementByTimePeriod/placementId:",
+											"Number of people visited placement: "
+										)
+									}
+									variant="outline-primary">
 									View visits of placement by period of time
 								</Button>
 							</div>
@@ -265,7 +238,17 @@ function UserPlacements() {
 
 									<div className="mr-auto">
 										{/* // TODO language */}
-										<Button onClick={() => visitsRoomModelShow(r.id)} variant="outline-primary">
+										<Button
+											onClick={() =>
+												visitsModelShow(
+													r.id,
+													true,
+													"View visits of room by period of time",
+													"/Rooms/GetNumberOfVisitsRoomByTimePeriod/roomId:",
+													"Number of people visited room: "
+												)
+											}
+											variant="outline-primary">
 											View visits of room by period of time
 										</Button>
 									</div>

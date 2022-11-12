@@ -63,19 +63,19 @@ namespace backend.Controllers
         [Authorize]
         public async Task<IActionResult> GetAvgVisitsPlacementByTimePeriod(int id, TimePeriod timePeriod)
         {
-            var numberOfVisitsOfPlacementByTimePeriod = SelectNumberOfVisitsRoomByTimePeriod(id, timePeriod);
+            var result = SelectNumberOfVisitsRoomByTimePeriod(id, timePeriod);
             TimeSpan differenceBetweenDates = timePeriod.EndDateTime - timePeriod.StartDateTime;
             if (differenceBetweenDates.Days == 0)
             {
                 return BadRequest("Difference between dates must be more than one day");
             }
 
-            if (numberOfVisitsOfPlacementByTimePeriod == null)
+            if (result == null)
             {
-                numberOfVisitsOfPlacementByTimePeriod = new VisitsResponse { ItemId = id, Count = 0 };
+                result = new VisitsResponse { ItemId = id, Count = 0 };
             }
            
-            return Ok(new JsonResult(new { numberOfVisitsOfPlacementByTimePeriod, differenceBetweenDates.Days }));
+            return Ok(new JsonResult(new { result, differenceBetweenDates.Days }));
         }
 
         [HttpPost("GetVisitsInRoomsByPlacement/placementId:{id}")]
@@ -101,12 +101,12 @@ namespace backend.Controllers
         [Authorize]
         public async Task<IActionResult> GetNumberOfVisitsRoomByTimePeriod(int id, TimePeriod timePeriod)
         {
-            var numberOfVisitsRoomByTimePeriod = SelectNumberOfVisitsRoomByTimePeriod(id, timePeriod);
-            if (numberOfVisitsRoomByTimePeriod == null)
+            var result = SelectNumberOfVisitsRoomByTimePeriod(id, timePeriod);
+            if (result == null)
             {
-                numberOfVisitsRoomByTimePeriod = new { RoomId = id, Count = 0 };
+                result = new { RoomId = id, Count = 0 };
             }
-            return Ok(new JsonResult(numberOfVisitsRoomByTimePeriod));
+            return Ok(new JsonResult( new { result }));
         }
 
         private object SelectNumberOfVisitsRoomByTimePeriod(int roomId, TimePeriod timePeriod)
