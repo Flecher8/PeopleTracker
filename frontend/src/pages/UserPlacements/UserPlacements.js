@@ -230,13 +230,15 @@ function UserPlacements() {
 						</div>
 						<div className="d-flex flex-column mt-2">
 							{e.rooms.map(r => (
-								<div
-									className="d-flex align-items-center m-2 p-2 border-bottom border-top border-dark"
-									key={r.id}>
-									{/* // TODO language */}
-									<div className="mr-auto">Room name: {r.name}</div>
+								<div className="d-flex flex-column m-2 p-2 border-bottom border-top border-dark" key={r.id}>
+									<div className="d-inline-flex align-items-center">
+										{/* // TODO language */}
+										<div className="mr-auto">Room name: {r.name}</div>
 
-									<div className="mr-auto">
+										{/* // TODO language */}
+										<div className="">Number of people in room: {r.numberOfPeopleInRoom}</div>
+									</div>
+									<div className="d-inline-flex mt-2">
 										{/* // TODO language */}
 										<Button
 											onClick={() =>
@@ -252,8 +254,22 @@ function UserPlacements() {
 											View visits of room by period of time
 										</Button>
 									</div>
-									{/* // TODO language */}
-									<div className="">Number of people in room: {r.numberOfPeopleInRoom}</div>
+									<div className="d-inline-flex mt-2">
+										{/* // TODO language */}
+										<Button
+											onClick={() =>
+												visitsModelShow(
+													r.id,
+													false,
+													"View AVG visits of room by period of time",
+													"/Rooms/GetAvgVisitsRoomByTimePeriod/roomId:",
+													"AVG visits of room by period of time: "
+												)
+											}
+											variant="outline-primary">
+											View AVG visits of room by period of time
+										</Button>
+									</div>
 								</div>
 							))}
 						</div>
