@@ -59,6 +59,25 @@ namespace backend.Controllers
             return Ok(rooms);
         }
 
+        [HttpPost("GetAvgVisitsRoomByTimePeriod/roomId:{id}")]
+        [Authorize]
+        public async Task<IActionResult> GetAvgVisitsPlacementByTimePeriod(int id, TimePeriod timePeriod)
+        {
+            var numberOfVisitsOfPlacementByTimePeriod = SelectNumberOfVisitsRoomByTimePeriod(id, timePeriod);
+            TimeSpan differenceBetweenDates = timePeriod.EndDateTime - timePeriod.StartDateTime;
+            if (differenceBetweenDates.Days == 0)
+            {
+                return BadRequest("Difference between dates must be more than one day");
+            }
+
+            if (numberOfVisitsOfPlacementByTimePeriod == null)
+            {
+                numberOfVisitsOfPlacementByTimePeriod = new VisitsResponse { ItemId = id, Count = 0 };
+            }
+           
+            return Ok(new JsonResult(new { numberOfVisitsOfPlacementByTimePeriod, differenceBetweenDates.Days }));
+        }
+
         [HttpPost("GetVisitsInRoomsByPlacement/placementId:{id}")]
         [Authorize]
         public async Task<IActionResult> GetNumberOfVisitsRoomsByPlacement(int id, TimePeriod timePeriod)
@@ -69,13 +88,6 @@ namespace backend.Controllers
 
         private object SelectNumberOfVisitsRoomsByPlacement(int placementId, TimePeriod timePeriod)
         {
-            //return _context.Actions
-            //    .Where(x => x.PlacementId == placementId)
-            //    .Where(x => x.DateTime >= timePeriod.StartDateTime)
-            //    .Where(x => x.DateTime <= timePeriod.EndDateTime)
-            //    .GroupBy(x => x.RoomInId)
-            //    .Select(g => new { roomId = g.Key, count = g.Count() });
-
             return       from a in _context.Actions
                          join r in _context.Rooms on a.RoomInId equals r.Id
                          where a.DateTime >= timePeriod.StartDateTime

@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using backend.Data;
+﻿using backend.Data;
 using backend.Model;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Data;
 
 namespace backend.Controllers
@@ -62,18 +57,18 @@ namespace backend.Controllers
         [Authorize]
         public async Task<IActionResult> GetAvgVisitsPlacementByTimePeriod(int id, TimePeriod timePeriod)
         {
-            var numberOfVisitsOfPlacementByTimePeriod = SelectNumberOfPeopleVisitedPlacementByTimePeriod(id, timePeriod);
-            if (numberOfVisitsOfPlacementByTimePeriod == null)
-            {
-                numberOfVisitsOfPlacementByTimePeriod = new VisitsResponse { ItemId = id, Count = 0 };
-                return Ok(numberOfVisitsOfPlacementByTimePeriod);
-            }
+            var result = SelectNumberOfPeopleVisitedPlacementByTimePeriod(id, timePeriod);
             TimeSpan differenceBetweenDates = timePeriod.EndDateTime - timePeriod.StartDateTime;
-            if(differenceBetweenDates.Days == 0)
+            if (differenceBetweenDates.Days == 0)
             {
                 return BadRequest("Difference between dates must be more than one day");
             }
-            return Ok(new JsonResult(new { numberOfVisitsOfPlacementByTimePeriod, differenceBetweenDates.Days }));
+            if (result == null)
+            {
+                result = new VisitsResponse { ItemId = id, Count = 0 };
+            }
+           
+            return Ok(new JsonResult(new { result, differenceBetweenDates.Days }));
         }
 
         [HttpPost("GetNumberOfVisitsPlacementByTimePeriod/placementId:{id}")]

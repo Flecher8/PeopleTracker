@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import ProfileMenu from "../../components/ProfileMenu/ProfileMenu";
 import VisitsPlacementComponent from "../../components/VisitsPlacementComponent/VisitsPlacementComponent";
 import VisitsRoomComponent from "../../components/VisitsRoomComponent/VisitsRoomComponent";
+import AvgVisitsPlacementComponent from "../../components/AvgVisitsPlacementComponent/AvgVisitsPlacementComponent";
+import VisitsComponent from "../../components/VisitsComponent/VisitsComponent";
 
 import axios from "../../api/axios";
 
@@ -30,6 +32,12 @@ function UserPlacements() {
 	const [activePlacementId, setActivePlacementId] = useState(0);
 	const [activeRoomId, setActiveRoomId] = useState(0);
 
+	const [activeItemId, setActiveItemId] = useState(0);
+	const [getTimeModale, setGetTimeModale] = useState(true);
+	const [mainTextModale, setMainTextModale] = useState("");
+	const [requestModale, setRequestModale] = useState("");
+	const [textResultModale, setTextResultModale] = useState("");
+
 	// Placement modal show
 	const [visitsPlacementComponentShow, SetVisitsPlacementComponentShow] = useState(false);
 	const visitsPlacementComponentHandleClose = () => SetVisitsPlacementComponentShow(false);
@@ -39,6 +47,11 @@ function UserPlacements() {
 	const [visitsRoomComponentShow, SetVisitsRoomComponentShow] = useState(false);
 	const visitsRoomComponentHandleClose = () => SetVisitsRoomComponentShow(false);
 	const visitsRoomComponentHandleShow = () => SetVisitsRoomComponentShow(true);
+
+	// Modal show
+	const [modalComponentShow, SetModalComponentShow] = useState(false);
+	const modalComponentHandleClose = () => SetModalComponentShow(false);
+	const modalComponentHandleShow = () => SetModalComponentShow(true);
 
 	useEffect(() => {
 		getUserPlacements();
@@ -170,6 +183,16 @@ function UserPlacements() {
 		visitsRoomComponentHandleShow();
 	}
 
+	// Show VisitsComponent modal function
+	function visitsModelShow(itemId, getTime, mainText, request, textResult) {
+		setActiveItemId(itemId);
+		setGetTimeModale(getTime);
+		setMainTextModale(mainText);
+		setRequestModale(request);
+		setTextResultModale(textResult);
+		modalComponentHandleShow();
+	}
+
 	return (
 		<div className="container">
 			{/* // TODO language */}
@@ -184,6 +207,17 @@ function UserPlacements() {
 			{/* Open controller of view to visits of room */}
 			<Modal size="lg" centered show={visitsRoomComponentShow} onHide={visitsRoomComponentHandleClose}>
 				<VisitsRoomComponent close={visitsRoomComponentHandleClose} roomId={activeRoomId} />
+			</Modal>
+			{/* Open controller of view to avg visits of placement */}
+			<Modal size="lg" centered show={modalComponentShow} onHide={modalComponentHandleClose}>
+				<VisitsComponent
+					close={modalComponentHandleClose}
+					itemId={activeItemId}
+					getTime={getTimeModale}
+					mainText={mainTextModale}
+					request={requestModale}
+					textResult={textResultModale}
+				/>
 			</Modal>
 			<div className="mt-3 border border-dark">
 				{placements.map(e => (
@@ -204,6 +238,22 @@ function UserPlacements() {
 						</div>
 						<div className="d-inline-flex align-items-center m-2">
 							Less visited rooms by all time: {e.lessVisitedPlacements}
+						</div>
+						<div className="d-inline-flex align-items-center m-2">
+							{/* // TODO language */}
+							<Button
+								onClick={() =>
+									visitsModelShow(
+										e.id,
+										false,
+										"View AVG visits of placement by period of time",
+										"/Placements/GetAvgVisitsPlacementByTimePeriod/placementId:",
+										"AVG visits of placement by period of time: "
+									)
+								}
+								variant="outline-primary">
+								View AVG visits of placement by period of time
+							</Button>
 						</div>
 						<div className="d-flex flex-column mt-2">
 							{e.rooms.map(r => (
