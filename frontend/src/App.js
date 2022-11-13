@@ -7,6 +7,7 @@ import AdminPanelPlacements from "./pages/AdminPanelPlacements/AdminPanelPlaceme
 import Main from "./pages/Main/Main";
 import Registration from "./pages/Registration/Registration";
 import UserPlacements from "./pages/UserPlacements/UserPlacements";
+import AdminPanelRooms from "./pages/AdminPanelRooms/AdminPanelRooms";
 
 function App() {
 	return (
@@ -18,6 +19,7 @@ function App() {
 				<Route path="/UserProfile" element={<UserProfile />} />
 				<Route path="/UserPlacements" element={<UserPlacements />} />
 				<Route path="/AdminPanelPlacements" element={<AdminPanelPlacements />} />
+				<Route path="/AdminPanelRooms" element={<AdminPanelRooms />} />
 				<Route path="/Registration" element={<Registration />} />
 				{/* Default Router */}
 				<Route path="/" element={<Navigate to="/Main" />} />
