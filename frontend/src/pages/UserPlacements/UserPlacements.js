@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 // Import react components
 import ProfileMenu from "../../components/ProfileMenu/ProfileMenu";
 import VisitsComponent from "../../components/VisitsComponent/VisitsComponent";
+import VisitsChartComponent from "../../components/VisitsChartComponent/VisitsChartComponent";
 
 import axios from "../../api/axios";
 
@@ -17,7 +18,7 @@ function UserPlacements() {
 		headers: { Authorization: `Bearer ${localStorage["PeopleTracker-userToken"]}` }
 	};
 
-	// Variables to work with data
+	// Variables to work with date
 	const minDataSting = "2022-01-01";
 	const minDate = new Date(minDataSting).toISOString().split("T")[0];
 	const maxDate = new Date().toISOString().split("T")[0];
@@ -36,6 +37,11 @@ function UserPlacements() {
 	const [modalComponentShow, SetModalComponentShow] = useState(false);
 	const modalComponentHandleClose = () => SetModalComponentShow(false);
 	const modalComponentHandleShow = () => SetModalComponentShow(true);
+
+	// Chart modal show
+	const [chartModalComponentShow, SetChartModalComponentShow] = useState(false);
+	const chartModalComponentHandleClose = () => SetChartModalComponentShow(false);
+	const chartModalComponentHandleShow = () => SetChartModalComponentShow(true);
 
 	useEffect(() => {
 		getUserPlacements();
@@ -165,6 +171,14 @@ function UserPlacements() {
 		modalComponentHandleShow();
 	}
 
+	// Show VisitsComponent modal function
+	function chartModelShow(itemId, mainText, request) {
+		setActiveItemId(itemId);
+		setMainTextModale(mainText);
+		setRequestModale(request);
+		chartModalComponentHandleShow();
+	}
+
 	return (
 		<div className="container">
 			{/* // TODO language */}
@@ -172,6 +186,7 @@ function UserPlacements() {
 			<div className="d-flex border border-dark w-100">
 				<ProfileMenu />
 			</div>
+			{/*  */}
 			<Modal size="lg" centered show={modalComponentShow} onHide={modalComponentHandleClose}>
 				<VisitsComponent
 					close={modalComponentHandleClose}
@@ -180,6 +195,15 @@ function UserPlacements() {
 					mainText={mainTextModale}
 					request={requestModale}
 					textResult={textResultModale}
+				/>
+			</Modal>
+			{/*  */}
+			<Modal size="lg" centered show={chartModalComponentShow} onHide={chartModalComponentHandleClose}>
+				<VisitsChartComponent
+					close={chartModalComponentHandleClose}
+					itemId={activeItemId}
+					mainText={mainTextModale}
+					request={requestModale}
 				/>
 			</Modal>
 			<div className="mt-3 border border-dark">
@@ -226,6 +250,20 @@ function UserPlacements() {
 								}
 								variant="outline-primary">
 								View AVG visits of placement by period of time
+							</Button>
+						</div>
+						<div className="d-inline-flex align-items-center m-2">
+							{/* // TODO language */}
+							<Button
+								onClick={() =>
+									chartModelShow(
+										e.id,
+										"View diagram of visits by 12-hours",
+										"/Placements/GetNumberOfPeopleVisitedPlacementByDayInHours/placementId:"
+									)
+								}
+								variant="outline-primary">
+								View diagram of visits by 12-hours
 							</Button>
 						</div>
 						<div className="d-flex flex-column mt-2">

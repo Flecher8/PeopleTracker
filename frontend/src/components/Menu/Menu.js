@@ -18,7 +18,7 @@ function Menu() {
 			if (localStorage.getItem("PeopleTracker-userType") === "Admin") {
 				// TODO language
 				return (
-					<Link to="/AdminPanel" className="text-decoration-none text-reset">
+					<Link to="/AdminPanelPlacements" className="text-decoration-none text-reset">
 						<Button className="btn btn-dark border border-white w-100">Admin Panel</Button>
 					</Link>
 				);

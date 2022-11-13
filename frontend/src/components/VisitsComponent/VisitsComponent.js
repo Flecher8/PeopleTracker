@@ -18,7 +18,7 @@ function VisitsComponent(props) {
 	const config = {
 		headers: { Authorization: `Bearer ${localStorage["PeopleTracker-userToken"]}` }
 	};
-	// -----------------------------
+
 	function getDateTime(date, time = "00:00") {
 		return date.toString() + "T" + time.toString();
 	}
@@ -54,7 +54,7 @@ function VisitsComponent(props) {
 		}
 		return true;
 	}
-	// -----------------------------
+
 	async function getData() {
 		let TimePeriod;
 

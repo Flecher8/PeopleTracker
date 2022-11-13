@@ -53,6 +53,34 @@ namespace backend.Controllers
             return Ok(placements);
         }
 
+        [HttpPost("GetNumberOfPeopleVisitedPlacementByDayInHours/placementId:{id}")]
+        [Authorize]
+        public async Task<IActionResult> GetNumberOfPeopleVisitedPlacementByDayInHours(int id, TimePeriod timePeriod)
+        {
+            Dictionary<string, object> result = new Dictionary<string, object>();
+            int addFirstStartPeriodTime = 8;
+            int addSecondStartPeriodTime = 9;
+            const int numberOfHoursToFind = 12;
+            
+            for(int i = 0; i < numberOfHoursToFind; i++)
+            {
+                DateTime date1 = timePeriod.StartDateTime.AddHours(addFirstStartPeriodTime);
+                DateTime date2 = timePeriod.StartDateTime.AddHours(addSecondStartPeriodTime);
+                addFirstStartPeriodTime++;
+                addSecondStartPeriodTime++;
+
+                string key = date1.ToString("HH") + "-" + date2.ToString("HH");
+                TimePeriod newTimePeriod = new TimePeriod();
+                newTimePeriod.StartDateTime = date1;
+                newTimePeriod.EndDateTime = date2.AddSeconds(-1);
+                object value = SelectNumberOfPeopleVisitedPlacementByTimePeriod(id, newTimePeriod);
+
+                result.Add(key, value);
+            }
+
+            return Ok(new JsonResult(result));
+        }
+
         [HttpPost("GetAvgVisitsPlacementByTimePeriod/placementId:{id}")]
         [Authorize]
         public async Task<IActionResult> GetAvgVisitsPlacementByTimePeriod(int id, TimePeriod timePeriod)

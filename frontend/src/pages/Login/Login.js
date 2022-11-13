@@ -27,7 +27,12 @@ function Login() {
 				localStorage.setItem("PeopleTracker-userId", response.data.userId);
 				localStorage.setItem("PeopleTracker-userType", response.data.userType);
 				localStorage.setItem("PeopleTracker-userToken", response.data.token);
-				window.location.href = "/UserProfile";
+				if (localStorage.getItem("PeopleTracker-userType") === "User") {
+					window.location.href = "/UserProfile";
+				}
+				if (localStorage.getItem("PeopleTracker-userType") === "Admin") {
+					window.location.href = "/AdminPanelPlacements";
+				}
 			}
 		} catch (err) {
 			// errors that expected from back {/* // TODO language  */}
