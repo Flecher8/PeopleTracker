@@ -3,7 +3,7 @@ import { Button, InputGroup, FormControl, Table, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 import AdminMenu from "../../components/AdminMenu/AdminMenu";
-import ChangePlacementComponent from "../../components/ChangePlacementComponent/ChangePlacementComponent";
+import ChangeSmartDeviceComponent from "../../components/ChangeSmartDeviceComponent/ChangeSmartDeviceComponent";
 
 import axios from "../../api/axios";
 
@@ -100,7 +100,7 @@ function AdminPanelSmartDevices() {
 				</Button>
 			</div>
 			<Modal size="lg" centered show={changeItemModelShow} onHide={changeItemModelHandleClose}>
-				<ChangePlacementComponent
+				<ChangeSmartDeviceComponent
 					close={changeItemModelHandleClose}
 					smartDevice={smartDevice}
 					method={modaleMethod}

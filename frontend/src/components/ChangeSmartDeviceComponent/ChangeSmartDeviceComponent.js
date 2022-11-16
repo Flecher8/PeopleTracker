@@ -6,11 +6,10 @@ import AdminMenu from "../../components/AdminMenu/AdminMenu";
 
 import axios from "../../api/axios";
 
-function ChangePlacementComponent(props) {
-	// TODO X
-	const numberOfRooms = useRef(0);
+function ChangeSmartDeviceComponent(props) {
+	const numberOfSensors = useRef(0);
 	const userId = useRef(0);
-	const name = useRef("");
+	const placementId = useRef(0);
 
 	const config = {
 		headers: { Authorization: `Bearer ${localStorage["PeopleTracker-userToken"]}` }
@@ -19,38 +18,38 @@ function ChangePlacementComponent(props) {
 	useEffect(() => {
 		setNewValue();
 	}, []);
-	// TODO X
+
 	function setNewValue() {
-		numberOfRooms.current.value = props.placement.numberOfRooms;
-		userId.current.value = props.placement.userId;
-		name.current.value = props.placement.name;
+		numberOfSensors.current.value = props.smartDevice.numberOfSensors;
+		userId.current.value = props.smartDevice.userId;
+		placementId.current.value = props.smartDevice.placementId;
 	}
-	// TODO X
+
 	function createNewPlacement(method) {
 		if (method === "POST") {
-			let placement = {
+			let smartDevice = {
 				userId: Number(userId.current.value),
-				name: name.current.value,
-				numberOfRooms: Number(numberOfRooms.current.value)
+				placementId: placementId.current.value,
+				numberOfSensors: Number(numberOfSensors.current.value)
 			};
-			return placement;
+			return smartDevice;
 		}
 		if (method === "PUT") {
-			let placement = {
-				id: props.placement.id,
+			let smartDevice = {
+				id: props.smartDevice.id,
 				userId: Number(userId.current.value),
-				name: name.current.value,
-				numberOfRooms: Number(numberOfRooms.current.value)
+				placementId: placementId.current.value,
+				numberOfSensors: Number(numberOfSensors.current.value)
 			};
-			return placement;
+			return smartDevice;
 		}
 		return null;
 	}
-	// TODO X
-	async function changePlacements() {
+
+	async function changeSmartDevices() {
 		try {
 			if (props.method === "POST") {
-				const response = await axios.post("/Placements/", createNewPlacement(props.method), config);
+				const response = await axios.post("/SmartDevice/", createNewPlacement(props.method), config);
 				if (response.status === 201) {
 					props.close();
 					window.location.reload();
@@ -58,7 +57,7 @@ function ChangePlacementComponent(props) {
 			}
 			if (props.method === "PUT") {
 				const response = await axios.put(
-					"/Placements/" + props.placement.id,
+					"/SmartDevice/" + props.smartDevice.id,
 					createNewPlacement(props.method),
 					config
 				);
@@ -80,7 +79,7 @@ function ChangePlacementComponent(props) {
 	};
 
 	const submit = async e => {
-		await changePlacements();
+		await changeSmartDevices();
 	};
 
 	return (
@@ -94,7 +93,6 @@ function ChangePlacementComponent(props) {
 				<h5>{props.text}</h5>
 			</div>
 			<div className="d-inline-flex justify-content-center w-100">
-				{/* // TODO language */}
 				{/* // TODO language */}
 				<div className="w-25">UserId:</div>
 				<InputGroup className="mb-3">
@@ -110,28 +108,28 @@ function ChangePlacementComponent(props) {
 			</div>
 			<div className="d-inline-flex justify-content-center w-100">
 				{/* // TODO language */}
-				<div className="w-25">Name:</div>
+				<div className="w-25">PlacementId:</div>
 				<InputGroup className="mb-3">
 					<FormControl
 						aria-label="Default"
 						placeholder="Name"
-						type="text"
+						type="number"
 						size="sm"
-						ref={name}
+						ref={placementId}
 						aria-describedby="inputGroup-sizing-default"
 					/>
 				</InputGroup>
 			</div>
 			<div className="d-inline-flex justify-content-center w-100">
 				{/* // TODO language */}
-				<div className="w-25">Number Of Rooms</div>
+				<div className="w-25">Number of sensors:</div>
 				<InputGroup className="mb-3">
 					<FormControl
 						aria-label="Default"
 						placeholder="12"
 						type="number"
 						size="sm"
-						ref={numberOfRooms}
+						ref={numberOfSensors}
 						aria-describedby="inputGroup-sizing-default"
 					/>
 				</InputGroup>
@@ -145,4 +143,4 @@ function ChangePlacementComponent(props) {
 	);
 }
 
-export default ChangePlacementComponent;
+export default ChangeSmartDeviceComponent;
