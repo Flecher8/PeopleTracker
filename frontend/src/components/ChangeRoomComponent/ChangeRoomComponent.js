@@ -7,8 +7,8 @@ import AdminMenu from "../../components/AdminMenu/AdminMenu";
 import axios from "../../api/axios";
 
 function ChangeRoomComponent(props) {
-	const placementId = useRef(0);
-	const name = useRef("");
+	const placementId = useRef();
+	const name = useRef();
 	const numberOfPeopleInRoom = useRef(0);
 	const [isExit, setIsExit] = useState("");
 
@@ -17,15 +17,13 @@ function ChangeRoomComponent(props) {
 	};
 
 	useEffect(() => {
+		placementId.current.value = props.room.placementId;
+		name.current.value = props.room.name;
 		setNewValue();
 	}, []);
 
 	function setNewValue() {
-		placementId.current.value = props.room.placementId;
-		name.current.value = props.room.name;
-		numberOfPeopleInRoom.current.value = props.room.numberOfPeopleInRoom;
 		setIsExit(props.room.isExit);
-		console.log(isExit);
 	}
 
 	function createNewRoom(method) {
@@ -33,8 +31,8 @@ function ChangeRoomComponent(props) {
 			let room = {
 				placementId: Number(placementId.current.value),
 				name: name.current.value,
-				numberOfPeopleInRoom: Number(numberOfPeopleInRoom.current.value),
-				isExit: isExit
+				numberOfPeopleInRoom: Number(0),
+				isExit: isExit === "true" ? true : false
 			};
 			return room;
 		}
@@ -43,8 +41,8 @@ function ChangeRoomComponent(props) {
 				id: props.room.id,
 				placementId: Number(placementId.current.value),
 				name: name.current.value,
-				numberOfPeopleInRoom: Number(numberOfPeopleInRoom.current.value),
-				isExit: isExit
+				numberOfPeopleInRoom: Number(0),
+				isExit: isExit === "true" ? true : false
 			};
 			return room;
 		}
@@ -80,6 +78,7 @@ function ChangeRoomComponent(props) {
 	};
 
 	const submit = async e => {
+		//console.log(createNewRoom("POST"));
 		await changeRooms();
 	};
 

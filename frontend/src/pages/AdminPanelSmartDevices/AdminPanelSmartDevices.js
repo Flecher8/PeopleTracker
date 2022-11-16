@@ -7,10 +7,9 @@ import ChangePlacementComponent from "../../components/ChangePlacementComponent/
 
 import axios from "../../api/axios";
 
-function AdminPanelPlacements() {
-	// TODO X
-	const [placements, setPlacements] = useState([]);
-	const [placement, setPlacement] = useState([]);
+function AdminPanelSmartDevices() {
+	const [smartDevices, setSmartDevices] = useState([]);
+	const [smartDevice, setSmartDevice] = useState([]);
 
 	// Modale data
 	const [modaleMethod, setModaleMethod] = useState([]);
@@ -26,19 +25,18 @@ function AdminPanelPlacements() {
 	const changeItemModelHandleShow = () => SetchangeItemModelShow(true);
 
 	useEffect(() => {
-		// TODO X
-		getPlacements();
+		getSmartDevices();
 	}, []);
 
 	const config = {
 		headers: { Authorization: `Bearer ${localStorage["PeopleTracker-userToken"]}` }
 	};
-	// TODO X
-	async function getPlacements() {
+
+	async function getSmartDevices() {
 		try {
-			const response = await axios.get("/Placements/", config);
+			const response = await axios.get("/SmartDevices/", config);
 			if (response.status === 200) {
-				setPlacements(response.data);
+				setSmartDevices(response.data);
 			}
 		} catch (err) {
 			// errors that expected from back
@@ -47,26 +45,26 @@ function AdminPanelPlacements() {
 			// TODO language
 		}
 	}
-	// TODO X
+
 	// Show edit modal function
-	function editModalShow(placement) {
+	function editModalShow(smartDevice) {
 		changeItemModelHandleShow();
 		setModaleText(modaleTextPut);
 		setModaleMethod(modaleMethodPut);
-		setPlacement({
-			id: placement.id,
-			userId: placement.userId,
-			name: placement.name,
-			numberOfRooms: placement.numberOfRooms
+		setSmartDevice({
+			id: smartDevice.id,
+			userId: smartDevice.userId,
+			placementId: smartDevice.placementId,
+			numberOfSensors: smartDevice.numberOfSensors
 		});
 	}
-	// TODO X
+
 	// Delete item function
 	async function deleteClick(id) {
 		// TODO language
 		if (window.confirm("Are you sure?")) {
 			try {
-				const response = await axios.delete("/Placements/" + id, config);
+				const response = await axios.delete("/SmartDevices/" + id, config);
 				document.location.reload();
 			} catch (err) {
 				// errors that expected from back
@@ -75,39 +73,36 @@ function AdminPanelPlacements() {
 			}
 		}
 	}
-	// TODO X
+
 	// Show add modal function
 	function addModalShow() {
 		changeItemModelHandleShow();
 		setModaleText(modaleTextPost);
 		setModaleMethod(modaleMethodPost);
-		setPlacement({
+		setSmartDevice({
 			userId: 0,
-			name: "",
-			numberOfRooms: 0
+			placementId: 0,
+			numberOfSensors: 0
 		});
 	}
 
 	return (
 		<div className="container">
 			{/* // TODO language */}
-			{/* // TODO X */}
-			<div className="d-flex justify-content-center display-4">Placements</div>
+			<div className="d-flex justify-content-center display-4">Smart Devices</div>
 			<div className="d-flex border border-dark w-100">
 				<AdminMenu />
 			</div>
 			<div className="container mt-5" align="right">
 				{/* // TODO language */}
 				<Button onClick={() => addModalShow()} variant="outline-primary">
-					{/* // TODO X */}
-					Create new placement
+					Create new smart device
 				</Button>
 			</div>
 			<Modal size="lg" centered show={changeItemModelShow} onHide={changeItemModelHandleClose}>
-				{/* // TODO X */}
 				<ChangePlacementComponent
 					close={changeItemModelHandleClose}
-					placement={placement}
+					smartDevice={smartDevice}
 					method={modaleMethod}
 					text={modaleText}
 				/>
@@ -115,24 +110,22 @@ function AdminPanelPlacements() {
 			<div className="mt-5">
 				<Table className="table table-striped auto__table text-center" striped bordered hover size="lg">
 					{/* // TODO language */}
-					{/* // TODO X */}
 					<thead>
 						<tr>
 							<th>Id</th>
 							<th>User Id</th>
-							<th>Name</th>
-							<th>Number of rooms</th>
+							<th>Placement Id</th>
+							<th>Number of sensors</th>
 							<th></th>
 						</tr>
 					</thead>
 					<tbody>
-						{/* // TODO X */}
-						{placements.map(e => (
+						{smartDevices.map(e => (
 							<tr key={e.id}>
 								<td>{e.id}</td>
 								<td>{e.userId}</td>
-								<td>{e.name}</td>
-								<td>{e.numberOfRooms}</td>
+								<td>{e.placementId}</td>
+								<td>{e.numberOfSensors}</td>
 								<td>
 									{/* // TODO language */}
 									<Button onClick={() => editModalShow(e)} variant="outline-dark">
@@ -152,4 +145,4 @@ function AdminPanelPlacements() {
 	);
 }
 
-export default AdminPanelPlacements;
+export default AdminPanelSmartDevices;

@@ -31,14 +31,14 @@ function AdminMenu() {
 				</div>
 				<div className="">
 					{/* // TODO language  */}
-					<Link to="/" className="text-decoration-none text-reset">
+					<Link to="/AdminPanelSmartDevices" className="text-decoration-none text-reset">
 						<Button className="btn btn-dark border border-white">Smart Device</Button>
 					</Link>
 				</div>
 
 				<div className="mr-auto">
 					{/* // TODO language  */}
-					<Link to="/" className="text-decoration-none text-reset">
+					<Link to="/AdminPanelSensors" className="text-decoration-none text-reset">
 						<Button className="btn btn-dark border border-white">Sensors</Button>
 					</Link>
 				</div>

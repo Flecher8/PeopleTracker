@@ -115,6 +115,7 @@ function AdminPanelRooms() {
 					{/* // TODO X */}
 					<thead>
 						<tr>
+							<th>Id</th>
 							<th>PlacementId</th>
 							<th>Name</th>
 							<th>NumberOfPeopleInRoom</th>
@@ -126,6 +127,7 @@ function AdminPanelRooms() {
 						{/* // TODO X */}
 						{rooms.map(e => (
 							<tr key={e.id}>
+								<td>{e.id}</td>
 								<td>{e.placementId}</td>
 								<td>{e.name}</td>
 								<td>{e.numberOfPeopleInRoom}</td>

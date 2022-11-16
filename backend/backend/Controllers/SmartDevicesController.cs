@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using backend.Data;
+using backend.Model;
 
 namespace backend.Controllers
 {
@@ -106,10 +107,23 @@ namespace backend.Controllers
         [HttpPost]
         public async Task<ActionResult<SmartDevice>> PostSmartDevice(SmartDevice smartDevice)
         {
+            if (!placementExists(smartDevice.PlacementId))
+            {
+                return BadRequest("There are no placement with id: " + smartDevice.PlacementId);
+            }
             _context.SmartDevices.Add(smartDevice);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetSmartDevice", new { id = smartDevice.Id }, smartDevice);
+        }
+
+        private bool placementExists(int placementId)
+        {
+            if (_context.Placements.Where(pl => pl.Id == placementId).Any())
+            {
+                return true;
+            }
+            return false;
         }
 
         // DELETE: api/SmartDevices/5

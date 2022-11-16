@@ -9,6 +9,7 @@ import Registration from "./pages/Registration/Registration";
 import UserPlacements from "./pages/UserPlacements/UserPlacements";
 import UserSmartDevice from "./pages/UserSmartDevice/UserSmartDevice";
 import AdminPanelRooms from "./pages/AdminPanelRooms/AdminPanelRooms";
+import AdminPanelSmartDevices from "./pages/AdminPanelSmartDevices/AdminPanelSmartDevices";
 
 function App() {
 	return (
@@ -22,6 +23,7 @@ function App() {
 				<Route path="/UserSmartDevice" element={<UserSmartDevice />} />
 				<Route path="/AdminPanelPlacements" element={<AdminPanelPlacements />} />
 				<Route path="/AdminPanelRooms" element={<AdminPanelRooms />} />
+				<Route path="/AdminPanelSmartDevices" element={<AdminPanelSmartDevices />} />
 				<Route path="/Registration" element={<Registration />} />
 				{/* Default Router */}
 				<Route path="/" element={<Navigate to="/Main" />} />
