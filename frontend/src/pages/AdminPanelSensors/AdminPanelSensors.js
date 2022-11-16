@@ -6,6 +6,7 @@ import AdminMenu from "../../components/AdminMenu/AdminMenu";
 import ChangeSensorComponent from "../../components/ChangeSensorComponent/ChangeSensorComponent";
 
 import axios from "../../api/axios";
+import text from "../../services/localizationService";
 import { config } from "../../services/configeService";
 
 function AdminPanelSensors() {
@@ -37,9 +38,7 @@ function AdminPanelSensors() {
 			}
 		} catch (err) {
 			// errors that expected from back
-			alert(err.response.data);
-
-			// TODO language
+			alert(text(err.response.data));
 		}
 	}
 
@@ -62,15 +61,13 @@ function AdminPanelSensors() {
 
 	// Delete item function
 	async function deleteClick(id) {
-		// TODO language
-		if (window.confirm("Are you sure?")) {
+		if (window.confirm(text("Are you sure?"))) {
 			try {
 				const response = await axios.delete("/Sensors/" + id, config);
 				document.location.reload();
 			} catch (err) {
 				// errors that expected from back
-				alert(err.response.data);
-				// TODO language
+				alert(text(err.response.data));
 			}
 		}
 	}
@@ -93,19 +90,16 @@ function AdminPanelSensors() {
 
 	return (
 		<div className="container">
-			{/* // TODO language */}
-			<div className="d-flex justify-content-center display-4">Sensors</div>
+			<div className="d-flex justify-content-center display-4">{text("Sensors")}</div>
 			<div className="d-flex border border-dark w-100">
 				<AdminMenu />
 			</div>
 			<div className="container mt-5" align="right">
-				{/* // TODO language */}
 				<Button onClick={() => addModalShow()} variant="outline-primary">
-					Create new sensor
+					{text("Create new sensor")}
 				</Button>
 			</div>
 			<Modal size="lg" centered show={changeItemModelShow} onHide={changeItemModelHandleClose}>
-				{/* // TODO X */}
 				<ChangeSensorComponent
 					close={changeItemModelHandleClose}
 					sensor={sensor}
@@ -118,14 +112,14 @@ function AdminPanelSensors() {
 					{/* // TODO language */}
 					<thead>
 						<tr>
-							<th>Id</th>
-							<th>Smart Device Id</th>
-							<th>Left Sensor Id</th>
-							<th>Right Sensor Id</th>
-							<th>Left Room Id</th>
-							<th>Right Room Id</th>
-							<th>Pin Number</th>
-							<th>Name</th>
+							<th>{text("Id")}</th>
+							<th>{text("Smart Device Id")}</th>
+							<th>{text("Left Sensor Id")}</th>
+							<th>{text("Right Sensor Id")}</th>
+							<th>{text("Left Room Id")}</th>
+							<th>{text("Right Room Id")}</th>
+							<th>{text("Pin Number")}</th>
+							<th>{text("Name")}</th>
 							<th></th>
 						</tr>
 					</thead>
@@ -143,11 +137,11 @@ function AdminPanelSensors() {
 								<td>
 									{/* // TODO language */}
 									<Button onClick={() => editModalShow(e)} variant="outline-dark">
-										Edit
+										{text("Edit")}
 									</Button>
 									{/* // TODO language */}
 									<Button onClick={() => deleteClick(e.id)} variant="outline-danger">
-										Delete
+										{text("Delete")}
 									</Button>
 								</td>
 							</tr>

@@ -6,6 +6,7 @@ import AdminMenu from "../../components/AdminMenu/AdminMenu";
 import ChangeSmartDeviceComponent from "../../components/ChangeSmartDeviceComponent/ChangeSmartDeviceComponent";
 
 import axios from "../../api/axios";
+import text from "../../services/localizationService";
 import { config } from "../../services/configeService";
 
 function AdminPanelSmartDevices() {
@@ -37,9 +38,7 @@ function AdminPanelSmartDevices() {
 			}
 		} catch (err) {
 			// errors that expected from back
-			alert(err.response.data);
-
-			// TODO language
+			alert(text(err.response.data));
 		}
 	}
 
@@ -58,15 +57,13 @@ function AdminPanelSmartDevices() {
 
 	// Delete item function
 	async function deleteClick(id) {
-		// TODO language
-		if (window.confirm("Are you sure?")) {
+		if (window.confirm(text("Are you sure?"))) {
 			try {
 				const response = await axios.delete("/SmartDevices/" + id, config);
 				document.location.reload();
 			} catch (err) {
 				// errors that expected from back
-				alert(err.response.data);
-				// TODO language
+				alert(text(err.response.data));
 			}
 		}
 	}
@@ -85,15 +82,13 @@ function AdminPanelSmartDevices() {
 
 	return (
 		<div className="container">
-			{/* // TODO language */}
-			<div className="d-flex justify-content-center display-4">Smart Devices</div>
+			<div className="d-flex justify-content-center display-4">{text("Smart Devices")}</div>
 			<div className="d-flex border border-dark w-100">
 				<AdminMenu />
 			</div>
 			<div className="container mt-5" align="right">
-				{/* // TODO language */}
 				<Button onClick={() => addModalShow()} variant="outline-primary">
-					Create new smart device
+					{text("Create new smart device")}
 				</Button>
 			</div>
 			<Modal size="lg" centered show={changeItemModelShow} onHide={changeItemModelHandleClose}>
@@ -106,13 +101,12 @@ function AdminPanelSmartDevices() {
 			</Modal>
 			<div className="mt-5">
 				<Table className="table table-striped auto__table text-center" striped bordered hover size="lg">
-					{/* // TODO language */}
 					<thead>
 						<tr>
-							<th>Id</th>
-							<th>User Id</th>
-							<th>Placement Id</th>
-							<th>Number of sensors</th>
+							<th>{text("Id")}</th>
+							<th>{text("User Id")}</th>
+							<th>{text("Placement Id")}</th>
+							<th>{text("Number of sensors")}</th>
 							<th></th>
 						</tr>
 					</thead>
@@ -124,13 +118,11 @@ function AdminPanelSmartDevices() {
 								<td>{e.placementId}</td>
 								<td>{e.numberOfSensors}</td>
 								<td>
-									{/* // TODO language */}
 									<Button onClick={() => editModalShow(e)} variant="outline-dark">
-										Edit
+										{text("Edit")}
 									</Button>
-									{/* // TODO language */}
 									<Button onClick={() => deleteClick(e.id)} variant="outline-danger">
-										Delete
+										{text("Delete")}
 									</Button>
 								</td>
 							</tr>

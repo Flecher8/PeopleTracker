@@ -117,28 +117,115 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Admin Panel" xml:space="preserve">
+    <value>Admin Panel</value>
+  </data>
+  <data name="Are you sure?" xml:space="preserve">
+    <value>Are you sure?</value>
+  </data>
   <data name="Contacts" xml:space="preserve">
     <value>Contacts</value>
+  </data>
+  <data name="Create new placement" xml:space="preserve">
+    <value>Create new placement</value>
+  </data>
+  <data name="Create new room" xml:space="preserve">
+    <value>Create new room</value>
+  </data>
+  <data name="Create new sensor" xml:space="preserve">
+    <value>Create new sensor</value>
+  </data>
+  <data name="Create new smart device" xml:space="preserve">
+    <value>Create new smart device</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
   </data>
   <data name="Developers" xml:space="preserve">
     <value>Developers</value>
   </data>
-  <data name="English" xml:space="preserve">
-    <value>English</value>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Id" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="Is exit" xml:space="preserve">
+    <value>Is exit</value>
+  </data>
+  <data name="Left Room Id" xml:space="preserve">
+    <value>Left Room Id</value>
+  </data>
+  <data name="Left Sensor Id" xml:space="preserve">
+    <value>Left Sensor Id</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>Login</value>
   </data>
+  <data name="Login failed" xml:space="preserve">
+    <value>Login failed</value>
+  </data>
+  <data name="Main" xml:space="preserve">
+    <value>Main</value>
+  </data>
+  <data name="Missing Password or Login" xml:space="preserve">
+    <value>Missing Password or Login</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Number of people in room" xml:space="preserve">
+    <value>Number of people in room</value>
+  </data>
+  <data name="Number of rooms" xml:space="preserve">
+    <value>Number of rooms</value>
+  </data>
+  <data name="Number of sensors" xml:space="preserve">
+    <value>Number of sensors</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
+  </data>
+  <data name="Pin Number" xml:space="preserve">
+    <value>Pin Number</value>
+  </data>
+  <data name="Placement Id" xml:space="preserve">
+    <value>Placement Id</value>
+  </data>
+  <data name="Placements" xml:space="preserve">
+    <value>Placements</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profile</value>
   </data>
   <data name="Registration" xml:space="preserve">
     <value>Registration</value>
   </data>
-  <data name="Statistics" xml:space="preserve">
-    <value>Statistics</value>
+  <data name="Right Room Id" xml:space="preserve">
+    <value>Right Room Id</value>
   </data>
-  <data name="Ukrainian" xml:space="preserve">
-    <value>Ukrainian</value>
+  <data name="Right Sensor Id" xml:space="preserve">
+    <value>Right Sensor Id</value>
+  </data>
+  <data name="Rooms" xml:space="preserve">
+    <value>Rooms</value>
+  </data>
+  <data name="Sensors" xml:space="preserve">
+    <value>Sensors</value>
+  </data>
+  <data name="Sign in" xml:space="preserve">
+    <value>Sign in</value>
+  </data>
+  <data name="Smart Device Id" xml:space="preserve">
+    <value>Smart Device Id</value>
+  </data>
+  <data name="Smart Devices" xml:space="preserve">
+    <value>Smart Devices</value>
+  </data>
+  <data name="Unathorized" xml:space="preserve">
+    <value>Unathorized</value>
+  </data>
+  <data name="User Id" xml:space="preserve">
+    <value>User Id</value>
   </data>
 </root>

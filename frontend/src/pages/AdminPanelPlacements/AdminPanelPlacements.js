@@ -7,10 +7,9 @@ import ChangePlacementComponent from "../../components/ChangePlacementComponent/
 
 import axios from "../../api/axios";
 import text from "../../services/localizationService";
-import { config } from "../../services/configeService"; // TODO CONFIG
+import { config } from "../../services/configeService";
 
 function AdminPanelPlacements() {
-	// TODO X
 	const [placements, setPlacements] = useState([]);
 	const [placement, setPlacement] = useState([]);
 
@@ -28,12 +27,10 @@ function AdminPanelPlacements() {
 	const changeItemModelHandleShow = () => SetchangeItemModelShow(true);
 
 	useEffect(() => {
-		// TODO X
 		getPlacements();
-		console.log(text("Contacts"));
+		console.log(JSON.parse(localStorage["Localization"]));
 	}, []);
 
-	// TODO X
 	async function getPlacements() {
 		try {
 			const response = await axios.get("/Placements/", config);
@@ -42,12 +39,9 @@ function AdminPanelPlacements() {
 			}
 		} catch (err) {
 			// errors that expected from back
-			alert(err.response.data);
-
-			// TODO language
+			alert(text(err.response.data));
 		}
 	}
-	// TODO X
 	// Show edit modal function
 	function editModalShow(placement) {
 		changeItemModelHandleShow();
@@ -60,22 +54,19 @@ function AdminPanelPlacements() {
 			numberOfRooms: placement.numberOfRooms
 		});
 	}
-	// TODO X
 	// Delete item function
 	async function deleteClick(id) {
-		// TODO language
-		if (window.confirm("Are you sure?")) {
+		if (window.confirm(text("Are you sure?"))) {
 			try {
 				const response = await axios.delete("/Placements/" + id, config);
 				document.location.reload();
 			} catch (err) {
 				// errors that expected from back
-				alert(err.response.data);
-				// TODO language
+				alert(text(err.response.data));
 			}
 		}
 	}
-	// TODO X
+
 	// Show add modal function
 	function addModalShow() {
 		changeItemModelHandleShow();
@@ -90,21 +81,16 @@ function AdminPanelPlacements() {
 
 	return (
 		<div className="container">
-			{/* // TODO language */}
-			{/* // TODO X */}
-			<div className="d-flex justify-content-center display-4">Placements</div>
+			<div className="d-flex justify-content-center display-4">{text("Placements")}</div>
 			<div className="d-flex border border-dark w-100">
 				<AdminMenu />
 			</div>
 			<div className="container mt-5" align="right">
-				{/* // TODO language */}
 				<Button onClick={() => addModalShow()} variant="outline-primary">
-					{/* // TODO X */}
-					Create new placement
+					{text("Create new placement")}
 				</Button>
 			</div>
 			<Modal size="lg" centered show={changeItemModelShow} onHide={changeItemModelHandleClose}>
-				{/* // TODO X */}
 				<ChangePlacementComponent
 					close={changeItemModelHandleClose}
 					placement={placement}
@@ -114,19 +100,16 @@ function AdminPanelPlacements() {
 			</Modal>
 			<div className="mt-5">
 				<Table className="table table-striped auto__table text-center" striped bordered hover size="lg">
-					{/* // TODO language */}
-					{/* // TODO X */}
 					<thead>
 						<tr>
-							<th>Id</th>
-							<th>User Id</th>
-							<th>Name</th>
-							<th>Number of rooms</th>
+							<th>{text("Id")}</th>
+							<th>{text("User Id")}</th>
+							<th>{text("Name")}</th>
+							<th>{text("Number of rooms")}</th>
 							<th></th>
 						</tr>
 					</thead>
 					<tbody>
-						{/* // TODO X */}
 						{placements.map(e => (
 							<tr key={e.id}>
 								<td>{e.id}</td>
@@ -134,13 +117,11 @@ function AdminPanelPlacements() {
 								<td>{e.name}</td>
 								<td>{e.numberOfRooms}</td>
 								<td>
-									{/* // TODO language */}
 									<Button onClick={() => editModalShow(e)} variant="outline-dark">
-										Edit
+										{text("Edit")}
 									</Button>
-									{/* // TODO language */}
 									<Button onClick={() => deleteClick(e.id)} variant="outline-danger">
-										Delete
+										{text("Delete")}
 									</Button>
 								</td>
 							</tr>

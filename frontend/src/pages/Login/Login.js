@@ -3,6 +3,7 @@ import { Button, InputGroup, FormControl } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 import axios from "../../api/axios";
+import text from "../../services/localizationService";
 
 function Login() {
 	const inputLogin = useRef("");
@@ -33,11 +34,11 @@ function Login() {
 		} catch (err) {
 			// errors that expected from back {/* // TODO language  */}
 			if (err.response?.status === 400) {
-				alert("Missing Password or Login");
+				alert(text("Missing Password or Login"));
 			} else if (err.response?.status === 401) {
-				alert("Unathorized");
+				alert(text("Unathorized"));
 			} else {
-				alert("Login failed");
+				alert(text("Login failed"));
 			}
 		}
 	};
