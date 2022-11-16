@@ -3,6 +3,7 @@ import { Button, InputGroup, FormControl, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 import axios from "../../api/axios";
+import { config } from "../../services/configeService";
 
 import CanvasJSReact from "../../lib/canvasjs.react";
 var CanvasJS = CanvasJSReact.CanvasJS;
@@ -19,10 +20,6 @@ function VisitsChartComponent(props) {
 	//
 	const [chartOptions, setChartOptions] = useState([]);
 	const [chartLoaded, setChartLoaded] = useState(false);
-
-	const config = {
-		headers: { Authorization: `Bearer ${localStorage["PeopleTracker-userToken"]}` }
-	};
 
 	function getDateTime(date, time = "00:00") {
 		return date.toString() + "T" + time.toString();

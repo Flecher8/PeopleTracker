@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Button, InputGroup, FormControl, Modal } from "react-bootstrap";
 
 import axios from "../../api/axios";
+import { config } from "../../services/configeService";
 
 function VisitsComponent(props) {
 	const minDate = new Date("2022-01-01").toISOString().split("T")[0];
@@ -12,10 +13,6 @@ function VisitsComponent(props) {
 	const endTime = useRef(new Date());
 	// Value that will be returned after axios post request
 	const [visits, setVisits] = useState(null);
-
-	const config = {
-		headers: { Authorization: `Bearer ${localStorage["PeopleTracker-userToken"]}` }
-	};
 
 	useEffect(() => {}, []);
 

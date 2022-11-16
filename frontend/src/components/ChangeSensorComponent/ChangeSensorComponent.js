@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import AdminMenu from "../../components/AdminMenu/AdminMenu";
 
 import axios from "../../api/axios";
+import { config } from "../../services/configeService";
 
 function ChangeSensorComponent(props) {
 	const smartDeviceId = useRef(0);
@@ -14,10 +15,6 @@ function ChangeSensorComponent(props) {
 	const rightRoomId = useRef(0);
 	const pinNumber = useRef(0);
 	const name = useRef("");
-
-	const config = {
-		headers: { Authorization: `Bearer ${localStorage["PeopleTracker-userToken"]}` }
-	};
 
 	useEffect(() => {
 		setNewValue();

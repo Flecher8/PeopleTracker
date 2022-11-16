@@ -5,16 +5,13 @@ import { Link } from "react-router-dom";
 import AdminMenu from "../../components/AdminMenu/AdminMenu";
 
 import axios from "../../api/axios";
+import { config } from "../../services/configeService";
 
 function ChangeRoomComponent(props) {
 	const placementId = useRef();
 	const name = useRef();
-	const numberOfPeopleInRoom = useRef(0);
+	const numberOfPeopleInRoom = 0;
 	const [isExit, setIsExit] = useState("");
-
-	const config = {
-		headers: { Authorization: `Bearer ${localStorage["PeopleTracker-userToken"]}` }
-	};
 
 	useEffect(() => {
 		placementId.current.value = props.room.placementId;
@@ -31,7 +28,7 @@ function ChangeRoomComponent(props) {
 			let room = {
 				placementId: Number(placementId.current.value),
 				name: name.current.value,
-				numberOfPeopleInRoom: Number(0),
+				numberOfPeopleInRoom: numberOfPeopleInRoom,
 				isExit: isExit === "true" ? true : false
 			};
 			return room;
@@ -41,7 +38,7 @@ function ChangeRoomComponent(props) {
 				id: props.room.id,
 				placementId: Number(placementId.current.value),
 				name: name.current.value,
-				numberOfPeopleInRoom: Number(0),
+				numberOfPeopleInRoom: numberOfPeopleInRoom,
 				isExit: isExit === "true" ? true : false
 			};
 			return room;

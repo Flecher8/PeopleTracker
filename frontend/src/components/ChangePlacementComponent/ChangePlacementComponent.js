@@ -5,16 +5,13 @@ import { Link } from "react-router-dom";
 import AdminMenu from "../../components/AdminMenu/AdminMenu";
 
 import axios from "../../api/axios";
+import { config } from "../../services/configeService";
 
 function ChangePlacementComponent(props) {
 	// TODO X
 	const numberOfRooms = useRef(0);
 	const userId = useRef(0);
 	const name = useRef("");
-
-	const config = {
-		headers: { Authorization: `Bearer ${localStorage["PeopleTracker-userToken"]}` }
-	};
 
 	useEffect(() => {
 		setNewValue();

@@ -5,15 +5,12 @@ import { Link } from "react-router-dom";
 import AdminMenu from "../../components/AdminMenu/AdminMenu";
 
 import axios from "../../api/axios";
+import { config } from "../../services/configeService";
 
 function ChangeSmartDeviceComponent(props) {
 	const numberOfSensors = useRef(0);
 	const userId = useRef(0);
 	const placementId = useRef(0);
-
-	const config = {
-		headers: { Authorization: `Bearer ${localStorage["PeopleTracker-userToken"]}` }
-	};
 
 	useEffect(() => {
 		setNewValue();
