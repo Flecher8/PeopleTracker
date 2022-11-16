@@ -186,7 +186,6 @@ function UserPlacements() {
 			<div className="d-flex border border-dark w-100">
 				<ProfileMenu />
 			</div>
-			{/*  */}
 			<Modal size="lg" centered show={modalComponentShow} onHide={modalComponentHandleClose}>
 				<VisitsComponent
 					close={modalComponentHandleClose}
@@ -197,7 +196,6 @@ function UserPlacements() {
 					textResult={textResultModale}
 				/>
 			</Modal>
-			{/*  */}
 			<Modal size="lg" centered show={chartModalComponentShow} onHide={chartModalComponentHandleClose}>
 				<VisitsChartComponent
 					close={chartModalComponentHandleClose}

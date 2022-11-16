@@ -157,10 +157,24 @@ namespace backend.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Room>> PostRoom(Room room)
         {
+            if (!placementExists(room.PlacementId))
+            {
+                return BadRequest("There are no placement with id: " + room.PlacementId);
+            }
+
             _context.Rooms.Add(room);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetRoom", new { id = room.Id }, room);
+        }
+
+        private bool placementExists(int placementId)
+        {
+            if (_context.Placements.Where(pl => pl.Id == placementId).Any())
+            {
+                return true;
+            }
+            return false;
         }
 
         // DELETE: api/Rooms/5

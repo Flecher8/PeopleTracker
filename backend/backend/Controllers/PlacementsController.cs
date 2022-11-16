@@ -134,6 +134,11 @@ namespace backend.Controllers
                 return BadRequest();
             }
 
+            if (!userExists(placement.UserId))
+            {
+                return BadRequest("There are no user with id: " + placement.UserId);
+            }
+
             _context.Entry(placement).State = EntityState.Modified;
 
             try
@@ -160,6 +165,11 @@ namespace backend.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Placement>> PostPlacement(Placement placement)
         {
+            if(!userExists(placement.UserId))
+            {
+                return BadRequest("There are no user with id: " + placement.UserId);
+            }
+
             _context.Placements.Add(placement);
             await _context.SaveChangesAsync();
 
@@ -176,11 +186,63 @@ namespace backend.Controllers
             {
                 return NotFound();
             }
+            if(isPlacementUsedElseWhere(id))
+            {
+                return BadRequest("Placement user in other tables");
+            }
 
             _context.Placements.Remove(placement);
             await _context.SaveChangesAsync();
 
             return Ok();
+        }
+
+        private bool userExists(int userId)
+        {
+            if (_context.Users.Where(user => user.Id == userId).Any())
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private bool isPlacementUsedElseWhere(int placementId)
+        {
+            if(isPlacementUsedInSmartDevice(placementId) 
+                || isPlacementUsedInActions(placementId) 
+                || isPlacementUsedInRooms(placementId) 
+            )
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private bool isPlacementUsedInSmartDevice(int placementId)
+        {
+            if(_context.SmartDevices.Where(sd => sd.PlacementId == placementId).Any())
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private bool isPlacementUsedInActions(int placementId)
+        {
+            if (_context.Actions.Where(act => act.PlacementId == placementId).Any())
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private bool isPlacementUsedInRooms(int placementId)
+        {
+            if (_context.Rooms.Where(act => act.PlacementId == placementId).Any())
+            {
+                return true;
+            }
+            return false;
         }
 
         private bool PlacementExists(int id)

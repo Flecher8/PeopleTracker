@@ -1,16 +1,16 @@
 import { useState, useEffect, useRef } from "react";
-import { Button, InputGroup, FormControl, Table } from "react-bootstrap";
+import { Button, InputGroup, FormControl, Table, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 import AdminMenu from "../../components/AdminMenu/AdminMenu";
 
 import axios from "../../api/axios";
 
-function ChangePlacementComponent(props) {
-	// TODO X
-	const numberOfRooms = useRef(0);
-	const userId = useRef(0);
+function ChangeRoomComponent(props) {
+	const placementId = useRef(0);
 	const name = useRef("");
+	const numberOfPeopleInRoom = useRef(0);
+	const [isExit, setIsExit] = useState("");
 
 	const config = {
 		headers: { Authorization: `Bearer ${localStorage["PeopleTracker-userToken"]}` }
@@ -19,49 +19,49 @@ function ChangePlacementComponent(props) {
 	useEffect(() => {
 		setNewValue();
 	}, []);
-	// TODO X
+
 	function setNewValue() {
-		numberOfRooms.current.value = props.placement.numberOfRooms;
-		userId.current.value = props.placement.userId;
-		name.current.value = props.placement.name;
+		placementId.current.value = props.room.placementId;
+		name.current.value = props.room.name;
+		numberOfPeopleInRoom.current.value = props.room.numberOfPeopleInRoom;
+		setIsExit(props.room.isExit);
+		console.log(isExit);
 	}
-	// TODO X
-	function createNewPlacement(method) {
+
+	function createNewRoom(method) {
 		if (method === "POST") {
-			let placement = {
-				userId: Number(userId.current.value),
+			let room = {
+				placementId: Number(placementId.current.value),
 				name: name.current.value,
-				numberOfRooms: Number(numberOfRooms.current.value)
+				numberOfPeopleInRoom: Number(numberOfPeopleInRoom.current.value),
+				isExit: isExit
 			};
-			return placement;
+			return room;
 		}
 		if (method === "PUT") {
-			let placement = {
-				id: props.placement.id,
-				userId: Number(userId.current.value),
+			let room = {
+				id: props.room.id,
+				placementId: Number(placementId.current.value),
 				name: name.current.value,
-				numberOfRooms: Number(numberOfRooms.current.value)
+				numberOfPeopleInRoom: Number(numberOfPeopleInRoom.current.value),
+				isExit: isExit
 			};
-			return placement;
+			return room;
 		}
 		return null;
 	}
-	// TODO X
-	async function changePlacements() {
+
+	async function changeRooms() {
 		try {
 			if (props.method === "POST") {
-				const response = await axios.post("/Placements/", createNewPlacement(props.method), config);
+				const response = await axios.post("/Rooms/", createNewRoom(props.method), config);
 				if (response.status === 201) {
 					props.close();
 					window.location.reload();
 				}
 			}
 			if (props.method === "PUT") {
-				const response = await axios.put(
-					"/Placements/" + props.placement.id,
-					createNewPlacement(props.method),
-					config
-				);
+				const response = await axios.put("/Rooms/" + props.room.id, createNewRoom(props.method), config);
 				if (response.status === 200) {
 					props.close();
 					window.location.reload();
@@ -80,7 +80,7 @@ function ChangePlacementComponent(props) {
 	};
 
 	const submit = async e => {
-		await changePlacements();
+		await changeRooms();
 	};
 
 	return (
@@ -95,23 +95,21 @@ function ChangePlacementComponent(props) {
 			</div>
 			<div className="d-inline-flex justify-content-center w-100">
 				{/* // TODO language */}
-				{/* // TODO X */}
-				<div className="w-25">UserId:</div>
+				<div className="w-50">Placement Id:</div>
 				<InputGroup className="mb-3">
 					<FormControl
 						aria-label="Default"
 						placeholder="1"
 						type="number"
 						size="sm"
-						ref={userId}
+						ref={placementId}
 						aria-describedby="inputGroup-sizing-default"
 					/>
 				</InputGroup>
 			</div>
-			{/* // TODO X */}
 			<div className="d-inline-flex justify-content-center w-100">
 				{/* // TODO language */}
-				<div className="w-25">Name:</div>
+				<div className="w-50">Name:</div>
 				<InputGroup className="mb-3">
 					<FormControl
 						aria-label="Default"
@@ -123,19 +121,14 @@ function ChangePlacementComponent(props) {
 					/>
 				</InputGroup>
 			</div>
-			{/* // TODO X */}
 			<div className="d-inline-flex justify-content-center w-100">
 				{/* // TODO language */}
-				<div className="w-25">Number Of Rooms</div>
+				<div className="w-50">Is exit:</div>
 				<InputGroup className="mb-3">
-					<FormControl
-						aria-label="Default"
-						placeholder="12"
-						type="number"
-						size="sm"
-						ref={numberOfRooms}
-						aria-describedby="inputGroup-sizing-default"
-					/>
+					<Form.Select onChange={e => setIsExit(e.target.value)} size="lg">
+						<option defaultValue="selected">{isExit}</option>
+						<option>{isExit === "true" ? "false" : "true"}</option>
+					</Form.Select>
 				</InputGroup>
 			</div>
 
@@ -147,4 +140,4 @@ function ChangePlacementComponent(props) {
 	);
 }
 
-export default ChangePlacementComponent;
+export default ChangeRoomComponent;

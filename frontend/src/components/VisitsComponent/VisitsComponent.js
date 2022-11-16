@@ -13,11 +13,11 @@ function VisitsComponent(props) {
 	// Value that will be returned after axios post request
 	const [visits, setVisits] = useState(null);
 
-	useEffect(() => {}, []);
-
 	const config = {
 		headers: { Authorization: `Bearer ${localStorage["PeopleTracker-userToken"]}` }
 	};
+
+	useEffect(() => {}, []);
 
 	function getDateTime(date, time = "00:00") {
 		return date.toString() + "T" + time.toString();

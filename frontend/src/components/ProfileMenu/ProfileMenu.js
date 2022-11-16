@@ -40,7 +40,7 @@ function ProfileMenu() {
 
 				<div className="">
 					{/* // TODO language  */}
-					<Link to="/" className="text-decoration-none text-reset">
+					<Link to="/UserSmartDevice" className="text-decoration-none text-reset">
 						<Button className="btn btn-dark border border-white">Smart Device</Button>
 					</Link>
 				</div>
