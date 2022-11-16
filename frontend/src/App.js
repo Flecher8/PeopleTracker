@@ -10,6 +10,7 @@ import UserPlacements from "./pages/UserPlacements/UserPlacements";
 import UserSmartDevice from "./pages/UserSmartDevice/UserSmartDevice";
 import AdminPanelRooms from "./pages/AdminPanelRooms/AdminPanelRooms";
 import AdminPanelSmartDevices from "./pages/AdminPanelSmartDevices/AdminPanelSmartDevices";
+import AdminPanelSensors from "./pages/AdminPanelSensors/AdminPanelSensors";
 
 function App() {
 	return (
@@ -24,6 +25,7 @@ function App() {
 				<Route path="/AdminPanelPlacements" element={<AdminPanelPlacements />} />
 				<Route path="/AdminPanelRooms" element={<AdminPanelRooms />} />
 				<Route path="/AdminPanelSmartDevices" element={<AdminPanelSmartDevices />} />
+				<Route path="/AdminPanelSensors" element={<AdminPanelSensors />} />
 				<Route path="/Registration" element={<Registration />} />
 				{/* Default Router */}
 				<Route path="/" element={<Navigate to="/Main" />} />
