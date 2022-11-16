@@ -13,9 +13,6 @@ function UserSubscription() {
 	const cardNumber = useRef(0);
 	const expiryDate = useRef(0);
 	const securityCode = useRef(0);
-	const config = {
-		headers: { Authorization: `Bearer ${localStorage["PeopleTracker-userToken"]}` }
-	};
 
 	useEffect(() => {}, []);
 

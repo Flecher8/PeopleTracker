@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import ProfileMenu from "../../components/ProfileMenu/ProfileMenu";
 
 import axios from "../../api/axios";
+import { config } from "../../services/configeService";
 
 function UserProfile() {
 	const [user, setUser] = useState([]);
@@ -12,10 +13,6 @@ function UserProfile() {
 	useEffect(() => {
 		getUser();
 	}, []);
-
-	const config = {
-		headers: { Authorization: `Bearer ${localStorage["PeopleTracker-userToken"]}` }
-	};
 
 	async function getUser() {
 		try {

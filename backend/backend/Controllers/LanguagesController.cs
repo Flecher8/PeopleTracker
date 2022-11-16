@@ -30,7 +30,6 @@ namespace backend.Controllers
         /// <returns></returns>
         
         [HttpGet]
-        [Authorize]
         public JsonResult GetLanguage()
         {
             var result = stringLocalizer.GetAllStrings(true);

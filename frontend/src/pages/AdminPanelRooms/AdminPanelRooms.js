@@ -6,6 +6,7 @@ import AdminMenu from "../../components/AdminMenu/AdminMenu";
 import ChangeRoomComponent from "../../components/ChangeRoomComponent/ChangeRoomComponent";
 
 import axios from "../../api/axios";
+import { config } from "../../services/configeService";
 
 function AdminPanelRooms() {
 	const [rooms, setRooms] = useState([]);
@@ -27,10 +28,6 @@ function AdminPanelRooms() {
 	useEffect(() => {
 		getRooms();
 	}, []);
-
-	const config = {
-		headers: { Authorization: `Bearer ${localStorage["PeopleTracker-userToken"]}` }
-	};
 
 	async function getRooms() {
 		try {

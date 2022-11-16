@@ -6,6 +6,8 @@ import AdminMenu from "../../components/AdminMenu/AdminMenu";
 import ChangePlacementComponent from "../../components/ChangePlacementComponent/ChangePlacementComponent";
 
 import axios from "../../api/axios";
+import text from "../../services/localizationService";
+import { config } from "../../services/configeService"; // TODO CONFIG
 
 function AdminPanelPlacements() {
 	// TODO X
@@ -28,11 +30,9 @@ function AdminPanelPlacements() {
 	useEffect(() => {
 		// TODO X
 		getPlacements();
+		console.log(text("Contacts"));
 	}, []);
 
-	const config = {
-		headers: { Authorization: `Bearer ${localStorage["PeopleTracker-userToken"]}` }
-	};
 	// TODO X
 	async function getPlacements() {
 		try {

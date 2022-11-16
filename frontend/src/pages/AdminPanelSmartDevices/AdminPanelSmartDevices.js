@@ -6,6 +6,7 @@ import AdminMenu from "../../components/AdminMenu/AdminMenu";
 import ChangeSmartDeviceComponent from "../../components/ChangeSmartDeviceComponent/ChangeSmartDeviceComponent";
 
 import axios from "../../api/axios";
+import { config } from "../../services/configeService";
 
 function AdminPanelSmartDevices() {
 	const [smartDevices, setSmartDevices] = useState([]);
@@ -27,10 +28,6 @@ function AdminPanelSmartDevices() {
 	useEffect(() => {
 		getSmartDevices();
 	}, []);
-
-	const config = {
-		headers: { Authorization: `Bearer ${localStorage["PeopleTracker-userToken"]}` }
-	};
 
 	async function getSmartDevices() {
 		try {

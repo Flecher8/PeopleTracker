@@ -8,14 +8,12 @@ import VisitsComponent from "../../components/VisitsComponent/VisitsComponent";
 import VisitsChartComponent from "../../components/VisitsChartComponent/VisitsChartComponent";
 
 import axios from "../../api/axios";
+import { config } from "../../services/configeService";
 
 function UserPlacements() {
 	const sortingType = {
 		bigestFirst: (a, b) => (a.count < b.count ? 1 : -1),
 		smallestFirst: (a, b) => (a.count > b.count ? 1 : -1)
-	};
-	const config = {
-		headers: { Authorization: `Bearer ${localStorage["PeopleTracker-userToken"]}` }
 	};
 
 	// Variables to work with date

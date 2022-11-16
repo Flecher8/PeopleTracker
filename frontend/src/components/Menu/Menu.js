@@ -2,7 +2,63 @@ import { useState, useEffect } from "react";
 import { Button, InputGroup, FormControl } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
+import axios from "../../api/axios";
+
 function Menu() {
+	useEffect(() => {
+		if (localStorage.getItem("Localization") === null) {
+			getLocalization();
+		}
+	}, []);
+
+	async function getLocalization() {
+		try {
+			const response = await axios.get("/Languages/");
+			if (response.status === 200) {
+				localStorage.setItem("Localization", JSON.stringify(response.data));
+				localStorage.setItem("LocalizationType", "EN");
+				window.location.reload();
+			}
+		} catch (err) {
+			// errors that expected from back
+			alert(err.response.data);
+
+			// TODO language
+		}
+	}
+
+	async function localizationUA() {
+		try {
+			const response = await axios.get("/Languages?Ui-culture=uk-UA");
+			if (response.status === 200) {
+				localStorage.setItem("Localization", JSON.stringify(response.data));
+				localStorage.setItem("LocalizationType", "UA");
+				window.location.reload();
+			}
+		} catch (err) {
+			// errors that expected from back
+			alert(err.response.data);
+
+			// TODO language
+		}
+	}
+
+	async function localizationEN() {
+		try {
+			const response = await axios.get("/Languages?Ui-culture=en-US");
+			if (response.status === 200) {
+				localStorage.setItem("Localization", JSON.stringify(response.data));
+				localStorage.setItem("LocalizationType", "EN");
+				window.location.reload();
+			}
+		} catch (err) {
+			// errors that expected from back
+			alert(err.response.data);
+
+			// TODO language
+		}
+	}
+
 	function LastElementOfMenu() {
 		console.log(localStorage);
 		if (localStorage.getItem("PeopleTracker-userId") !== null) {
@@ -76,13 +132,17 @@ function Menu() {
 							data-toggle="dropdown"
 							aria-haspopup="true"
 							aria-expanded="false">
-							EN
+							{localStorage.getItem("LocalizationType")}
 						</button>
 						{/* // TODO language  */}
 						{/* // TODO language  */}
 						<div className="dropdown-menu p-0" aria-labelledby="dropdownMenuButton">
-							<Button className="btn btn-dark border border-white w-100">EN</Button>
-							<Button className="btn btn-dark border border-white w-100">UKR</Button>
+							<Button onClick={() => localizationEN()} className="btn btn-dark border border-white w-100">
+								EN
+							</Button>
+							<Button onClick={() => localizationUA()} className="btn btn-dark border border-white w-100">
+								UA
+							</Button>
 						</div>
 					</div>
 					{/* // TODO language  */}

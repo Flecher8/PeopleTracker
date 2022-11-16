@@ -6,6 +6,7 @@ import AdminMenu from "../../components/AdminMenu/AdminMenu";
 import ChangeSensorComponent from "../../components/ChangeSensorComponent/ChangeSensorComponent";
 
 import axios from "../../api/axios";
+import { config } from "../../services/configeService";
 
 function AdminPanelSensors() {
 	const [sensors, setSensors] = useState([]);
@@ -27,10 +28,6 @@ function AdminPanelSensors() {
 	useEffect(() => {
 		getSensors();
 	}, []);
-
-	const config = {
-		headers: { Authorization: `Bearer ${localStorage["PeopleTracker-userToken"]}` }
-	};
 
 	async function getSensors() {
 		try {
