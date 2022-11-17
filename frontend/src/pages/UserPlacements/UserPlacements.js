@@ -8,6 +8,7 @@ import VisitsComponent from "../../components/VisitsComponent/VisitsComponent";
 import VisitsChartComponent from "../../components/VisitsChartComponent/VisitsChartComponent";
 
 import axios from "../../api/axios";
+import text from "../../services/localizationService";
 import { config } from "../../services/configeService";
 
 function UserPlacements() {
@@ -44,6 +45,7 @@ function UserPlacements() {
 	useEffect(() => {
 		getUserPlacements();
 	}, []);
+
 	useEffect(() => {
 		loadVisitedRoomsByPlacement("topVisitedPlacements", sortingType.bigestFirst);
 		loadVisitedRoomsByPlacement("lessVisitedPlacements", sortingType.smallestFirst);
@@ -66,9 +68,8 @@ function UserPlacements() {
 			}
 		} catch (err) {
 			// errors that expected from back
-			alert(err.response.data);
+			alert(text(err.response.data));
 			return [];
-			// TODO language
 		}
 		return [];
 	}
@@ -134,9 +135,8 @@ function UserPlacements() {
 			}
 		} catch (err) {
 			// errors that expected from back
-			alert(err.response.data);
+			alert(text(err.response.data));
 			return [];
-			// TODO language
 		}
 		return [];
 	}
@@ -153,9 +153,7 @@ function UserPlacements() {
 			}
 		} catch (err) {
 			// errors that expected from back
-			alert(err.response.data);
-
-			// TODO language
+			alert(text(err.response.data));
 		}
 	}
 
@@ -179,8 +177,7 @@ function UserPlacements() {
 
 	return (
 		<div className="container">
-			{/* // TODO language */}
-			<div className="d-flex justify-content-center display-4">Placements</div>
+			<div className="d-flex justify-content-center display-4">{text("Placements")}</div>
 			<div className="d-flex border border-dark w-100">
 				<ProfileMenu />
 			</div>
@@ -205,103 +202,100 @@ function UserPlacements() {
 			<div className="mt-3 border border-dark">
 				{placements.map(e => (
 					<div className="d-flex flex-column m-2" key={e.id}>
-						{/* // TODO language */}
 						<div className="d-inline-flex m-2 align-items-center">
-							{/* // TODO language */}
-							<div className="mr-auto">Placement name: {e.name}</div>
+							<div className="mr-auto">
+								{text("Placement name")}: {e.name}
+							</div>
 							<div className="" align="right">
-								{/* // TODO language */}
 								<Button
 									onClick={() =>
 										visitsModelShow(
 											e.id,
 											true,
-											"View visits of placement by period of time",
+											text("View visits of placement by period of time"),
 											"/Placements/GetNumberOfVisitsPlacementByTimePeriod/placementId:",
-											"Number of people visited placement: "
+											text("Number of people visited placement:")
 										)
 									}
 									variant="outline-primary">
-									View visits of placement by period of time
+									{text("View visits of placement by period of time")}
 								</Button>
 							</div>
 						</div>
 						<div className="d-inline-flex align-items-center m-2">
-							Top visited rooms by all time: {e.topVisitedPlacements}
+							{text("Top visited rooms by all time")}: {e.topVisitedPlacements}
 						</div>
 						<div className="d-inline-flex align-items-center m-2">
-							Less visited rooms by all time: {e.lessVisitedPlacements}
+							{text("Less visited rooms by all time")}: {e.lessVisitedPlacements}
 						</div>
 						<div className="d-inline-flex align-items-center m-2">
-							{/* // TODO language */}
 							<Button
 								onClick={() =>
 									visitsModelShow(
 										e.id,
 										false,
-										"View AVG visits of placement by period of time",
+										text("View AVG visits of placement by period of time"),
 										"/Placements/GetAvgVisitsPlacementByTimePeriod/placementId:",
-										"AVG visits of placement by period of time: "
+										text("AVG visits of placement by period of time:")
 									)
 								}
 								variant="outline-primary">
-								View AVG visits of placement by period of time
+								{text("View AVG visits of placement by period of time")}
 							</Button>
 						</div>
 						<div className="d-inline-flex align-items-center m-2">
-							{/* // TODO language */}
 							<Button
 								onClick={() =>
 									chartModelShow(
 										e.id,
-										"View diagram of visits by 12-hours",
+										text("View diagram of visits by 12-hours"),
 										"/Placements/GetNumberOfPeopleVisitedPlacementByDayInHours/placementId:"
 									)
 								}
 								variant="outline-primary">
-								View diagram of visits by 12-hours
+								{text("View diagram of visits by 12-hours")}
 							</Button>
 						</div>
 						<div className="d-flex flex-column mt-2">
 							{e.rooms.map(r => (
 								<div className="d-flex flex-column m-2 p-2 border-bottom border-top border-dark" key={r.id}>
 									<div className="d-inline-flex align-items-center">
-										{/* // TODO language */}
-										<div className="mr-auto">Room name: {r.name}</div>
+										<div className="mr-auto">
+											{text("Room name")}: {r.name}
+										</div>
 
-										{/* // TODO language */}
-										<div className="">Number of people in room: {r.numberOfPeopleInRoom}</div>
+										<div className="">
+											{text("Number of people in room")}: {r.numberOfPeopleInRoom}
+										</div>
 									</div>
 									<div className="d-inline-flex mt-2">
-										{/* // TODO language */}
 										<Button
 											onClick={() =>
 												visitsModelShow(
 													r.id,
 													true,
-													"View visits of room by period of time",
+													text("View visits of room by period of time"),
 													"/Rooms/GetNumberOfVisitsRoomByTimePeriod/roomId:",
-													"Number of people visited room: "
+													text("Number of people visited room:")
 												)
 											}
 											variant="outline-primary">
-											View visits of room by period of time
+											{text("View visits of room by period of time")}
 										</Button>
 									</div>
 									<div className="d-inline-flex mt-2">
-										{/* // TODO language */}
 										<Button
 											onClick={() =>
 												visitsModelShow(
 													r.id,
 													false,
-													"View AVG visits of room by period of time",
+													text("View AVG visits of room by period of time"),
 													"/Rooms/GetAvgVisitsRoomByTimePeriod/roomId:",
-													"AVG visits of room by period of time: "
+													text("AVG visits of room by period of time:")
 												)
 											}
 											variant="outline-primary">
-											View AVG visits of room by period of time
+											{text("View AVG visits of room by period of time")}
 										</Button>
 									</div>
 								</div>

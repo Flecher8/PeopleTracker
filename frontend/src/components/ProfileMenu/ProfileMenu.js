@@ -3,6 +3,7 @@ import { Button, InputGroup, FormControl } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 import axios from "../../api/axios";
+import text from "../../services/localizationService";
 
 function ProfileMenu() {
 	function clearUserInfo() {
@@ -20,41 +21,29 @@ function ProfileMenu() {
 		<div className="d-inline-flex w-100 p-3">
 			<div className="d-inline-flex justify-content-start flex-wrap w-100">
 				<div className="">
-					{/* // TODO language  */}
 					<Link to="/UserProfile" className="text-decoration-none text-reset">
-						<Button className="btn btn-dark border border-white">Profile</Button>
+						<Button className="btn btn-dark border border-white">{text("Profile")}</Button>
 					</Link>
 				</div>
-				<div className="">
-					{/* // TODO language  */}
+				<div className="mr-auto">
 					<Link to="/UserPlacements" className="text-decoration-none text-reset">
-						<Button className="btn btn-dark border border-white">Placements</Button>
+						<Button className="btn btn-dark border border-white">{text("Placements")}</Button>
 					</Link>
 				</div>
-				<div className="mr-auto">
-					{/* // TODO language  */}
-					<Link to="/" className="text-decoration-none text-reset">
-						<Button className="btn btn-dark border border-white">Statistics</Button>
-					</Link>
-				</div>
-
 				<div className="">
-					{/* // TODO language  */}
 					<Link to="/UserSmartDevice" className="text-decoration-none text-reset">
-						<Button className="btn btn-dark border border-white">Smart Device</Button>
+						<Button className="btn btn-dark border border-white">{text("Smart Device")}</Button>
 					</Link>
 				</div>
 				<div className="mr-auto">
-					{/* // TODO language  */}
 					<Link to="/" className="text-decoration-none text-reset">
-						<Button className="btn btn-dark border border-white">Subscription</Button>
+						<Button className="btn btn-dark border border-white">{text("Subscription")}</Button>
 					</Link>
 				</div>
 				<div className="">
-					{/* // TODO language  */}
 					<Link to="/" className="text-decoration-none text-reset">
 						<Button onClick={signOut} className="btn btn-dark border border-white">
-							Sign Out
+							{text("Sign Out")}
 						</Button>
 					</Link>
 				</div>

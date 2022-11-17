@@ -18,8 +18,8 @@ function AdminPanelPlacements() {
 	const [modaleText, setModaleText] = useState("");
 	const modaleMethodPost = "POST";
 	const modaleMethodPut = "PUT";
-	const modaleTextPost = "Create";
-	const modaleTextPut = "Update";
+	const modaleTextPost = text("Create");
+	const modaleTextPut = text("Update");
 
 	// Modal show
 	const [changeItemModelShow, SetchangeItemModelShow] = useState(false);

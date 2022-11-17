@@ -32,7 +32,7 @@ function Login() {
 				}
 			}
 		} catch (err) {
-			// errors that expected from back {/* // TODO language  */}
+			// errors that expected from back
 			if (err.response?.status === 400) {
 				alert(text("Missing Password or Login"));
 			} else if (err.response?.status === 401) {
@@ -46,11 +46,10 @@ function Login() {
 	return (
 		<div className="d-flex justify-content-center mt-5">
 			<div className="border p-2">
-				<div className="display-3 text-center mb-5">Log In</div>
+				<div className="display-3 text-center mb-5">{text("Sign in")}</div>
 				<div className="d-inline-flex w-100 p-3">
 					<div className="w-25 d-inline-flex">
-						{/* // TODO language  */}
-						<h4>Login:</h4> <p className="ml-2 text-danger">*</p>
+						<h4>{text("Login")}:</h4> <p className="ml-2 text-danger">*</p>
 					</div>
 					<div className="w-75">
 						<InputGroup className="mb-3">
@@ -68,8 +67,7 @@ function Login() {
 				</div>
 				<div className="d-inline-flex w-100 p-3">
 					<div className="w-25 d-inline-flex">
-						{/* // TODO language  */}
-						<h4>Password:</h4> <p className="ml-2 text-danger">*</p>
+						<h4>{text("Password")}:</h4> <p className="ml-2 text-danger">*</p>
 					</div>
 					<div className="w-75">
 						<InputGroup className="mb-3">
@@ -87,17 +85,14 @@ function Login() {
 				</div>
 				<div className="w-100 text-center">
 					<Button onClick={login} className="w-100 text-center">
-						{/* // TODO language  */}
-						<h5>Log In</h5>
+						<h5>{text("Sign in")}</h5>
 					</Button>
 				</div>
 				<div className="d-inline-flex justify-content-center w-100 m-2">
-					{/* // TODO language  */}
-					<div className="p-2">Not registered yet?</div>
+					<div className="p-2">{text("Not registered yet?")}</div>
 					<div className="p-2">
-						{/* // TODO language  */}
 						<Link to="/Registration" className="text-decoration-none">
-							Registration
+							{text("Registration")}
 						</Link>
 					</div>
 				</div>

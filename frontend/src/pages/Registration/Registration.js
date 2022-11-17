@@ -3,6 +3,7 @@ import { Button, InputGroup, FormControl } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 import axios from "../../api/axios";
+import text from "../../services/localizationService";
 
 import Login from "../Login/Login.js";
 
@@ -34,11 +35,11 @@ function Registration() {
 	const register = async e => {
 		e.preventDefault();
 		if (!passworCorrect()) {
-			alert("Password is not the same"); // TODO language
+			alert(text("Password is not the same"));
 			return;
 		}
 		if (!isAllRequiredFieldsAreFilled()) {
-			alert("Not all required fields are filled"); // TODO language
+			alert(text("Not all required fields are filled"));
 			return;
 		}
 		// New updated user
@@ -56,19 +57,17 @@ function Registration() {
 			}
 		} catch (err) {
 			// errors that expected from back
-			alert(err.response.data); // TODO language
+			alert(text(err.response.data));
 		}
 	};
 
 	return (
 		<div className="d-flex justify-content-center mt-5">
 			<div className="border p-2 w-50">
-				{/* // TODO language  */}
-				<div className="display-3 text-center mb-5">Registration</div>
+				<div className="display-3 text-center mb-5">{text("Registration")}</div>
 				<div className="d-inline-flex w-100 p-3">
 					<div className="w-25 d-inline-flex">
-						{/* // TODO language  */}
-						<h6>Login:</h6> <p className="ml-2 text-danger">*</p>
+						<h6>{text("Login")}:</h6> <p className="ml-2 text-danger">*</p>
 					</div>
 					<div className="w-75">
 						<InputGroup className="mb-3">
@@ -86,8 +85,7 @@ function Registration() {
 				</div>
 				<div className="d-inline-flex w-100 p-3">
 					<div className="w-25 d-inline-flex">
-						{/* // TODO language  */}
-						<h6>Password:</h6> <p className="ml-2 text-danger">*</p>
+						<h6>{text("Password")}:</h6> <p className="ml-2 text-danger">*</p>
 					</div>
 					<div className="w-75">
 						<InputGroup className="mb-3">
@@ -105,8 +103,7 @@ function Registration() {
 				</div>
 				<div className="d-inline-flex w-100 p-3">
 					<div className="w-25 d-inline-flex">
-						{/* // TODO language  */}
-						<h6>Repeat password:</h6> <p className="ml-2 text-danger">*</p>
+						<h6>{text("Repeat password")}:</h6> <p className="ml-2 text-danger">*</p>
 					</div>
 					<div className="w-75">
 						<InputGroup className="mb-3">
@@ -124,8 +121,7 @@ function Registration() {
 				</div>
 				<div className="d-inline-flex w-100 p-3">
 					<div className="w-25">
-						{/* // TODO language  */}
-						<h6>Email:</h6>
+						<h6>{text("Email")}:</h6>
 					</div>
 					<div className="w-75">
 						<InputGroup className="mb-3">
@@ -143,8 +139,7 @@ function Registration() {
 				</div>
 				<div className="d-inline-flex w-100 p-3">
 					<div className="w-25">
-						{/* // TODO language  */}
-						<h6>Company name:</h6>
+						<h6>{text("Company name")}:</h6>
 					</div>
 					<div className="w-75">
 						<InputGroup className="mb-3">
@@ -163,7 +158,7 @@ function Registration() {
 				<div className="w-100 text-center">
 					<Button onClick={register} className="w-100 text-center">
 						{/* // TODO language  */}
-						<h5>Register</h5>
+						<h5>{text("Register")}</h5>
 					</Button>
 				</div>
 			</div>

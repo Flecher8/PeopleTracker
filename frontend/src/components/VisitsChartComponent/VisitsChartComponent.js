@@ -3,6 +3,7 @@ import { Button, InputGroup, FormControl, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 import axios from "../../api/axios";
+import text from "../../services/localizationService";
 import { config } from "../../services/configeService";
 
 import CanvasJSReact from "../../lib/canvasjs.react";
@@ -27,8 +28,7 @@ function VisitsChartComponent(props) {
 
 	function checkValidDate() {
 		if (startDate.current.value === "") {
-			// TODO language
-			alert("Date is not filled");
+			alert(text("Date is not filled"));
 			return false;
 		}
 		return true;
@@ -77,9 +77,7 @@ function VisitsChartComponent(props) {
 			}
 		} catch (err) {
 			// errors that expected from back
-			alert(err.response.data);
-
-			// TODO language
+			alert(text(err.response.data));
 		}
 	}
 
@@ -93,37 +91,16 @@ function VisitsChartComponent(props) {
 		}
 	};
 
-	// const options = {
-	// 	title: {
-	// 		text: props.mainText
-	// 	},
-	// 	data: [
-	// 		{
-	// 			// Change type to "doughnut", "line", "splineArea", etc.
-	// 			type: "column",
-	// 			dataPoints: [
-	// 				{ label: "Apple", y: 10 },
-	// 				{ label: "Orange", y: 15 },
-	// 				{ label: "Banana", y: 25 },
-	// 				{ label: "Mango", y: 30 },
-	// 				{ label: "Grape", y: null }
-	// 			]
-	// 		}
-	// 	]
-	// };
 	return (
 		<div className="container m-2">
 			<div className="d-flex justify-content-end">
-				{/* // TODO language */}
-				<Button onClick={close}>Close</Button>
+				<Button onClick={close}>{text("Close")}</Button>
 			</div>
 			<div className="d-flex justify-content-center mb-3">
-				{/* // TODO language */}
 				<h5>{props.mainText}</h5>
 			</div>
 			<div className="d-inline-flex justify-content-center w-100">
-				{/* // TODO language */}
-				<div className="w-25">Date:</div>
+				<div className="w-25">{text("Date")}:</div>
 				<InputGroup className="mb-3">
 					<FormControl
 						aria-label="Default"
@@ -147,8 +124,7 @@ function VisitsChartComponent(props) {
 				<div></div>
 			)}
 			<div className="d-inline-flex justify-content-start w-100 mb-5">
-				{/* // TODO language */}
-				<Button onClick={submit}>Find</Button>
+				<Button onClick={submit}>{text("Find")}</Button>
 			</div>
 		</div>
 	);

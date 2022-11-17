@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Button, InputGroup, FormControl, Modal } from "react-bootstrap";
 
 import axios from "../../api/axios";
+import text from "../../services/localizationService";
 import { config } from "../../services/configeService";
 
 function VisitsComponent(props) {
@@ -22,14 +23,12 @@ function VisitsComponent(props) {
 
 	function checkValidDateTime() {
 		if (props.getTime && (startTime.current.value === "" || endTime.current.value === "")) {
-			// TODO language
-			alert("Time is not filled");
+			alert(text("Time is not filled"));
 			return false;
 		}
 
 		if (startDate.current.value === "" || endDate.current.value === "") {
-			// TODO language
-			alert("Date is not filled");
+			alert(text("Date is not filled"));
 			return false;
 		}
 		let stringStartTime;
@@ -45,8 +44,7 @@ function VisitsComponent(props) {
 		let timeStart = Date.parse(stringStartTime);
 		let timeEnd = Date.parse(stringEndTime);
 		if (timeStart >= timeEnd) {
-			// TODO language
-			alert("Start point in time can't be same as end point or it can't starts after end point");
+			alert(text("Start point in time can't be same as end point or it can't starts after end point"));
 			return false;
 		}
 		return true;
@@ -75,9 +73,7 @@ function VisitsComponent(props) {
 			}
 		} catch (err) {
 			// errors that expected from back
-			alert(err.response.data);
-
-			// TODO language
+			alert(text(err.response.data));
 		}
 	}
 
@@ -93,16 +89,13 @@ function VisitsComponent(props) {
 	return (
 		<div className="container m-2">
 			<div className="d-flex justify-content-end">
-				{/* // TODO language */}
-				<Button onClick={close}>Close</Button>
+				<Button onClick={close}>{text("Close")}</Button>
 			</div>
 			<div className="d-flex justify-content-center mb-3">
-				{/* // TODO language */}
 				<h5>{props.mainText}</h5>
 			</div>
 			<div className="d-inline-flex justify-content-center w-100">
-				{/* // TODO language */}
-				<div className="w-25">Start date:</div>
+				<div className="w-25">{text("Start date")}:</div>
 				<InputGroup className="mb-3">
 					<FormControl
 						aria-label="Default"
@@ -118,8 +111,7 @@ function VisitsComponent(props) {
 			</div>
 			{props.getTime ? (
 				<div className="d-inline-flex justify-content-center w-100 mb-5">
-					{/* // TODO language */}
-					<div className="w-25">Start time:</div>
+					<div className="w-25">{text("Start time")}:</div>
 					<InputGroup className="mb-3">
 						<FormControl
 							aria-label="Default"
@@ -135,8 +127,7 @@ function VisitsComponent(props) {
 				<div></div>
 			)}
 			<div className="d-inline-flex justify-content-center w-100">
-				{/* // TODO language */}
-				<div className="w-25">End date:</div>
+				<div className="w-25">{text("End date")}:</div>
 				<InputGroup className="mb-3">
 					<FormControl
 						aria-label="Default"
@@ -152,8 +143,7 @@ function VisitsComponent(props) {
 			</div>
 			{props.getTime ? (
 				<div className="d-inline-flex justify-content-center w-100 mb-5">
-					{/* // TODO language */}
-					<div className="w-25">End time:</div>
+					<div className="w-25">{text("End time")}:</div>
 					<InputGroup className="mb-3">
 						<FormControl
 							aria-label="Default"
@@ -171,7 +161,6 @@ function VisitsComponent(props) {
 			{visits != null ? (
 				<div className="d-inline-flex justify-content-start w-100 mb-5">
 					<div className="w-100">
-						{/* // TODO language */}
 						<h5>
 							{props.textResult}{" "}
 							{visits.days !== undefined ? visits.result.count / visits.days : visits.result.count}
@@ -182,8 +171,7 @@ function VisitsComponent(props) {
 				<div></div>
 			)}
 			<div className="d-inline-flex justify-content-start w-100 mb-5">
-				{/* // TODO language */}
-				<Button onClick={submit}>Find</Button>
+				<Button onClick={submit}>{text("Find")}</Button>
 			</div>
 		</div>
 	);

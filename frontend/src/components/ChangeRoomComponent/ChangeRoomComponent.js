@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import AdminMenu from "../../components/AdminMenu/AdminMenu";
 
 import axios from "../../api/axios";
+import text from "../../services/localizationService";
 import { config } from "../../services/configeService";
 
 function ChangeRoomComponent(props) {
@@ -64,9 +65,7 @@ function ChangeRoomComponent(props) {
 			}
 		} catch (err) {
 			// errors that expected from back
-			alert(err.response.data);
-
-			// TODO language
+			alert(text(err.response.data));
 		}
 	}
 
@@ -82,16 +81,13 @@ function ChangeRoomComponent(props) {
 	return (
 		<div className="container">
 			<div className="d-flex justify-content-end">
-				{/* // TODO language */}
-				<Button onClick={close}>Close</Button>
+				<Button onClick={close}>{text("Close")}</Button>
 			</div>
 			<div className="d-flex justify-content-center mb-3">
-				{/* // TODO language */}
 				<h5>{props.text}</h5>
 			</div>
 			<div className="d-inline-flex justify-content-center w-100">
-				{/* // TODO language */}
-				<div className="w-50">Placement Id:</div>
+				<div className="w-50">{text("Placement Id")}:</div>
 				<InputGroup className="mb-3">
 					<FormControl
 						aria-label="Default"
@@ -104,8 +100,7 @@ function ChangeRoomComponent(props) {
 				</InputGroup>
 			</div>
 			<div className="d-inline-flex justify-content-center w-100">
-				{/* // TODO language */}
-				<div className="w-50">Name:</div>
+				<div className="w-50">{text("Name")}:</div>
 				<InputGroup className="mb-3">
 					<FormControl
 						aria-label="Default"
@@ -118,8 +113,7 @@ function ChangeRoomComponent(props) {
 				</InputGroup>
 			</div>
 			<div className="d-inline-flex justify-content-center w-100">
-				{/* // TODO language */}
-				<div className="w-50">Is exit:</div>
+				<div className="w-50">{text("Is exit")}:</div>
 				<InputGroup className="mb-3">
 					<Form.Select onChange={e => setIsExit(e.target.value)} size="lg">
 						<option defaultValue="selected">{isExit}</option>
@@ -129,7 +123,6 @@ function ChangeRoomComponent(props) {
 			</div>
 
 			<div className="d-inline-flex justify-content-start w-100 mb-5">
-				{/* // TODO language */}
 				<Button onClick={submit}>{props.text}</Button>
 			</div>
 		</div>

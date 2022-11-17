@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import AdminMenu from "../../components/AdminMenu/AdminMenu";
 
 import axios from "../../api/axios";
+import text from "../../services/localizationService";
 import { config } from "../../services/configeService";
 
 function ChangeSmartDeviceComponent(props) {
@@ -65,9 +66,7 @@ function ChangeSmartDeviceComponent(props) {
 			}
 		} catch (err) {
 			// errors that expected from back
-			alert(err.response.data);
-
-			// TODO language
+			alert(text(err.response.data));
 		}
 	}
 
@@ -82,16 +81,13 @@ function ChangeSmartDeviceComponent(props) {
 	return (
 		<div className="container">
 			<div className="d-flex justify-content-end">
-				{/* // TODO language */}
-				<Button onClick={close}>Close</Button>
+				<Button onClick={close}>{text("Close")}</Button>
 			</div>
 			<div className="d-flex justify-content-center mb-3">
-				{/* // TODO language */}
 				<h5>{props.text}</h5>
 			</div>
 			<div className="d-inline-flex justify-content-center w-100">
-				{/* // TODO language */}
-				<div className="w-25">UserId:</div>
+				<div className="w-25">{text("User Id")}:</div>
 				<InputGroup className="mb-3">
 					<FormControl
 						aria-label="Default"
@@ -104,8 +100,7 @@ function ChangeSmartDeviceComponent(props) {
 				</InputGroup>
 			</div>
 			<div className="d-inline-flex justify-content-center w-100">
-				{/* // TODO language */}
-				<div className="w-25">PlacementId:</div>
+				<div className="w-25">{text("Placement Id")}:</div>
 				<InputGroup className="mb-3">
 					<FormControl
 						aria-label="Default"
@@ -118,8 +113,7 @@ function ChangeSmartDeviceComponent(props) {
 				</InputGroup>
 			</div>
 			<div className="d-inline-flex justify-content-center w-100">
-				{/* // TODO language */}
-				<div className="w-25">Number of sensors:</div>
+				<div className="w-25">{text("Number of sensors")}:</div>
 				<InputGroup className="mb-3">
 					<FormControl
 						aria-label="Default"
@@ -131,9 +125,7 @@ function ChangeSmartDeviceComponent(props) {
 					/>
 				</InputGroup>
 			</div>
-
 			<div className="d-inline-flex justify-content-start w-100 mb-5">
-				{/* // TODO language */}
 				<Button onClick={submit}>{props.text}</Button>
 			</div>
 		</div>

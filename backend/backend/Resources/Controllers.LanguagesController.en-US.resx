@@ -123,8 +123,41 @@
   <data name="Are you sure?" xml:space="preserve">
     <value>Are you sure?</value>
   </data>
+  <data name="AVG visits of placement by period of time:" xml:space="preserve">
+    <value>AVG visits of placement by period of time:</value>
+  </data>
+  <data name="AVG visits of room by period of time:" xml:space="preserve">
+    <value>AVG visits of room by period of time:</value>
+  </data>
+  <data name="Buy" xml:space="preserve">
+    <value>Buy</value>
+  </data>
+  <data name="Buy Smart Device" xml:space="preserve">
+    <value>Buy Smart Device</value>
+  </data>
+  <data name="Buy subscription" xml:space="preserve">
+    <value>Buy subscription</value>
+  </data>
+  <data name="Card expiry date" xml:space="preserve">
+    <value>Card expiry date</value>
+  </data>
+  <data name="Card number" xml:space="preserve">
+    <value>Card number</value>
+  </data>
+  <data name="Card security code" xml:space="preserve">
+    <value>Card security code</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="Company name" xml:space="preserve">
+    <value>Company name</value>
+  </data>
   <data name="Contacts" xml:space="preserve">
     <value>Contacts</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Create</value>
   </data>
   <data name="Create new placement" xml:space="preserve">
     <value>Create new placement</value>
@@ -138,6 +171,12 @@
   <data name="Create new smart device" xml:space="preserve">
     <value>Create new smart device</value>
   </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="Date is not filled" xml:space="preserve">
+    <value>Date is not filled</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
@@ -147,8 +186,29 @@
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
   </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="End date" xml:space="preserve">
+    <value>End date</value>
+  </data>
+  <data name="End time" xml:space="preserve">
+    <value>End time</value>
+  </data>
+  <data name="Enter your card info to buy new smart device" xml:space="preserve">
+    <value>Enter your card info to buy new smart device</value>
+  </data>
+  <data name="Enter your card info to buy new subscription" xml:space="preserve">
+    <value>Enter your card info to buy new subscription</value>
+  </data>
+  <data name="Find" xml:space="preserve">
+    <value>Find</value>
+  </data>
   <data name="Id" xml:space="preserve">
     <value>Id</value>
+  </data>
+  <data name="Information about user" xml:space="preserve">
+    <value>Information about user</value>
   </data>
   <data name="Is exit" xml:space="preserve">
     <value>Is exit</value>
@@ -158,6 +218,9 @@
   </data>
   <data name="Left Sensor Id" xml:space="preserve">
     <value>Left Sensor Id</value>
+  </data>
+  <data name="Less visited rooms by all time" xml:space="preserve">
+    <value>Less visited rooms by all time</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>Login</value>
@@ -174,8 +237,20 @@
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="Not all required fields are filled" xml:space="preserve">
+    <value>Not all required fields are filled</value>
+  </data>
+  <data name="Not registered yet?" xml:space="preserve">
+    <value>Not registered yet?</value>
+  </data>
   <data name="Number of people in room" xml:space="preserve">
     <value>Number of people in room</value>
+  </data>
+  <data name="Number of people visited placement:" xml:space="preserve">
+    <value>Number of people visited placement:</value>
+  </data>
+  <data name="Number of people visited room:" xml:space="preserve">
+    <value>Number of people visited room:</value>
   </data>
   <data name="Number of rooms" xml:space="preserve">
     <value>Number of rooms</value>
@@ -186,11 +261,17 @@
   <data name="Password" xml:space="preserve">
     <value>Password</value>
   </data>
+  <data name="Password is not the same" xml:space="preserve">
+    <value>Password is not the same</value>
+  </data>
   <data name="Pin Number" xml:space="preserve">
     <value>Pin Number</value>
   </data>
   <data name="Placement Id" xml:space="preserve">
     <value>Placement Id</value>
+  </data>
+  <data name="Placement name" xml:space="preserve">
+    <value>Placement name</value>
   </data>
   <data name="Placements" xml:space="preserve">
     <value>Placements</value>
@@ -198,14 +279,23 @@
   <data name="Profile" xml:space="preserve">
     <value>Profile</value>
   </data>
+  <data name="Register" xml:space="preserve">
+    <value>Register</value>
+  </data>
   <data name="Registration" xml:space="preserve">
     <value>Registration</value>
+  </data>
+  <data name="Repeat password" xml:space="preserve">
+    <value>Repeat password</value>
   </data>
   <data name="Right Room Id" xml:space="preserve">
     <value>Right Room Id</value>
   </data>
   <data name="Right Sensor Id" xml:space="preserve">
     <value>Right Sensor Id</value>
+  </data>
+  <data name="Room name" xml:space="preserve">
+    <value>Room name</value>
   </data>
   <data name="Rooms" xml:space="preserve">
     <value>Rooms</value>
@@ -216,16 +306,58 @@
   <data name="Sign in" xml:space="preserve">
     <value>Sign in</value>
   </data>
+  <data name="Sign Out" xml:space="preserve">
+    <value>Sign Out</value>
+  </data>
+  <data name="Smart Device" xml:space="preserve">
+    <value>Smart Device</value>
+  </data>
   <data name="Smart Device Id" xml:space="preserve">
     <value>Smart Device Id</value>
   </data>
   <data name="Smart Devices" xml:space="preserve">
     <value>Smart Devices</value>
   </data>
+  <data name="Start date" xml:space="preserve">
+    <value>Start date</value>
+  </data>
+  <data name="Start point in time can't be same as end point or it can't starts after end point" xml:space="preserve">
+    <value>Start point in time can't be same as end point or it can't starts after end point</value>
+  </data>
+  <data name="Start time" xml:space="preserve">
+    <value>Start time</value>
+  </data>
+  <data name="Subscription" xml:space="preserve">
+    <value>Subscription</value>
+  </data>
+  <data name="Time is not filled" xml:space="preserve">
+    <value>Time is not filled</value>
+  </data>
+  <data name="Top visited rooms by all time" xml:space="preserve">
+    <value>Top visited rooms by all time</value>
+  </data>
   <data name="Unathorized" xml:space="preserve">
     <value>Unathorized</value>
   </data>
+  <data name="Update" xml:space="preserve">
+    <value>Update</value>
+  </data>
   <data name="User Id" xml:space="preserve">
     <value>User Id</value>
+  </data>
+  <data name="View AVG visits of placement by period of time" xml:space="preserve">
+    <value>View AVG visits of placement by period of time</value>
+  </data>
+  <data name="View AVG visits of room by period of time" xml:space="preserve">
+    <value>View AVG visits of room by period of time</value>
+  </data>
+  <data name="View diagram of visits by 12-hours" xml:space="preserve">
+    <value>View diagram of visits by 12-hours</value>
+  </data>
+  <data name="View visits of placement by period of time" xml:space="preserve">
+    <value>View visits of placement by period of time</value>
+  </data>
+  <data name="View visits of room by period of time" xml:space="preserve">
+    <value>View visits of room by period of time</value>
   </data>
 </root>

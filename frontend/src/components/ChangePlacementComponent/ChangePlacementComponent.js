@@ -5,10 +5,10 @@ import { Link } from "react-router-dom";
 import AdminMenu from "../../components/AdminMenu/AdminMenu";
 
 import axios from "../../api/axios";
+import text from "../../services/localizationService";
 import { config } from "../../services/configeService";
 
 function ChangePlacementComponent(props) {
-	// TODO X
 	const numberOfRooms = useRef(0);
 	const userId = useRef(0);
 	const name = useRef("");
@@ -16,13 +16,13 @@ function ChangePlacementComponent(props) {
 	useEffect(() => {
 		setNewValue();
 	}, []);
-	// TODO X
+
 	function setNewValue() {
 		numberOfRooms.current.value = props.placement.numberOfRooms;
 		userId.current.value = props.placement.userId;
 		name.current.value = props.placement.name;
 	}
-	// TODO X
+
 	function createNewPlacement(method) {
 		if (method === "POST") {
 			let placement = {
@@ -43,7 +43,7 @@ function ChangePlacementComponent(props) {
 		}
 		return null;
 	}
-	// TODO X
+
 	async function changePlacements() {
 		try {
 			if (props.method === "POST") {
@@ -66,9 +66,7 @@ function ChangePlacementComponent(props) {
 			}
 		} catch (err) {
 			// errors that expected from back
-			alert(err.response.data);
-
-			// TODO language
+			alert(text(err.response.data));
 		}
 	}
 
@@ -83,17 +81,14 @@ function ChangePlacementComponent(props) {
 	return (
 		<div className="container">
 			<div className="d-flex justify-content-end">
-				{/* // TODO language */}
-				<Button onClick={close}>Close</Button>
+				<Button onClick={close}>{text("Close")}</Button>
 			</div>
 			<div className="d-flex justify-content-center mb-3">
-				{/* // TODO language */}
 				<h5>{props.text}</h5>
 			</div>
 			<div className="d-inline-flex justify-content-center w-100">
 				{/* // TODO language */}
-				{/* // TODO language */}
-				<div className="w-25">UserId:</div>
+				<div className="w-25">{text("User Id")}:</div>
 				<InputGroup className="mb-3">
 					<FormControl
 						aria-label="Default"
@@ -107,7 +102,7 @@ function ChangePlacementComponent(props) {
 			</div>
 			<div className="d-inline-flex justify-content-center w-100">
 				{/* // TODO language */}
-				<div className="w-25">Name:</div>
+				<div className="w-25">{text("Name")}:</div>
 				<InputGroup className="mb-3">
 					<FormControl
 						aria-label="Default"
@@ -121,7 +116,7 @@ function ChangePlacementComponent(props) {
 			</div>
 			<div className="d-inline-flex justify-content-center w-100">
 				{/* // TODO language */}
-				<div className="w-25">Number Of Rooms</div>
+				<div className="w-25">{text("Number Of Rooms")}:</div>
 				<InputGroup className="mb-3">
 					<FormControl
 						aria-label="Default"

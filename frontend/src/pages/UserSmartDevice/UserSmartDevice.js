@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import ProfileMenu from "../../components/ProfileMenu/ProfileMenu";
 
 import axios from "../../api/axios";
+import text from "../../services/localizationService";
 
 function UserSmartDevice() {
 	const minDate = new Date("2022-01-01").toISOString().split("T")[0];
@@ -24,19 +25,17 @@ function UserSmartDevice() {
 
 	return (
 		<div className="container">
-			{/* // TODO language */}
-			<div className="d-flex justify-content-center display-4">Buy Smart Device</div>
+			<div className="d-flex justify-content-center display-4">{text("Buy Smart Device")}</div>
 			<div className="d-flex border border-dark w-100">
 				<ProfileMenu />
 			</div>
 			<div className="container mt-3 border border-dark">
 				<div className="d-inline-flex justify-content-center w-100">
-					<h3>Enter your card info to buy new smart device</h3>
+					<h3>{text("Enter your card info to buy new smart device")}</h3>
 				</div>
 				<div>
 					<div className="d-inline-flex justify-content-center w-100">
-						{/* // TODO language */}
-						<div className="w-25">Card number:</div>
+						<div className="w-25">{text("Card number")}:</div>
 						<InputGroup className="mb-3">
 							<FormControl
 								aria-label="Default"
@@ -53,8 +52,7 @@ function UserSmartDevice() {
 				</div>
 				<div>
 					<div className="d-inline-flex justify-content-center w-100">
-						{/* // TODO language */}
-						<div className="w-25">Card expiry date:</div>
+						<div className="w-25">{text("Card expiry date")}:</div>
 						<InputGroup className="mb-3">
 							<FormControl
 								aria-label="Default"
@@ -73,8 +71,7 @@ function UserSmartDevice() {
 				</div>
 				<div>
 					<div className="d-inline-flex justify-content-center w-100">
-						{/* // TODO language */}
-						<div className="w-25">Card security code:</div>
+						<div className="w-25">{text("Card security code")}:</div>
 						<InputGroup className="mb-3">
 							<FormControl
 								aria-label="Default"
@@ -90,8 +87,7 @@ function UserSmartDevice() {
 					</div>
 				</div>
 				<div className="d-inline-flex justify-content-start w-100 mb-5">
-					{/* // TODO language */}
-					<Button onClick={submit}>Buy</Button>
+					<Button onClick={submit}>{text("Buy")}</Button>
 				</div>
 			</div>
 		</div>
