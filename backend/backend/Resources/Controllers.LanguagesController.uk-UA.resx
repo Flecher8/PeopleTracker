@@ -220,7 +220,7 @@
     <value>ID Лівого датчика</value>
   </data>
   <data name="Less visited rooms by all time" xml:space="preserve">
-    <value>Менш відвідувані кімнати за весь час</value>
+    <value>Найменш відвідувані кімнати за весь час</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>Логін</value>

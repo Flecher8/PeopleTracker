@@ -8,6 +8,7 @@ import Main from "./pages/Main/Main";
 import Registration from "./pages/Registration/Registration";
 import UserPlacements from "./pages/UserPlacements/UserPlacements";
 import UserSmartDevice from "./pages/UserSmartDevice/UserSmartDevice";
+import UserSubscription from "./pages/UserSubscription/UserSubscription";
 import AdminPanelRooms from "./pages/AdminPanelRooms/AdminPanelRooms";
 import AdminPanelSmartDevices from "./pages/AdminPanelSmartDevices/AdminPanelSmartDevices";
 import AdminPanelSensors from "./pages/AdminPanelSensors/AdminPanelSensors";
@@ -22,6 +23,7 @@ function App() {
 				<Route path="/UserProfile" element={<UserProfile />} />
 				<Route path="/UserPlacements" element={<UserPlacements />} />
 				<Route path="/UserSmartDevice" element={<UserSmartDevice />} />
+				<Route path="/UserSubscription" element={<UserSubscription />} />
 				<Route path="/AdminPanelPlacements" element={<AdminPanelPlacements />} />
 				<Route path="/AdminPanelRooms" element={<AdminPanelRooms />} />
 				<Route path="/AdminPanelSmartDevices" element={<AdminPanelSmartDevices />} />

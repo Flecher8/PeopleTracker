@@ -36,7 +36,7 @@ function ProfileMenu() {
 					</Link>
 				</div>
 				<div className="mr-auto">
-					<Link to="/" className="text-decoration-none text-reset">
+					<Link to="/UserSubscription" className="text-decoration-none text-reset">
 						<Button className="btn btn-dark border border-white">{text("Subscription")}</Button>
 					</Link>
 				</div>
