@@ -94,7 +94,7 @@ function Menu() {
 						</Link>
 					</div>
 					<div className="mr-2">
-						<Link to="/Developers" className="text-decoration-none text-reset">
+						<Link to="/Contacts" className="text-decoration-none text-reset">
 							<Button className="btn btn-dark border border-white w-100">{text("Contacts")}</Button>
 						</Link>
 					</div>

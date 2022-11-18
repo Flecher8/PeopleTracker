@@ -12,6 +12,7 @@ import UserSubscription from "./pages/UserSubscription/UserSubscription";
 import AdminPanelRooms from "./pages/AdminPanelRooms/AdminPanelRooms";
 import AdminPanelSmartDevices from "./pages/AdminPanelSmartDevices/AdminPanelSmartDevices";
 import AdminPanelSensors from "./pages/AdminPanelSensors/AdminPanelSensors";
+import Contacts from "./pages/Contacts/Contacts";
 
 function App() {
 	return (
@@ -20,6 +21,7 @@ function App() {
 			<Routes>
 				<Route path="/Login" element={<Login />} />
 				<Route path="/Main" element={<Main />} />
+				<Route path="/Contacts" element={<Contacts />} />
 				<Route path="/UserProfile" element={<UserProfile />} />
 				<Route path="/UserPlacements" element={<UserPlacements />} />
 				<Route path="/UserSmartDevice" element={<UserSmartDevice />} />

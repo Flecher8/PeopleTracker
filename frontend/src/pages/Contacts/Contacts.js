@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import axios from "../../api/axios";
 import text from "../../services/localizationService";
 
-function Main() {
+function Contacts() {
 	useEffect(() => {}, []);
 
 	const submit = async e => {
@@ -16,7 +16,7 @@ function Main() {
 
 	return (
 		<div className="container">
-			<div className="d-flex justify-content-center display-4">{text("Main page")}</div>
+			<div className="d-flex justify-content-center display-4">{text("Contacts")}</div>
 			<div className="container mt-3 border border-dark">
 				{/* // TODO language */}
 				<h3>Done by Vladyslav Bocharov</h3>
@@ -27,4 +27,4 @@ function Main() {
 	);
 }
 
-export default Main;
+export default Contacts;
