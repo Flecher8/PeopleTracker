@@ -156,6 +156,9 @@
   <data name="Contacts" xml:space="preserve">
     <value>Контакти</value>
   </data>
+  <data name="ContactsText" xml:space="preserve">
+    <value>Для того, щоб зв'язатися з нами, будь-ласка, перейдіть у вкладку контакти та напишь на вказану там пошту.</value>
+  </data>
   <data name="Create" xml:space="preserve">
     <value>Створити</value>
   </data>
@@ -182,6 +185,9 @@
   </data>
   <data name="Developers" xml:space="preserve">
     <value>Розробники</value>
+  </data>
+  <data name="Done by" xml:space="preserve">
+    <value>Зробив</value>
   </data>
   <data name="Edit" xml:space="preserve">
     <value>Редагувати</value>
@@ -231,8 +237,17 @@
   <data name="Main" xml:space="preserve">
     <value>Головна</value>
   </data>
+  <data name="Main page" xml:space="preserve">
+    <value>Головна сторінка</value>
+  </data>
+  <data name="MainText" xml:space="preserve">
+    <value>Ця програмна система призначена для збирання даних про переміщення людей у будь-якому приміщенні. Дана система буде переглядати та повідомляти іншим частинам системи, кількість людей, що знаходяться в певному місці приміщення та відображати первну статистику пов'язану з цими даними. За допомогою аналізу цих даних, які надаватиме система, користувачі зможуть приймати рішення залежно від того скільки людей і яку область приміщення вони відвідують.</value>
+  </data>
   <data name="Missing Password or Login" xml:space="preserve">
     <value>Відсутній пароль або логін</value>
+  </data>
+  <data name="month" xml:space="preserve">
+    <value>місяць</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Назва</value>
@@ -276,6 +291,9 @@
   <data name="Placements" xml:space="preserve">
     <value>Приміщення</value>
   </data>
+  <data name="Product description" xml:space="preserve">
+    <value>Опис продукту</value>
+  </data>
   <data name="Profile" xml:space="preserve">
     <value>Профіль</value>
   </data>
@@ -315,6 +333,9 @@
   <data name="Smart Device Id" xml:space="preserve">
     <value>ID Смарт пристрою</value>
   </data>
+  <data name="Smart device price" xml:space="preserve">
+    <value>Ціна розумного пристрою</value>
+  </data>
   <data name="Smart Devices" xml:space="preserve">
     <value>Розумні пристрої</value>
   </data>
@@ -329,6 +350,9 @@
   </data>
   <data name="Subscription" xml:space="preserve">
     <value>Підписка</value>
+  </data>
+  <data name="Subscription price" xml:space="preserve">
+    <value>Вартість підписки</value>
   </data>
   <data name="Time is not filled" xml:space="preserve">
     <value>Час не заповнений</value>
@@ -359,5 +383,8 @@
   </data>
   <data name="View visits of room by period of time" xml:space="preserve">
     <value>Переглянути відвідування кімнати за період часу</value>
+  </data>
+  <data name="Vladyslav Bocharov" xml:space="preserve">
+    <value>Владислав Бочаров</value>
   </data>
 </root>

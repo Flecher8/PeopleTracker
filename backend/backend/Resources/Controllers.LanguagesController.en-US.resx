@@ -156,6 +156,9 @@
   <data name="Contacts" xml:space="preserve">
     <value>Contacts</value>
   </data>
+  <data name="ContactsText" xml:space="preserve">
+    <value>In order to contact us, please go to the contacts tab and write to the email indicated there.</value>
+  </data>
   <data name="Create" xml:space="preserve">
     <value>Create</value>
   </data>
@@ -182,6 +185,9 @@
   </data>
   <data name="Developers" xml:space="preserve">
     <value>Developers</value>
+  </data>
+  <data name="Done by" xml:space="preserve">
+    <value>Done by</value>
   </data>
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
@@ -231,8 +237,17 @@
   <data name="Main" xml:space="preserve">
     <value>Main</value>
   </data>
+  <data name="Main page" xml:space="preserve">
+    <value>Main page</value>
+  </data>
+  <data name="MainText" xml:space="preserve">
+    <value>This software system is designed to collect data on the movement of people in any room. This system will view and report to other parts of the system, the number of people who are in a certain place of the premises and display the first statistics related to this data. By analyzing this data, which the system will provide, users will be able to make decisions based on how many people and which area of the premises they visit.</value>
+  </data>
   <data name="Missing Password or Login" xml:space="preserve">
     <value>Missing Password or Login</value>
+  </data>
+  <data name="month" xml:space="preserve">
+    <value>month</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
@@ -276,6 +291,9 @@
   <data name="Placements" xml:space="preserve">
     <value>Placements</value>
   </data>
+  <data name="Product description" xml:space="preserve">
+    <value>Product description</value>
+  </data>
   <data name="Profile" xml:space="preserve">
     <value>Profile</value>
   </data>
@@ -315,6 +333,9 @@
   <data name="Smart Device Id" xml:space="preserve">
     <value>Smart Device Id</value>
   </data>
+  <data name="Smart device price" xml:space="preserve">
+    <value>Smart device price</value>
+  </data>
   <data name="Smart Devices" xml:space="preserve">
     <value>Smart Devices</value>
   </data>
@@ -329,6 +350,9 @@
   </data>
   <data name="Subscription" xml:space="preserve">
     <value>Subscription</value>
+  </data>
+  <data name="Subscription price" xml:space="preserve">
+    <value>Subscription price</value>
   </data>
   <data name="Time is not filled" xml:space="preserve">
     <value>Time is not filled</value>
@@ -359,5 +383,8 @@
   </data>
   <data name="View visits of room by period of time" xml:space="preserve">
     <value>View visits of room by period of time</value>
+  </data>
+  <data name="Vladyslav Bocharov" xml:space="preserve">
+    <value>Vladyslav Bocharov</value>
   </data>
 </root>
