@@ -74,7 +74,6 @@ function ChangeRoomComponent(props) {
 	};
 
 	const submit = async e => {
-		//console.log(createNewRoom("POST"));
 		await changeRooms();
 	};
 

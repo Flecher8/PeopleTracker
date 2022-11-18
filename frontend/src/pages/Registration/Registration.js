@@ -67,7 +67,8 @@ function Registration() {
 				<div className="display-3 text-center mb-5">{text("Registration")}</div>
 				<div className="d-inline-flex w-100 p-3">
 					<div className="w-25 d-inline-flex">
-						<h6>{text("Login")}:</h6> <p className="ml-2 text-danger">*</p>
+						<h6>{text("Login")}:</h6>
+						<p className="ml-2 text-danger">*</p>
 					</div>
 					<div className="w-75">
 						<InputGroup className="mb-3">
@@ -85,7 +86,8 @@ function Registration() {
 				</div>
 				<div className="d-inline-flex w-100 p-3">
 					<div className="w-25 d-inline-flex">
-						<h6>{text("Password")}:</h6> <p className="ml-2 text-danger">*</p>
+						<h6>{text("Password")}:</h6>
+						<p className="ml-2 text-danger">*</p>
 					</div>
 					<div className="w-75">
 						<InputGroup className="mb-3">
@@ -103,7 +105,8 @@ function Registration() {
 				</div>
 				<div className="d-inline-flex w-100 p-3">
 					<div className="w-25 d-inline-flex">
-						<h6>{text("Repeat password")}:</h6> <p className="ml-2 text-danger">*</p>
+						<h6>{text("Repeat password")}:</h6>
+						<p className="ml-2 text-danger">*</p>
 					</div>
 					<div className="w-75">
 						<InputGroup className="mb-3">
@@ -120,8 +123,9 @@ function Registration() {
 					</div>
 				</div>
 				<div className="d-inline-flex w-100 p-3">
-					<div className="w-25">
+					<div className="w-25 d-inline-flex">
 						<h6>{text("Email")}:</h6>
+						<p className="ml-2 text-danger">*</p>
 					</div>
 					<div className="w-75">
 						<InputGroup className="mb-3">

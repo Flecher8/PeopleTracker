@@ -9,7 +9,7 @@ import axios from "../../api/axios";
 import text from "../../services/localizationService";
 
 function UserSubscription() {
-	const minDate = new Date("2022-01-01").toISOString().split("T")[0];
+	const minDate = new Date("2122-01-01").toISOString().split("T")[0];
 	const maxDate = new Date().toISOString().split("T")[0];
 	const cardNumber = useRef(0);
 	const expiryDate = useRef(0);
@@ -18,9 +18,7 @@ function UserSubscription() {
 	useEffect(() => {}, []);
 
 	const submit = async e => {
-		// if (checkValidDateTime()) {
-		// 	await getData();
-		// }
+		window.location.reload();
 	};
 
 	return (
