@@ -18,8 +18,8 @@ function AdminPanelPlacements() {
 	const [modaleText, setModaleText] = useState("");
 	const modaleMethodPost = "POST";
 	const modaleMethodPut = "PUT";
-	const modaleTextPost = text("Create");
-	const modaleTextPut = text("Update");
+	const [modaleTextPost, setModaleTextPost] = useState("");
+	const [modaleTextPut, setModaleTextPut] = useState("");
 
 	// Modal show
 	const [changeItemModelShow, SetchangeItemModelShow] = useState(false);
@@ -29,6 +29,8 @@ function AdminPanelPlacements() {
 	useEffect(() => {
 		getPlacements();
 		console.log(JSON.parse(localStorage["Localization"]));
+		setModaleTextPost(text("Create"));
+		setModaleTextPut(text("Update"));
 	}, []);
 
 	async function getPlacements() {

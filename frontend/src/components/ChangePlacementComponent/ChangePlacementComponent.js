@@ -116,7 +116,7 @@ function ChangePlacementComponent(props) {
 			</div>
 			<div className="d-inline-flex justify-content-center w-100">
 				{/* // TODO language */}
-				<div className="w-25">{text("Number Of Rooms")}:</div>
+				<div className="w-25">{text("Number of rooms")}:</div>
 				<InputGroup className="mb-3">
 					<FormControl
 						aria-label="Default"

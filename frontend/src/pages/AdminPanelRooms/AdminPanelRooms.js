@@ -18,8 +18,8 @@ function AdminPanelRooms() {
 	const [modaleText, setModaleText] = useState("");
 	const modaleMethodPost = "POST";
 	const modaleMethodPut = "PUT";
-	const modaleTextPost = "Create";
-	const modaleTextPut = "Update";
+	const [modaleTextPost, setModaleTextPost] = useState("");
+	const [modaleTextPut, setModaleTextPut] = useState("");
 
 	// Modal show
 	const [changeItemModelShow, SetchangeItemModelShow] = useState(false);
@@ -28,6 +28,8 @@ function AdminPanelRooms() {
 
 	useEffect(() => {
 		getRooms();
+		setModaleTextPost(text("Create"));
+		setModaleTextPut(text("Update"));
 	}, []);
 
 	async function getRooms() {

@@ -149,7 +149,7 @@ function Registration() {
 						<InputGroup className="mb-3">
 							<FormControl
 								aria-label="Default"
-								placeholder="user@gmail.com"
+								placeholder="Company"
 								type="text"
 								maxLength="50"
 								size="sm"

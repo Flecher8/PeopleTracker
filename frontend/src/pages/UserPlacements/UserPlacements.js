@@ -68,7 +68,7 @@ function UserPlacements() {
 			}
 		} catch (err) {
 			// errors that expected from back
-			alert(text(err.response.data));
+			//alert(text(err.response.data));
 			return [];
 		}
 		return [];
@@ -135,7 +135,7 @@ function UserPlacements() {
 			}
 		} catch (err) {
 			// errors that expected from back
-			alert(text(err.response.data));
+			//alert(text(err.response.data));
 			return [];
 		}
 		return [];
@@ -153,7 +153,7 @@ function UserPlacements() {
 			}
 		} catch (err) {
 			// errors that expected from back
-			alert(text(err.response.data));
+			//alert(text(err.response.data));
 		}
 	}
 
