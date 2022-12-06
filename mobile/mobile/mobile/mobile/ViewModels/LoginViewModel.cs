@@ -1,5 +1,6 @@
 ﻿using mobile.Helpers;
 using mobile.Services;
+using mobile.Views;
 using System;
 using System.Collections.Generic;
 using System.Text;

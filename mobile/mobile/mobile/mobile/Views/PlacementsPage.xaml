@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="mobile.Views.PlacementsPage">
+    <StackLayout>
+        <Label Text="Placements" Style="{DynamicResource TitleStyle}" TextColor="Black" VerticalOptions="Center" HorizontalOptions="Center"/>
+        <ListView x:Name="phonesList"
+              HasUnevenRows="True"
+              GroupDisplayBinding="{Binding Key}"
+              ItemsSource="{Binding PlacementsGroups}"
+              SelectedItem="{Binding SelectedRoom}"
+              IsGroupingEnabled="True"
+              SeparatorVisibility="Default"
+              SeparatorColor="Black">
+            <ListView.GroupHeaderTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout>
+                            <StackLayout Orientation="Horizontal" Padding="5">
+                                <Label Text="Placement name: " TextColor="Black" VerticalOptions="Center"/>
+                                <Label Text="{Binding Key}" TextColor="Black" VerticalOptions="Center"/>
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal" Padding="5">
+                                <Label Text="Most visited rooms:" TextColor="Black" VerticalOptions="Center"/>
+                                <Label Text="{Binding MostVisitedRooms}" TextColor="Black" VerticalOptions="Center"/>
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal" Padding="5">
+                                <Label Text="View visits of placement by period of time:" TextColor="Black" VerticalOptions="Center"/>
+                                <Button Clicked="PlacementsVisits_Clicked" Text="View" TextColor="Black"/>
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal" Padding="5">
+                                <Label Text="View AVG visits of placement by period of time:" TextColor="Black" VerticalOptions="Center"/>
+                                <Button Clicked="PlacementsAvgVisits_Clicked" Text="View" TextColor="Black"/>
+                            </StackLayout>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.GroupHeaderTemplate>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Padding="5">
+                            <StackLayout Orientation="Horizontal" Padding="5">
+                                <Label Text="Room name: " TextColor="Black" />
+                                <Label Text="{Binding Name}" TextColor="Black" />
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal" Padding="5">
+                                <Label Text="Number of people in room: " TextColor="Black" />
+                                <Label Text="{Binding NumberOfPeopleInRoom}" TextColor="Black" />
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal" Padding="5">
+                                <Label Text="View visits of room by period of time:" TextColor="Black" VerticalOptions="Center"/>
+                                <Button Clicked="RoomsVisits_Clicked" Text="View" TextColor="Black"/>
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal" Padding="5">
+                                <Label Text="View AVG visits of room by period of time:" TextColor="Black" VerticalOptions="Center"/>
+                                <Button Clicked="RoomsAvgVisits_Clicked" Text="View" TextColor="Black"/>
+                            </StackLayout>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>

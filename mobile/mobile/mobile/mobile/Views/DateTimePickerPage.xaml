@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="mobile.Views.DateTimePickerPage">
+    <ContentPage.Content>
+        <StackLayout Padding="10">
+            <Label Text="{Binding MainText}" FontSize="Title" TextColor="Black"/>
+            <StackLayout Spacing="10" Padding="10">
+                <Label Text="Start date:" FontSize="Medium" TextColor="Black"/>
+                <DatePicker Format="D" Date="{Binding StartDateTime}">
+                    <DatePicker.MinimumDate>1/01/2022</DatePicker.MinimumDate>
+                    <DatePicker.MaximumDate>12/31/2040</DatePicker.MaximumDate>
+                </DatePicker>
+                <Label Text="Start time:" FontSize="Medium" TextColor="Black" IsVisible="{Binding IsTimeNeeded}"/>
+                <TimePicker x:Name="startTimePicker" Time="{Binding StartTime}" IsVisible="{Binding IsTimeNeeded}"></TimePicker>
+                <Label Text="End date:" FontSize="Medium" TextColor="Black"/>
+                <DatePicker Format="D" Date="{Binding EndDateTime}">
+                    <DatePicker.MinimumDate>1/01/2022</DatePicker.MinimumDate>
+                    <DatePicker.MaximumDate>12/31/2040</DatePicker.MaximumDate>
+                </DatePicker>
+                <Label Text="End time:" FontSize="Medium" TextColor="Black" IsVisible="{Binding IsTimeNeeded}"/>
+                <TimePicker x:Name="endTimePicker" Time="{Binding EndTime}" IsVisible="{Binding IsTimeNeeded}"></TimePicker>
+                <StackLayout Orientation="Horizontal" Padding="15">
+                    <Label Text="Number of visists: " FontSize="Medium" TextColor="Black"/>
+                    <Label Text="{Binding Result}"  FontSize="Medium" TextColor="Black" FontAttributes="Bold"/>
+                </StackLayout>
+            </StackLayout>
+            <Button Command="{Binding ShowCommand}" Text="Find" TextColor="Black"  
+                    FontAttributes="Bold" FontSize="Large" HorizontalOptions="FillAndExpand"  
+                    BackgroundColor="#FFB62A" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

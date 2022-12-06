@@ -119,7 +119,6 @@ namespace mobile.ViewModels
             TimePeriod timePeriod = new TimePeriod();
             timePeriod.StartDateTime = startDateTime + startTime;
             timePeriod.EndDateTime = endDateTime + endTime;
-            Console.WriteLine(timePeriod.StartDateTime.ToString() + "  " + timePeriod.EndDateTime.ToString());
             return timePeriod;
         }
 
