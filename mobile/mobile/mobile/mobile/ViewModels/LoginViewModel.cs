@@ -12,7 +12,7 @@ namespace mobile.ViewModels
     {
         private AccountService accountService;
 
-        public PlacementService PlacementService { get; }
+        public PlacementService PlacementService { get; private set; }
 
         public Action DisplayInvalidLoginErorr = null;
 
@@ -43,7 +43,7 @@ namespace mobile.ViewModels
         public LoginViewModel()
         {
             accountService = new AccountService();
-            PlacementService = new PlacementService();
+            
             LoginCommand = new Command(LoginAsync);
         }
 
@@ -54,6 +54,7 @@ namespace mobile.ViewModels
                 DisplayInvalidLoginErorr();
                 return;
             }
+            PlacementService = new PlacementService();
             App.Current.MainPage = new NavigationPage(new PlacementsPage(await PlacementService.GetUserPlacements()));
         }
     }

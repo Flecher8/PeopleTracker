@@ -21,10 +21,6 @@
                                 <Label Text="{Binding Key}" TextColor="Black" VerticalOptions="Center"/>
                             </StackLayout>
                             <StackLayout Orientation="Horizontal" Padding="5">
-                                <Label Text="Most visited rooms:" TextColor="Black" VerticalOptions="Center"/>
-                                <Label Text="{Binding MostVisitedRooms}" TextColor="Black" VerticalOptions="Center"/>
-                            </StackLayout>
-                            <StackLayout Orientation="Horizontal" Padding="5">
                                 <Label Text="View visits of placement by period of time:" TextColor="Black" VerticalOptions="Center"/>
                                 <Button Clicked="PlacementsVisits_Clicked" Text="View" TextColor="Black"/>
                             </StackLayout>

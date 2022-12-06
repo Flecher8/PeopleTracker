@@ -8,7 +8,7 @@ namespace mobile.Services
 {
     public class ServerService : IServerService
     {
-        public const string ServerAddress = "https://newbrassski38.conveyor.cloud/api/";
+        public const string ServerAddress = "https://lastpurplesled66.conveyor.cloud/api/";
 
         public PropertiesService PropertiesService { get; set; }
 
